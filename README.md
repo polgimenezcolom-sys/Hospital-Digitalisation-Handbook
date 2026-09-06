@@ -83,21 +83,31 @@ offline, in any browser, with search. Good for showing directors before anything
 
 **2. Publish on GitHub Pages (the proper way — what the Community Network Handbook does)**
 
-The repository is already initialised here. Once a repository exists under the `aucoop`
-organisation:
+The repository is already initialised here with one commit. On GitHub, create a new repository
+named `Hospital-Digitalisation-Handbook` under your profile — **public**, and **empty** (no README,
+no licence, no .gitignore; those exist here already). Then:
 
 ```powershell
-git remote add origin https://github.com/aucoop/Hospital-Digitalisation-Handbook.git
+cd "C:\Users\polgi\OneDrive\Escritorio\POL\Master\TFM\10_Handbook"
+git remote add origin https://github.com/polgimenezcolom-sys/Hospital-Digitalisation-Handbook.git
 git push -u origin main
 ```
 
 Then, on GitHub: **Settings → Pages → Source: GitHub Actions**. The workflow in
 `.github/workflows/deploy.yml` builds and publishes the site on every push to `main`. Within a
 couple of minutes it is live at
-`https://aucoop.github.io/Hospital-Digitalisation-Handbook/`, and every page carries an "edit
-this page" link back to the source.
+`https://polgimenezcolom-sys.github.io/Hospital-Digitalisation-Handbook/`, and every page carries
+an "edit this page" link back to the source.
 
-Check `repo_url` in `mkdocs.yml` matches the real repository name before the first push.
+*Why public:* GitHub Pages on a personal account only serves public repositories. That is fine —
+there are no credentials or patient data in here, and a public handbook is the point.
+
+**Moving it to the `aucoop` organisation later**
+
+Settings → Danger Zone → *Transfer ownership* → `aucoop`. History, issues and the workflow all
+survive. Afterwards, update `repo_url`, `repo_name` and `site_url` in `mkdocs.yml` to the new
+address and push once; the old URL redirects for a while. Do this when AUCOOP is ready to own it,
+not before.
 
 **3. Add a downloadable PDF** (later)
 

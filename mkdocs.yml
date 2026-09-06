@@ -3,10 +3,13 @@ site_description: A field guide to deploying an open-source hospital information
 site_author: AUCOOP
 copyright: Copyright &copy; 2026 AUCOOP (https://aucoop.upc.edu)
 
-# Update these two when the repository exists.
-repo_url: https://github.com/aucoop/Hospital-Digitalisation-Handbook
-repo_name: aucoop/Hospital-Digitalisation-Handbook
+# Starts under Pol's profile alongside the deployment repos; transfer to the
+# aucoop organisation later (Settings → Danger Zone → Transfer) and update these
+# two lines plus site_url when that happens.
+repo_url: https://github.com/polgimenezcolom-sys/Hospital-Digitalisation-Handbook
+repo_name: polgimenezcolom-sys/Hospital-Digitalisation-Handbook
 edit_uri: edit/main/docs/
+site_url: https://polgimenezcolom-sys.github.io/Hospital-Digitalisation-Handbook/
 
 theme:
   name: material
