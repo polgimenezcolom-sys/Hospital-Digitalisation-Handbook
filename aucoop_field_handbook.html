@@ -1,0 +1,693 @@
+<title>AUCOOP Field Handbook</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F4F6F8; --surface:#FFFFFF; --surface-2:#EDF1F5;
+  --ink:#101820; --muted:#5A6672; --faint:#8A949E;
+  --line:#DCE3EA; --line-strong:#C3CDD7;
+  --prussian:#1D3557; --prussian-soft:#E7EDF4;
+  --verdigris:#256B52; --verdigris-soft:#E3F0EA;
+  --amber:#96590A; --amber-soft:#FBEEDA;
+  --signal:#992A1E; --signal-soft:#FBE9E6;
+  --shadow:0 1px 2px rgba(16,24,32,.06),0 8px 24px -12px rgba(16,24,32,.18);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D131A; --surface:#141C25; --surface-2:#1B2530;
+    --ink:#E6ECF2; --muted:#9AA7B4; --faint:#6E7C8A;
+    --line:#243040; --line-strong:#334252;
+    --prussian:#8FB4DE; --prussian-soft:#182635;
+    --verdigris:#7FC5A5; --verdigris-soft:#152720;
+    --amber:#E0AC5E; --amber-soft:#2A2115;
+    --signal:#E8917F; --signal-soft:#2C1A17;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D131A; --surface:#141C25; --surface-2:#1B2530;
+  --ink:#E6ECF2; --muted:#9AA7B4; --faint:#6E7C8A;
+  --line:#243040; --line-strong:#334252;
+  --prussian:#8FB4DE; --prussian-soft:#182635;
+  --verdigris:#7FC5A5; --verdigris-soft:#152720;
+  --amber:#E0AC5E; --amber-soft:#2A2115;
+  --signal:#E8917F; --signal-soft:#2C1A17;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:15.5px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"IBM Plex Serif",Georgia,serif; text-wrap:balance; margin:0}
+code,.mono,.code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* ---------- shell ---------- */
+.shell{display:grid; grid-template-columns:266px minmax(0,1fr); gap:0; min-height:100vh}
+.rail{
+  border-right:1px solid var(--line); background:var(--surface);
+  padding:26px 20px 40px; position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.railhead{margin-bottom:22px}
+.railhead .org{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--prussian); font-weight:600;
+}
+.railhead .nm{font-size:19px; font-weight:600; line-height:1.24; margin-top:5px}
+.railhead .vs{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--faint); margin-top:7px;
+}
+nav{display:flex; flex-direction:column; gap:2px}
+nav .grp{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--faint); margin:18px 0 6px; font-weight:600;
+}
+nav a{
+  color:var(--muted); text-decoration:none; font-size:13.5px; padding:5px 9px;
+  border-radius:5px; display:flex; gap:9px; align-items:baseline; line-height:1.35;
+}
+nav a:hover{background:var(--surface-2); color:var(--ink)}
+nav a .cd{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--prussian);
+  font-weight:600; min-width:26px;
+}
+nav a:focus-visible{outline:2px solid var(--prussian); outline-offset:1px}
+
+main{padding:0 0 90px; min-width:0}
+.wrap{max-width:790px; margin:0 auto; padding:0 30px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--line); background:var(--surface); padding:44px 0 34px; margin-bottom:38px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--prussian); font-weight:600;
+}
+h1{font-size:37px; line-height:1.14; margin:13px 0 0; letter-spacing:-.015em}
+.sub{font-size:17px; color:var(--muted); margin:14px 0 0; max-width:60ch}
+.meta{
+  display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:22px;
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--faint);
+}
+.meta b{color:var(--muted); font-weight:500}
+
+/* ---------- sections ---------- */
+section{margin:0 0 46px; scroll-margin-top:20px}
+h2{font-size:24px; letter-spacing:-.01em; margin:0 0 6px}
+.h2note{color:var(--muted); font-size:14.5px; margin:0 0 20px; max-width:62ch}
+h3{font-size:17px; margin:26px 0 8px}
+p{margin:0 0 13px}
+.lede{font-size:16.5px; color:var(--muted)}
+
+.stagehead{
+  display:flex; align-items:baseline; gap:13px; padding-bottom:9px;
+  border-bottom:2px solid var(--prussian); margin-bottom:9px;
+}
+.stagehead .n{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--prussian);
+}
+.stagehead .when{margin-left:auto; font-size:12.5px; color:var(--faint); font-family:"IBM Plex Mono",monospace}
+
+/* ---------- instrument ---------- */
+.inst{background:var(--surface); border:1px solid var(--line); border-radius:7px; padding:20px 22px; margin:16px 0; box-shadow:var(--shadow); scroll-margin-top:18px}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+:target.inst{outline:2px solid var(--prussian); outline-offset:3px}
+.insthead{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; margin-bottom:9px}
+.cd-badge{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600;
+  color:var(--surface); background:var(--prussian); padding:2px 7px; border-radius:4px;
+}
+:root[data-theme="dark"] .cd-badge,
+:root:not([data-theme="light"]) .cd-badge{color:#0D131A}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .cd-badge{color:#fff}}
+.insthead h3{margin:0; font-size:17.5px}
+.purpose{font-size:13.5px; color:var(--muted); margin:0 0 14px}
+
+.chip{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; font-weight:600; padding:2.5px 7px; border-radius:4px; white-space:nowrap;
+}
+.chip.draft{background:var(--prussian-soft); color:var(--prussian)}
+.chip.open{background:var(--amber-soft); color:var(--amber)}
+.chip.ready{background:var(--verdigris-soft); color:var(--verdigris)}
+
+/* ---------- lists / checklists ---------- */
+ul,ol{margin:0 0 13px; padding-left:21px}
+li{margin:0 0 6px}
+.checks{list-style:none; padding:0; margin:10px 0 4px}
+.checks li{
+  display:grid; grid-template-columns:19px 1fr; gap:11px; align-items:start;
+  padding:8px 0; border-top:1px solid var(--line); margin:0;
+}
+.checks li:last-child{border-bottom:1px solid var(--line)}
+.box{
+  width:14px; height:14px; border:1.5px solid var(--line-strong); border-radius:3px;
+  margin-top:4px; background:var(--paper);
+}
+.checks .lbl{font-size:14.5px}
+.checks .hint{display:block; color:var(--faint); font-size:12.5px; margin-top:2px; line-height:1.45}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto; margin:14px 0 6px; border:1px solid var(--line); border-radius:7px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:460px}
+th,td{text-align:left; padding:9px 13px; border-bottom:1px solid var(--line); vertical-align:top}
+th{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--muted); font-weight:600; background:var(--surface-2);
+}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums; font-family:"IBM Plex Mono",monospace; white-space:nowrap}
+td b{font-weight:600}
+
+/* ---------- callouts ---------- */
+.note{border-radius:7px; padding:15px 18px; margin:16px 0; font-size:14.5px}
+.note p:last-child{margin-bottom:0}
+.note .tag{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; font-weight:600; display:block; margin-bottom:6px;
+}
+.note.stop{background:var(--signal-soft); color:var(--ink)} .note.stop .tag{color:var(--signal)}
+.note.ev{background:var(--prussian-soft); color:var(--ink)} .note.ev .tag{color:var(--prussian)}
+.note.todo{background:var(--amber-soft); color:var(--ink)} .note.todo .tag{color:var(--amber)}
+
+.formula{
+  font-family:"IBM Plex Mono",monospace; font-size:13.5px; background:var(--surface-2);
+  border:1px solid var(--line); border-radius:6px; padding:11px 14px; margin:11px 0;
+  overflow-x:auto; white-space:nowrap;
+}
+.formula .out{color:var(--verdigris); font-weight:600}
+
+.kv{display:grid; grid-template-columns:auto 1fr; gap:5px 16px; font-size:13.5px; margin:10px 0}
+.kv dt{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); white-space:nowrap}
+.kv dd{margin:0}
+
+.foot{border-top:1px solid var(--line); margin-top:44px; padding-top:22px; font-size:13px; color:var(--faint)}
+
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:static; height:auto; border-right:none; border-bottom:1px solid var(--line); padding:20px}
+  nav{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:2px}
+  nav .grp{grid-column:1/-1; margin:12px 0 4px}
+  h1{font-size:29px}
+  .wrap{padding:0 20px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="railhead">
+      <div class="org">AUCOOP · UPC Barcelona</div>
+      <div class="nm">Field Handbook</div>
+      <div class="vs">v0.1 · draft · 6 Sep 2026</div>
+    </div>
+    <nav>
+      <a href="#use"><span class="cd">§</span><span>How to use this</span></a>
+      <a href="#stop"><span class="cd">§</span><span>The stop rule</span></a>
+
+      <div class="grp">Before you go</div>
+      <a href="#b1"><span class="cd">B-1</span><span>Readiness assessment</span></a>
+      <a href="#b2"><span class="cd">B-2</span><span>Level decision</span></a>
+      <a href="#b3"><span class="cd">B-3</span><span>Mandate &amp; ownership</span></a>
+
+      <div class="grp">While you are there</div>
+      <a href="#d1"><span class="cd">D-1</span><span>Data capture</span></a>
+      <a href="#d2"><span class="cd">D-2</span><span>Infrastructure audit</span></a>
+      <a href="#d3"><span class="cd">D-3</span><span>Workflow mapping</span></a>
+      <a href="#d4"><span class="cd">D-4</span><span>Phases &amp; exit gates</span></a>
+
+      <div class="grp">Before you leave</div>
+      <a href="#l1"><span class="cd">L-1</span><span>Handover pack</span></a>
+
+      <div class="grp">Once you are back</div>
+      <a href="#a1"><span class="cd">A-1</span><span>Debrief &amp; feedback</span></a>
+
+      <div class="grp">Reference</div>
+      <a href="#ref"><span class="cd">R</span><span>Technical annexes</span></a>
+      <a href="#measures"><span class="cd">M</span><span>Success measures</span></a>
+      <a href="#version"><span class="cd">V</span><span>Version &amp; changelog</span></a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="mast">
+      <div class="wrap">
+        <div class="eyebrow">Operational handbook · not the thesis</div>
+        <h1>Deploying a hospital information system, one trip at a time</h1>
+        <p class="sub">What an AUCOOP team does before it travels, while it is on site, on the day it
+        leaves, and after it gets home. Nine instruments, one stop rule, and a way of feeding what you
+        learned back into the next edition.</p>
+        <div class="meta">
+          <span><b>Version</b> 0.1 (structure draft)</span>
+          <span><b>Owner</b> Pol Giménez Colom</span>
+          <span><b>Companion</b> TFM, UPC ETSETB</span>
+          <span><b>Reference site</b> St. John of God, Lunsar (SL)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+
+      <!-- ============ HOW TO USE ============ -->
+      <section id="use">
+        <h2>How to use this</h2>
+        <p class="h2note">Read the stage you are in. Nothing else.</p>
+        <p>Every other guide in this field — WHO's, the ministry's, the software vendor's — is
+        organised by system lifecycle: assess, select, configure, deploy, evaluate. That is how an
+        institution with permanent staff experiences the work.</p>
+        <p>You do not experience it that way. You experience a <b>trip</b>. So this handbook is
+        ordered the way the trip runs, and each instrument tells you the one thing to produce at that
+        moment. An instrument is <i>done</i> when it has been filled in — not when it has been read.</p>
+        <div class="note ev">
+          <span class="tag">The one rule</span>
+          <p>Record which version of this handbook you followed, in the closure report. Without that,
+          no outcome can ever be attributed to a version, and the next edition learns nothing from
+          yours.</p>
+        </div>
+      </section>
+
+      <!-- ============ STOP RULE ============ -->
+      <section id="stop">
+        <div class="stagehead"><span class="n">Cross-cutting</span><span class="when">applies at every stage</span></div>
+        <h2>The stop rule</h2>
+        <p class="h2note">The decision this handbook exists to make possible is the decision <i>not</i> to deploy.</p>
+        <p>A well-configured Level 1 tool that staff actually use is worth more than a half-deployed
+        hospital information system that is abandoned when you fly home. Deploying above what the
+        hospital can sustain is not ambition; it is the documented way these projects fail.</p>
+        <p><b>Drop a level, or do not deploy, if any of the following is true at the end of B-1:</b></p>
+        <ul class="checks">
+          <li><span class="box"></span><span class="lbl">No named person at the hospital is paid to keep the system running after you leave.
+            <span class="hint">Not "someone will look after it". A name, a role, and a salary line.</span></span></li>
+          <li><span class="box"></span><span class="lbl">The medical director has not personally endorsed the project.
+            <span class="hint">Endorsement from an administrator or a department head is not the same thing.</span></span></li>
+          <li><span class="box"></span><span class="lbl">There is no route to fund maintenance for the next five years.</span></li>
+          <li><span class="box"></span><span class="lbl">The unit you intend to digitise has no working power or network link.
+            <span class="hint">Verify it yourself, in the room. At Lunsar, Emergency was scheduled for Phase 1 and it is still unknown whether the network cable was ever run — the groundings went in, and nobody wrote down what happened next. That uncertainty is the finding.</span></span></li>
+          <li><span class="box"></span><span class="lbl">You cannot retire the paper process. If paper and digital both continue, you have doubled the workload and created nothing.</span></li>
+        </ul>
+        <div class="note stop">
+          <span class="tag">Why this is first</span>
+          <p>Across six AUCOOP editions between 2018 and 2026, no deployment was ever switched off —
+          because paper was never switched off either. The failure mode is not rejection. It is a
+          second system running quietly beside the first until nobody bothers with it.</p>
+        </div>
+      </section>
+
+      <!-- ============ BEFORE ============ -->
+      <section id="before">
+        <div class="stagehead"><span class="n">Stage 1 — Before you go</span><span class="when">weeks −8 to −1</span></div>
+        <h2>Before you go</h2>
+        <p class="h2note">Three instruments. All of them can be completed remotely, and all of them
+        should be, because on-site days are the scarcest resource you have.</p>
+
+        <div class="inst" id="b1">
+          <div class="insthead"><span class="cd-badge">B-1</span><h3>Readiness assessment</h3><span class="chip open">needs design</span></div>
+          <p class="purpose">Scores the gap between what the system will assume and what the hospital
+          actually is. Produces a number that feeds the level decision in B-2.</p>
+          <p>Built on Heeks' design–reality gap model: rate each dimension 0–10 for the distance
+          between the proposed system's assumptions and the hospital as found. Higher total, higher
+          risk of failure.</p>
+          <div class="tw"><table>
+            <thead><tr><th>Dimension</th><th>What you are rating</th><th class="num">Score</th></tr></thead>
+            <tbody>
+              <tr><td><b>Information</b></td><td>What the system expects to be recorded vs. what is written down today</td><td class="num">0–10</td></tr>
+              <tr><td><b>Technology</b></td><td>Power, network, hardware assumed vs. installed and working</td><td class="num">0–10</td></tr>
+              <tr><td><b>Processes</b></td><td>The workflow the software implies vs. the patient journey in D-3</td><td class="num">0–10</td></tr>
+              <tr><td><b>Objectives &amp; values</b></td><td>What the deploying team wants vs. what the hospital wants</td><td class="num">0–10</td></tr>
+              <tr><td><b>Staffing &amp; skills</b></td><td>Digital literacy assumed vs. present on the ward</td><td class="num">0–10</td></tr>
+              <tr><td><b>Management systems</b></td><td>Governance and accountability assumed vs. actual</td><td class="num">0–10</td></tr>
+              <tr><td><b>Other resources</b></td><td>Money and time assumed vs. committed</td><td class="num">0–10</td></tr>
+            </tbody>
+          </table></div>
+          <p style="font-size:13.5px;color:var(--muted)">Then four questions the model does not
+          cover, because they decide survival rather than fit:</p>
+          <dl class="kv">
+            <dt>PAID-IT</dt><dd>Is there a paid IT person at the hospital? <b>Yes / No</b></dd>
+            <dt>OWNER-5Y</dt><dd>Is there a funded owner for the next five years? <b>Yes / No</b></dd>
+            <dt>PRESENCE</dt><dd>How long is AUCOOP committed to this site? <b>Years</b></dd>
+            <dt>HANDOVER</dt><dd>Will a handover pack (L-1) exist on departure? <b>Yes / No</b></dd>
+          </dl>
+          <div class="note todo">
+            <span class="tag">Open — Pol to settle</span>
+            <p>The score thresholds that map a total to a level in B-2 are not fixed yet. They should
+            be calibrated against Lunsar and Douala, where the outcomes are known, before this ships.</p>
+          </div>
+        </div>
+
+        <div class="inst" id="b2">
+          <div class="insthead"><span class="cd-badge">B-2</span><h3>Level decision</h3><span class="chip draft">draft</span></div>
+          <p class="purpose">Chooses how far up the tool spectrum this deployment goes. Driven by
+          sustaining capacity, not by need — need always points at Level 4.</p>
+          <div class="tw"><table>
+            <thead><tr><th class="num">Level</th><th>Scope</th><th>Tools</th><th>Minimum to sustain it</th></tr></thead>
+            <tbody>
+              <tr><td class="num"><b>1</b></td><td>Data collection &amp; surveys</td><td>KoBoToolbox, ODK</td><td>A trained clerk. No server, if you use a hosted instance.</td></tr>
+              <tr><td class="num"><b>2</b></td><td>Health management &amp; case tracking</td><td>DHIS2, CommCare</td><td>A reporting officer; alignment with the national HMIS.</td></tr>
+              <tr><td class="num"><b>3</b></td><td>Clinical EMR</td><td>OpenMRS</td><td>A part-time IT person; reliable power in the clinical areas.</td></tr>
+              <tr><td class="num"><b>4</b></td><td>Full HIS — clinical, lab, pharmacy, billing</td><td>Bahmni, GNU Health</td><td>A paid full-time IT person, a funded five-year owner, and a support contract.</td></tr>
+            </tbody>
+          </table></div>
+          <p>If B-1 does not support the level you wanted, drop one and execute it properly. That is
+          the stop rule doing its job, not a defeat.</p>
+        </div>
+
+        <div class="inst" id="b3">
+          <div class="insthead"><span class="cd-badge">B-3</span><h3>Mandate &amp; ownership</h3><span class="chip draft">draft</span></div>
+          <p class="purpose">Secures the authority the deployment will need, in writing, before anybody flies.</p>
+          <p><b>People to identify and engage by name:</b></p>
+          <div class="tw"><table>
+            <thead><tr><th>Role</th><th>Why they matter</th></tr></thead>
+            <tbody>
+              <tr><td><b>Medical Director</b></td><td>Must formally endorse the project and communicate expectations to clinical staff directly.</td></tr>
+              <tr><td><b>Head of Nursing</b></td><td>Nurses perform the highest volume of data entry; ward adoption runs through this role.</td></tr>
+              <tr><td><b>Head of Pharmacy</b></td><td>Owns stock management adoption.</td></tr>
+              <tr><td><b>Laboratory Director</b></td><td>Owns the lab module and the result-delivery chain.</td></tr>
+              <tr><td><b>Administrative / Finance Director</b></td><td>Owns billing configuration and financial reporting. Ask what finance system already exists.</td></tr>
+              <tr><td><b>IT Officer</b></td><td>Becomes the primary super-user and administrator. If this post does not exist, see the stop rule.</td></tr>
+            </tbody>
+          </table></div>
+          <p><b>The MoU must cover:</b> system ownership · data ownership and consent · training
+          commitments and released staff time · remote support arrangements · who pays for what,
+          after you leave.</p>
+          <div class="note ev">
+            <span class="tag">Evidence</span>
+            <p>At Douala the hospital board prioritised digitalisation and released rooms, staff time
+            and institutional backing. At Lunsar it did not. Douala is the site that adopted — and it
+            is the clearest contrast the project has produced. Two caveats worth carrying: the board
+            was not the only difference (Douala also had a named super-user pair, the IT technician
+            and the director), and the comparison spans one year, not eight.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DURING ============ -->
+      <section id="during">
+        <div class="stagehead"><span class="n">Stage 2 — While you are there</span><span class="when">the on-site days</span></div>
+        <h2>While you are there</h2>
+        <p class="h2note">Assume you will never be able to ask again. Every question you leave
+        unanswered on site becomes a year of unanswered email.</p>
+
+        <div class="inst" id="d1">
+          <div class="insthead"><span class="cd-badge">D-1</span><h3>Field data capture</h3><span class="chip ready">core</span></div>
+          <p class="purpose">The record you cannot reconstruct from Barcelona. Photograph, measure and
+          write down everything on this list before you leave the building it is in.</p>
+
+          <h3>Paper records — photograph every form in use</h3>
+          <p>One clean, legible photograph of each blank form <i>and</i> one of a completed example,
+          per unit. These define what the system must be able to produce.</p>
+          <div class="tw"><table>
+            <thead><tr><th>Group</th><th>Forms in use at Lunsar (July 2026 returns)</th></tr></thead>
+            <tbody>
+              <tr><td><b>Statutory returns</b></td><td>Morbidity · IPD Morbidity · Bed State · Monthly Returns Mortality · Monthly Returns Surgical · Monthly Returns X-Ray</td></tr>
+              <tr><td><b>Clinical units</b></td><td>Emergency Department · Theatre · Dressing Cases · Laboratory (2 sheets)</td></tr>
+              <tr><td><b>Maternal &amp; child</b></td><td>ANC · Safe Motherhood · Immunization Returns</td></tr>
+            </tbody>
+          </table></div>
+          <p style="font-size:13.5px;color:var(--muted)">Fourteen sheets. Separately, from a July 2026
+          capture: two pages of the patient booklet and the folder-ID card it carries.</p>
+          <div class="note ev">
+            <span class="tag">Why this instrument exists</span>
+            <p>Eight years of AUCOOP archive contain no photograph of a paper form of any kind. The
+            fourteen statutory returns above were finally collected in September 2026, and the booklet
+            pages in July — both retroactively, from Barcelona, months after anyone was last on site.
+            A photograph of a ward register is <i>still</i> missing, and the hospital's bed capacity is
+            still recorded as 25, 85 or 100 depending on which document you open.</p>
+          </div>
+
+          <h3>What else to capture, per unit</h3>
+          <ul class="checks">
+            <li><span class="box"></span><span class="lbl">Daily volume, counted not estimated
+              <span class="hint">OPD visits/day, inpatient census, lab tests/day, deliveries/month.</span></span></li>
+            <li><span class="box"></span><span class="lbl">Who fills the form, who signs it, where it goes next</span></li>
+            <li><span class="box"></span><span class="lbl">How the patient is identified at this point
+              <span class="hint">At Lunsar the folder ID minted at Reception is the join key for the entire paper system.</span></span></li>
+            <li><span class="box"></span><span class="lbl">Power: measured voltage over 24 h, grid hours/day, generator runtime</span></li>
+            <li><span class="box"></span><span class="lbl">Network: is there a working link <i>in this room</i>, and measured latency</span></li>
+            <li><span class="box"></span><span class="lbl">Photograph of the room itself — outlets, cable routes, where a workstation could physically go</span></li>
+          </ul>
+
+          <h3>Deployment record</h3>
+          <p>Written on site, not from memory afterwards: every access point with its location and
+          model; switch and router models and where they sit; cable routes and distances; solar panel
+          count, orientation and rating; UPS model and measured runtime; server specification and
+          where it lives; every credential created, recorded for rotation, never in a shared document.</p>
+        </div>
+
+        <div class="inst" id="d2">
+          <div class="insthead"><span class="cd-badge">D-2</span><h3>Infrastructure audit</h3><span class="chip ready">from the thesis</span></div>
+          <p class="purpose">Completed during the assessment visit. Feeds the dimensioning in the technical annexes.</p>
+          <div class="tw"><table>
+            <thead><tr><th>Category</th><th>Items to assess</th></tr></thead>
+            <tbody>
+              <tr><td><b>Electricity</b></td><td>Grid availability (hours/day); generator fuel type, capacity, runtime; solar installation if any; voltage stability measured with a multimeter over 24 h; outlet locations per building</td></tr>
+              <tr><td><b>Internet</b></td><td>ISP name and technology (fibre, 4G, VSAT); contracted bandwidth; actual measured bandwidth; CGNAT check — compare the WAN IP against the public IP; monthly cost</td></tr>
+              <tr><td><b>Physical space</b></td><td>Candidate server room — ventilation, security, access control; cable routing between buildings; distance between the farthest buildings; wall materials</td></tr>
+              <tr><td><b>Existing IT</b></td><td>Functional computers and tablets; operating systems; printers; existing network equipment; cabling</td></tr>
+              <tr><td><b>Environment</b></td><td>Temperature range; humidity; dust; insect and rodent risk; flooding risk</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="inst" id="d3">
+          <div class="insthead"><span class="cd-badge">D-3</span><h3>Workflow mapping</h3><span class="chip ready">from the thesis</span></div>
+          <p class="purpose">Document the patient journey as it is, before proposing to change it.</p>
+          <p>The standard sequence, to be confirmed or corrected on site:</p>
+          <ol>
+            <li><b>Registration</b> — patient identified or registered, assigned to a queue</li>
+            <li><b>Triage</b> — vital signs measured, urgency assessed</li>
+            <li><b>Consultation</b> — symptoms recorded, diagnosis formulated</li>
+            <li><b>Laboratory</b> — tests ordered, samples collected and processed, results recorded</li>
+            <li><b>Prescription</b> — medication prescribed on diagnosis and results</li>
+            <li><b>Pharmacy</b> — medication dispensed, stock decremented</li>
+            <li><b>Billing</b> — services and medications invoiced</li>
+            <li><b>Discharge or admission</b></li>
+          </ol>
+          <p>For each step record: current method (register, logbook, verbal), average daily volume,
+          staff involved, and the pain point the staff themselves name.</p>
+          <div class="note ev">
+            <span class="tag">Design rule</span>
+            <p>The unit of migration is the <b>process</b>, not the institution. A process moves to
+            digital only when the digital path can become the <i>only</i> path.</p>
+          </div>
+        </div>
+
+        <div class="inst" id="d4">
+          <div class="insthead"><span class="cd-badge">D-4</span><h3>Deployment phases &amp; exit gates</h3><span class="chip open">gates need design</span></div>
+          <p class="purpose">What each phase contains, and what "done" means. A phase is not finished
+          because the feature works.</p>
+          <div class="tw"><table>
+            <thead><tr><th class="num">Phase</th><th>Contains</th><th>Exit gate</th></tr></thead>
+            <tbody>
+              <tr><td class="num"><b>1</b></td><td>Registration &amp; basic EMR — patient identity, encounters, clinical forms</td><td>The folder ID is the primary searchable identifier · a runbook exists · one unit has retired its paper register</td></tr>
+              <tr><td class="num"><b>2</b></td><td>Laboratory &amp; pharmacy — orders, results, dispensing, stock</td><td>A lab order completes end to end · dispensing decrements stock · pharmacist can work unaided</td></tr>
+              <tr><td class="num"><b>3</b></td><td>Billing &amp; administration</td><td>Reconciles with the incumbent finance system · the finance director signs off</td></tr>
+              <tr><td class="num"><b>4</b></td><td>Reporting &amp; epidemiology</td><td>The statutory monthly return in D-1 can be produced from the system, by hospital staff, unaided</td></tr>
+            </tbody>
+          </table></div>
+          <p>Every gate, at every phase, carries the same two conditions: the feature works
+          offline-tolerantly, and a hospital-usable runbook exists — written for someone with no prior
+          IT experience, on the assumption that a volunteer visits once or twice a year.</p>
+          <div class="note todo">
+            <span class="tag">Open — Pol to settle</span>
+            <p>Gates are currently written as engineering conditions. They need the measurable outcome
+            criteria from the Success measures section attached to each one, so a later team can test
+            whether a gate was genuinely passed.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LEAVING ============ -->
+      <section id="leaving">
+        <div class="stagehead"><span class="n">Stage 3 — Before you leave</span><span class="when">the last two days</span></div>
+        <h2>Before you leave</h2>
+        <p class="h2note">One instrument, and the archive says it is the one that decides whether any of this survives.</p>
+
+        <div class="inst" id="l1">
+          <div class="insthead"><span class="cd-badge">L-1</span><h3>Handover pack</h3><span class="chip ready">core</span></div>
+          <p class="purpose">What physically stays at the hospital. Assembled on site and walked
+          through with the named owner, in person, before you go.</p>
+          <ul class="checks">
+            <li><span class="box"></span><span class="lbl">Named owner, written down, with role and contact details</span></li>
+            <li><span class="box"></span><span class="lbl">Runbook per deployed unit — how to do the daily task, with screenshots
+              <span class="hint">Written for zero prior IT experience. If it cannot be followed by someone who has never used a computer, it is not finished.</span></span></li>
+            <li><span class="box"></span><span class="lbl">"What to do when it breaks" sheet — the five most likely failures and the first thing to try</span></li>
+            <li><span class="box"></span><span class="lbl">Credentials handed over securely and recorded for rotation
+              <span class="hint">Never in a shared document, never in the runbook, never in an appendix.</span></span></li>
+            <li><span class="box"></span><span class="lbl">Support escalation ladder — tier 0 self-help, tier 1 the local super-user, tier 2 remote or contracted support, each with a name and a route</span></li>
+            <li><span class="box"></span><span class="lbl">Backup procedure, demonstrated once by the owner while you watch</span></li>
+            <li><span class="box"></span><span class="lbl">What was deliberately <i>not</i> done, and why
+              <span class="hint">The next team's scope starts here. This is the single most useful page in the pack.</span></span></li>
+            <li><span class="box"></span><span class="lbl">The version of this handbook you followed</span></li>
+          </ul>
+          <div class="note ev">
+            <span class="tag">Evidence</span>
+            <p>Six AUCOOP editions, 2018–2026. One left a handover pack — the 2024 cohort — and that
+            edition was inherited and extended by the two that followed it. The deployments left
+            without one did not fare the same way. KoboCollect (2023) carried data in 2 of 11 forms a
+            year later. RosarioSIS (2018) cannot even be confirmed to have been used: the closure
+            report records it installed and the administrator trained, the 2024 cohort recorded him
+            saying it was only ever a plan, and nobody wrote down which is true.</p>
+            <p>Note what that means. These systems were not switched off — they went dark without
+            anyone deciding to stop them, which is why the stop rule above is phrased the way it is.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ AFTER ============ -->
+      <section id="back">
+        <div class="stagehead"><span class="n">Stage 4 — Once you are back</span><span class="when">started on site, closed within two weeks</span></div>
+        <h2>Once you are back</h2>
+        <p class="h2note">This is the instrument that makes the handbook improve rather than age.</p>
+
+        <div class="inst" id="a1">
+          <div class="insthead"><span class="cd-badge">A-1</span><h3>Debrief &amp; feedback return</h3><span class="chip open">needs design</span></div>
+          <p class="purpose">What the next edition needs to know, in a form it can actually act on.</p>
+          <p><b>Design constraints — these are not preferences:</b></p>
+          <ul>
+            <li><b>It is part of the CCD closure report you already have to write.</b> A new voluntary task will not be completed; an extension of a mandatory one will. <i>Whether CCD's format can actually be extended is unconfirmed, and the whole loop depends on it.</i></li>
+            <li><b>Completed in the field, before you fly.</b> Not afterwards. People land in Barcelona and stop.</li>
+            <li><b>Under two hours in total.</b> A half-filled matrix is worse than none, because it looks like data.</li>
+            <li><b>One named person merges returns into the next version</b>, on a fixed cadence.</li>
+          </ul>
+          <p><b>What it asks:</b></p>
+          <ul class="checks">
+            <li><span class="box"></span><span class="lbl">Which handbook version did you follow?</span></li>
+            <li><span class="box"></span><span class="lbl">Which instruments did you complete, and which did you skip? Why?
+              <span class="hint">A skipped instrument is a finding about the handbook, not a failure of the team. Say so plainly, or nobody will report it.</span></span></li>
+            <li><span class="box"></span><span class="lbl">Where did the handbook say something that turned out to be wrong on site?</span></li>
+            <li><span class="box"></span><span class="lbl">What did you have to invent because the handbook did not cover it?</span></li>
+            <li><span class="box"></span><span class="lbl">Scores against the success measures below, at departure</span></li>
+            <li><span class="box"></span><span class="lbl">The three questions you wish you had asked while you were still there</span></li>
+          </ul>
+          <div class="note todo">
+            <span class="tag">Open — Pol to settle</span>
+            <p>Who owns the merge, and how often? Without a named owner and a cadence, three versions
+            of this handbook will exist within two years and none will be canonical. This has already
+            happened once to the project's control document.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MEASURES ============ -->
+      <section id="measures">
+        <div class="stagehead"><span class="n">Cross-cutting</span><span class="when">recorded at every gate</span></div>
+        <h2>What success means, measurably</h2>
+        <p class="h2note">Without these, version 2 of this handbook has nothing to compare itself against.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Outcome</th><th>The question it answers</th><th>How you would measure it here</th></tr></thead>
+          <tbody>
+            <tr><td><b>Acceptability</b></td><td>Do staff find it agreeable?</td><td>Short structured question at handover</td></tr>
+            <tr><td><b>Adoption</b></td><td>Did they take it up at all?</td><td>Proportion of eligible staff with an active account using it weekly</td></tr>
+            <tr><td><b>Appropriateness</b></td><td>Does it fit this setting?</td><td>Workflow steps matched vs. worked around</td></tr>
+            <tr><td><b>Feasibility</b></td><td>Can it actually be done here?</td><td>Phases completed vs. planned</td></tr>
+            <tr><td><b>Fidelity</b></td><td>Is it used as intended?</td><td>Records entered at the point of care vs. batched later from paper</td></tr>
+            <tr><td><b>Implementation cost</b></td><td>What did it really take?</td><td>Hardware, travel, staff time, and the recurrent cost after departure</td></tr>
+            <tr><td><b>Penetration</b></td><td>How far did it spread?</td><td>Units live vs. units in scope</td></tr>
+            <tr><td><b>Sustainability</b></td><td>Is it still running?</td><td>Still in use at 6 and 12 months, checked remotely</td></tr>
+          </tbody>
+        </table></div>
+        <p style="font-size:13.5px;color:var(--muted)">Framework: Proctor et al. (2011), implementation
+        outcomes; the measurement column is our own operationalisation, not theirs. Baseline to beat,
+        from Lunsar: a January 2024 review found 2 of 11 digital forms carrying any data at all, with
+        568 submissions in total, all of them made within two months of the training.</p>
+
+        <div class="note stop">
+          <span class="tag">Say this before someone else does</span>
+          <p>By B-2's own criteria, Lunsar qualified for Level 1 or 2. It has no paid full-time IT
+          post, no funded five-year owner and no support contract — and AUCOOP deployed Bahmni, a
+          Level 4 system, there. Four months after the February–March 2026 trip the hospital was still
+          producing every statutory return by hand.</p>
+          <p>That is not an argument against this handbook. It is the argument <i>for</i> it: the stop
+          rule exists because the project has already walked past the point where it should have
+          stopped, and had no instrument that made that visible at the time.</p>
+        </div>
+      </section>
+
+      <!-- ============ REFERENCE ============ -->
+      <section id="ref">
+        <div class="stagehead"><span class="n">Reference</span><span class="when">consult as needed</span></div>
+        <h2>Technical annexes</h2>
+        <p class="h2note">The dimensioning and configuration detail. Rationale for every choice lives
+        in the thesis; what follows is the part you use on site.</p>
+
+        <h3>Power</h3>
+        <p>Total IT load, then the UPS rating that covers it:</p>
+        <div class="formula">P_total = Σ (P_i × Q_i) &nbsp;[W]<br>
+        Example: 50 (server) + 250 (PoE switch + budget) + 60 (4 APs) + 400 (8 laptops) + 30 (NAS) = <span class="out">790 W</span></div>
+        <div class="formula">S_UPS = (P_total × t_runtime) / (PF × η_UPS) &nbsp;[VA]<br>
+        Example: (790 × 0.5) / (0.8 × 0.87) = <span class="out">568 VA</span> → specify 1000–1500 VA for headroom<br>
+        Ranges: t_runtime 0.25–1 h · PF ≈ 0.8 for IT loads · η_UPS 0.85–0.90</div>
+        <p>The UPS must include automatic voltage regulation. Grid voltage in these settings swings
+        between roughly 170 V and 260 V against a 220–240 V nominal, and a power failure during a
+        database write corrupts data.</p>
+
+        <h3>Network</h3>
+        <p>Dimensioning, core topology, WiFi coverage planning, VLAN segmentation, and a worked design
+        for the model hospital. Measure mesh latency against the actual application: above one second
+        is tolerable for periodic form uploads and likely unworkable for a browser-based EMR. At
+        Lunsar the &gt;1 s figure was measured against KoboCollect and has never been re-measured with
+        the EMR running — do that before go-live.</p>
+        <p>The network layer is covered in far more depth by AUCOOP's own
+        <a href="https://aucoop.github.io/Community-Network-Handbook/" style="color:var(--prussian)">Community
+        Network Handbook</a> — mesh, addressing, OpenWrt, monitoring, VPN and power all have
+        step-by-step recipes there. Use it rather than duplicating it.</p>
+
+        <h3>Server</h3>
+        <p>Hardware selection, operating system and virtualisation, redundancy, and backup and disaster
+        recovery. Note that Bahmni's OpenMRS container takes 3–12 minutes to become healthy after a
+        restart — do not assume a failed boot before that. One rebuild with a large search index has
+        been observed to take around 26 minutes.</p>
+
+        <h3>Remote access</h3>
+        <p>Carrier-grade NAT blocks all inbound connections, which means no remote administration, no
+        cloud backup and no updates without a workaround. The answer is a hub-and-spoke WireGuard
+        tunnel via a VPS relay. Check for CGNAT during D-2 by comparing the router's WAN address
+        against the public address.</p>
+
+        <h3>Monitoring &amp; maintenance</h3>
+        <p>System health, UPS state, VPN tunnel liveness, and the preventive maintenance schedule the
+        named owner follows.</p>
+
+        <div class="note todo">
+          <span class="tag">Open — Pol to settle</span>
+          <p>These annexes currently point at the thesis. In v0.2 the procedures themselves move here
+          and the thesis keeps only the rationale — that is the split the change plan describes, and
+          it is the largest single piece of work remaining on this document.</p>
+        </div>
+      </section>
+
+      <!-- ============ VERSION ============ -->
+      <section id="version">
+        <div class="stagehead"><span class="n">Governance</span><span class="when">read before editing</span></div>
+        <h2>Version &amp; changelog</h2>
+        <dl class="kv">
+          <dt>Version</dt><dd><b>0.1</b> — structure draft, 6 September 2026</dd>
+          <dt>Status</dt><dd>Not yet used in the field. No instrument has been validated against a deployment.</dd>
+          <dt>Owner</dt><dd>Pol Giménez Colom</dd>
+          <dt>Source</dt><dd>Derived from the TFM infrastructure and software deployment chapters, the 2018–2026 AUCOOP archive, and the July 2026 Lunsar form capture.</dd>
+        </dl>
+        <div class="tw"><table>
+          <thead><tr><th class="num">Version</th><th>Date</th><th>What changed</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0.1</td><td class="num">2026-09-06</td><td>First structure. Nine instruments across four trip stages, the stop rule, and the success measures. Content drawn from existing thesis chapters; thresholds, gate criteria and the feedback mechanism still to be designed.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="note stop">
+          <span class="tag">Before this is used in the field</span>
+          <p>Three things must be settled: the B-1 score thresholds, the measurable criteria attached
+          to each D-4 gate, and the named owner and cadence for merging A-1 returns. Until then this
+          is a structure to discuss, not a document to deploy behind.</p>
+        </div>
+      </section>
+
+      <div class="foot">
+        AUCOOP Field Handbook v0.1 · companion to <i>Methodological Guide for the Implementation of
+        Open-Source Hospital Information Systems in Resource-Limited Settings</i>, MSc
+        Telecommunications Engineering, UPC Barcelona. Reference site: Hospital San Juan de Dios,
+        Lunsar, Sierra Leone. Second site: Hôpital Saint Jean de Dieu, Yassa–Douala, Cameroon.
+      </div>
+    </div>
+  </main>
+</div>
