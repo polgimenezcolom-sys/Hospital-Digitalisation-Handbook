@@ -1,3 +1,7 @@
+---
+stage: "Before you go"
+---
+
 # B-1 · Readiness assessment
 
 **When:** before you travel, revised on site.

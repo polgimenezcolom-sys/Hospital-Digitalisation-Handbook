@@ -1,3 +1,7 @@
+---
+stage: "Before you go"
+---
+
 # B-3 · Mandate and ownership
 
 **When:** before configuration starts.

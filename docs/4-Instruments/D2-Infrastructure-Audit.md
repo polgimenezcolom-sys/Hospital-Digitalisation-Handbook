@@ -1,3 +1,7 @@
+---
+stage: "While you are there"
+---
+
 # D-2 · Infrastructure audit
 
 **When:** during the assessment visit.

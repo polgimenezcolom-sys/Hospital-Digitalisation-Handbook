@@ -1,3 +1,7 @@
+---
+stage: "Before you leave"
+---
+
 # L-1 · Handover pack
 
 **When:** started mid-second-week, finished before the last day.

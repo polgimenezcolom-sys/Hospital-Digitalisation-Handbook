@@ -1,3 +1,7 @@
+---
+stage: "While you are there"
+---
+
 # D-4 · Phase exit gates
 
 **When:** at the end of each phase.

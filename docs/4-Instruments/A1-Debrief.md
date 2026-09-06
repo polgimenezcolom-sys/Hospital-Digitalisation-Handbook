@@ -1,3 +1,7 @@
+---
+stage: "Once you are back"
+---
+
 # A-1 · Debrief and feedback
 
 **When:** started in the field, closed within two weeks.

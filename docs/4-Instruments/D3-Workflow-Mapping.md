@@ -1,3 +1,7 @@
+---
+stage: "While you are there"
+---
+
 # D-3 · Workflow mapping
 
 **When:** first week, before configuring anything.

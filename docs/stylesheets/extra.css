@@ -1,0 +1,133 @@
+/* ------------------------------------------------------------------
+   Hospital Digitalisation Handbook — theme
+   AUCOOP navy from the association's logo; warm accent for links/hover.
+   ------------------------------------------------------------------ */
+
+:root {
+  --md-primary-fg-color:        #0b3583;
+  --md-primary-fg-color--light: #2a56a8;
+  --md-primary-fg-color--dark:  #072659;
+  --md-accent-fg-color:         #b5542d;
+  --md-accent-fg-color--transparent: rgba(181, 84, 45, .10);
+  --md-typeset-a-color:         #0b3583;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #0b3583;
+  --md-primary-fg-color--light: #2a56a8;
+  --md-primary-fg-color--dark:  #072659;
+  --md-accent-fg-color:         #e08a5e;
+  --md-accent-fg-color--transparent: rgba(224, 138, 94, .12);
+  --md-typeset-a-color:         #8fb4de;
+}
+
+/* Readability: Material's default body type is small for long-form reading */
+.md-typeset { font-size: .86rem; line-height: 1.7; }
+.md-typeset p, .md-typeset li { max-width: 72ch; }
+
+/* Headings */
+.md-typeset h1 { font-weight: 600; letter-spacing: -.01em; color: var(--md-default-fg-color); margin-bottom: 1.2em; }
+.md-typeset h2 { font-weight: 600; margin-top: 2.2em; }
+.md-typeset h3 { font-weight: 600; }
+
+/* Wider content column, so tables stop wrapping every cell */
+.md-grid { max-width: 72rem; }
+
+/* Tables: full width, comfortable rows */
+.md-typeset table:not([class]) { display: table; width: 100%; font-size: .8rem; }
+.md-typeset table:not([class]) th { background: var(--md-default-fg-color--lightest); font-weight: 600; }
+.md-typeset table:not([class]) td, .md-typeset table:not([class]) th { padding: .7em 1em; vertical-align: top; }
+.md-typeset table:not([class]) td:first-child code,
+.md-typeset table:not([class]) td:first-child strong { white-space: nowrap; }
+
+/* Left navigation: make the tree read as a book */
+.md-nav__title { font-weight: 700; }
+.md-nav--primary .md-nav__item--section > .md-nav__link { font-weight: 700; color: var(--md-default-fg-color); }
+.md-nav__link[for]:focus, .md-nav__link[for]:hover, .md-nav__link[href]:focus, .md-nav__link[href]:hover { color: var(--md-accent-fg-color); }
+.md-nav__item .md-nav__link--active { color: var(--md-primary-fg-color); font-weight: 600; }
+[data-md-color-scheme="slate"] .md-nav__item .md-nav__link--active { color: #8fb4de; }
+
+/* Admonitions: the three boxes the handbook relies on */
+.md-typeset .admonition, .md-typeset details { font-size: .8rem; border-width: 0 0 0 .2rem; box-shadow: none; }
+.md-typeset .admonition.danger  { border-color: #992a1e; }
+.md-typeset .danger > .admonition-title { background: rgba(153, 42, 30, .10); color: #7a2117; }
+.md-typeset .admonition.warning { border-color: #0b3583; }
+.md-typeset .warning > .admonition-title { background: rgba(11, 53, 131, .08); color: #0b3583; }
+.md-typeset .admonition.tip     { border-color: #256b52; }
+.md-typeset .tip > .admonition-title { background: rgba(37, 107, 82, .10); color: #1e5642; }
+[data-md-color-scheme="slate"] .md-typeset .danger  > .admonition-title { color: #e8917f; }
+[data-md-color-scheme="slate"] .md-typeset .warning > .admonition-title { color: #8fb4de; }
+[data-md-color-scheme="slate"] .md-typeset .tip     > .admonition-title { color: #7fc5a5; }
+
+/* Story chapter titles are quotations — set them apart */
+.md-typeset h1 em { font-style: italic; font-weight: 500; }
+
+/* Home page cards */
+.md-typeset .grid.cards > ul > li { border-color: var(--md-default-fg-color--lightest); }
+.md-typeset .grid.cards > ul > li:hover { border-color: var(--md-accent-fg-color); box-shadow: none; }
+
+/* ------------------------------------------------------------------
+   Typography: serif for headings, sans for body (loaded in overrides/main.html)
+   ------------------------------------------------------------------ */
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .hb-hero__title {
+  font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+}
+.md-typeset h1 { font-size: 2.1em; line-height: 1.2; }
+.md-typeset h2 { font-size: 1.45em; }
+
+/* Version banner */
+.md-banner { background: #072659; color: #dfe7f3; }
+.md-banner .hb-announce { font-size: .72rem; letter-spacing: .01em; }
+.md-banner .hb-announce strong { color: #fff; }
+
+/* Chapter eyebrow on story pages */
+.hb-eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .66rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--md-default-fg-color--light); margin: 0 0 .4rem 0 !important;
+  display: flex; gap: .6em; align-items: baseline; flex-wrap: wrap;
+}
+.hb-eyebrow__act { color: var(--md-primary-fg-color); font-weight: 600; }
+[data-md-color-scheme="slate"] .hb-eyebrow__act { color: #8fb4de; }
+.hb-eyebrow__sep { opacity: .5; }
+
+/* Stage badge on instrument pages + coloured codes in the instrument index */
+.hb-stage, .hb-code {
+  display: inline-block; font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .66rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  padding: .18em .55em; border-radius: .25em; text-decoration: none !important;
+}
+.hb-stage--before-you-go,      .hb-code--before  { background: rgba(11,53,131,.10);  color: #0b3583; }
+.hb-stage--while-you-are-there,.hb-code--during  { background: rgba(37,107,82,.12);  color: #1e5642; }
+.hb-stage--before-you-leave,   .hb-code--leaving { background: rgba(181,84,45,.12);  color: #8a3c1e; }
+.hb-stage--once-you-are-back,  .hb-code--back    { background: rgba(90,102,114,.14); color: #3f4a55; }
+[data-md-color-scheme="slate"] .hb-stage--before-you-go,      [data-md-color-scheme="slate"] .hb-code--before  { color: #8fb4de; }
+[data-md-color-scheme="slate"] .hb-stage--while-you-are-there,[data-md-color-scheme="slate"] .hb-code--during  { color: #7fc5a5; }
+[data-md-color-scheme="slate"] .hb-stage--before-you-leave,   [data-md-color-scheme="slate"] .hb-code--leaving { color: #e8a98a; }
+[data-md-color-scheme="slate"] .hb-stage--once-you-are-back,  [data-md-color-scheme="slate"] .hb-code--back    { color: #b8c2cc; }
+.md-typeset a.hb-code:hover { filter: brightness(.9); }
+
+/* ------------------------------------------------------------------
+   Home page
+   ------------------------------------------------------------------ */
+.hb-hero { margin: 0 0 2.6rem 0; padding: 2.4rem 0 2.2rem; border-bottom: 1px solid var(--md-default-fg-color--lightest); }
+.hb-hero__eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .66rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--md-primary-fg-color); font-weight: 600; margin: 0 0 .9rem !important;
+}
+[data-md-color-scheme="slate"] .hb-hero__eyebrow { color: #8fb4de; }
+.hb-hero__title { font-size: 2.6em; line-height: 1.12; font-weight: 600; letter-spacing: -.015em; margin: 0 0 1rem !important; max-width: 22ch; }
+.hb-hero__lede { font-size: 1.05rem; line-height: 1.6; color: var(--md-default-fg-color--light); max-width: 58ch; margin: 0 0 1.6rem !important; }
+.hb-hero__actions { display: flex; gap: .7rem; flex-wrap: wrap; }
+.hb-hero__actions .md-button { font-size: .78rem; }
+.hb-hero__actions .md-button--primary { background: var(--md-primary-fg-color); border-color: var(--md-primary-fg-color); }
+
+.hb-stat { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem; margin: 0 0 2.6rem; }
+.hb-stat > div { border-left: 3px solid var(--md-primary-fg-color); padding: .2rem 0 .2rem .9rem; }
+.hb-stat__n { font-family: "IBM Plex Serif", serif; font-size: 2rem; font-weight: 600; line-height: 1; color: var(--md-default-fg-color); }
+.hb-stat__l { font-size: .74rem; color: var(--md-default-fg-color--light); margin-top: .35rem; line-height: 1.4; }
+[data-md-color-scheme="slate"] .hb-stat > div { border-left-color: #8fb4de; }
+
+.md-typeset .grid.cards > ul > li { padding: 1rem 1.1rem; }
+.md-typeset .grid.cards > ul > li > hr { margin: .6rem 0; }
+.md-typeset .grid.cards > ul > li > p:first-child { font-family: "IBM Plex Serif", serif; font-size: 1.05rem; font-weight: 600; }

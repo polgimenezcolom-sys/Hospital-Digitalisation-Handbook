@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{#
+  Theme overrides for the Hospital Digitalisation Handbook.
+  - loads the serif face used for headings
+  - a version banner across the top (the handbook's one rule is "record which version you followed")
+  - an eyebrow on story chapters showing act and chapter number, read from page front matter
+#}
+
+{% block extrahead %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap">
+{% endblock %}
+
+{% block announce %}
+  <span class="hb-announce">
+    <strong>Version {{ config.extra.version }}</strong> — a structure to discuss, not yet a document to deploy behind.
+    Record the version you followed in your closure report.
+  </span>
+{% endblock %}
+
+{% block content %}
+  {% if page.meta.act %}
+    <p class="hb-eyebrow">
+      <span class="hb-eyebrow__act">{{ page.meta.act }}</span>
+      <span class="hb-eyebrow__sep">·</span>
+      <span>Chapter {{ page.meta.chapter }} of 12</span>
+    </p>
+  {% endif %}
+  {% if page.meta.stage %}
+    <p class="hb-eyebrow">
+      <span class="hb-stage hb-stage--{{ page.meta.stage | lower | replace(' ', '-') }}">{{ page.meta.stage }}</span>
+    </p>
+  {% endif %}
+  {{ super() }}
+{% endblock %}

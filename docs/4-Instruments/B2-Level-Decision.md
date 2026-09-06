@@ -1,3 +1,7 @@
+---
+stage: "Before you go"
+---
+
 # B-2 · Level decision
 
 **When:** before you travel.

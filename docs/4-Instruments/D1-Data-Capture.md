@@ -1,3 +1,7 @@
+---
+stage: "While you are there"
+---
+
 # D-1 · Field data capture
 
 **When:** throughout the visit, before leaving each building.
