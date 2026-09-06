@@ -4,9 +4,9 @@ hide:
 ---
 
 <div class="hb-hero" markdown>
-<p class="hb-hero__eyebrow">AUCOOP · Field handbook · Version 0.2</p>
+<p class="hb-hero__eyebrow">AUCOOP · Field handbook · Version 0.3</p>
 <h1 class="hb-hero__title">Putting a hospital information system into a hospital that runs on paper — and having it still be there when you come back.</h1>
-<p class="hb-hero__lede">A practical guide for volunteer engineering teams who arrive for two or three weeks, install something, and fly home. Written from eight years of deployments in Sierra Leone and Cameroon — including the ones that did not work, and why.</p>
+<p class="hb-hero__lede">A practical guide for volunteer engineering teams who arrive for two or three weeks, install something, and fly home. Written from ten years of deployments in Ghana, Ethiopia, Sierra Leone and Cameroon — including the ones that did not work, and why.</p>
 <p class="hb-hero__actions">
 <a class="md-button md-button--primary" href="2-Story/">Read the story</a>
 <a class="md-button" href="1-Introduction/1.2-Who-This-Is-For/">Who this is for</a>
@@ -15,13 +15,13 @@ hide:
 </div>
 
 <div class="hb-stat" markdown>
-<div><div class="hb-stat__n">6</div><div class="hb-stat__l">volunteer editions at one hospital, 2018–2026</div></div>
-<div><div class="hb-stat__n">1</div><div class="hb-stat__l">of them left a written handover. It was the one that got built on.</div></div>
+<div><div class="hb-stat__n">10</div><div class="hb-stat__l">years of AUCOOP hospital deployments, four countries, five sites, 2016–2026</div></div>
+<div><div class="hb-stat__n">1</div><div class="hb-stat__l">written handover in all that time. It was the one edition that got built on.</div></div>
 <div><div class="hb-stat__n">14</div><div class="hb-stat__l">statutory returns, still handwritten four months after a full system was installed</div></div>
 <div><div class="hb-stat__n">2 / 11</div><div class="hb-stat__l">digital forms carrying any data a year after a form-collection rollout</div></div>
 </div>
 
-## Four parts, four different questions
+## Five parts, five different questions
 
 <div class="grid cards" markdown>
 
@@ -36,16 +36,27 @@ hide:
 
     [:octicons-arrow-right-24: Start with chapter 1](2-Story/2.01-Last-Time-She-Came.md)
 
--   **The Guide**
+-   **The Organisational Guide**
 
     ---
 
-    *How do I do this specific thing?*
+    *How do I do the 80% that is not technical?*
 
-    Self-contained recipes: assessing a hospital, sizing power, configuring a phase, training a ward.
-    Open the one you need on site.
+    Eight recipes: the mandate, the six conversations, super-users, retiring paper, the support
+    ladder, funding the owner, training, the handover.
 
-    [:octicons-arrow-right-24: Browse the recipes](3-Guide/index.md)
+    [:octicons-arrow-right-24: Start with the mandate](3A-Organisational-Guide/index.md)
+
+-   **The Technical Guide**
+
+    ---
+
+    *How do I build the infrastructure and configure the software?*
+
+    Assessment, power, network, server, remote access, platform choice, Bahmni, GNU Health, and what
+    to pack.
+
+    [:octicons-arrow-right-24: Browse the recipes](3B-Technical-Guide/index.md)
 
 -   **The Instruments**
 
@@ -64,9 +75,21 @@ hide:
 
     *What happened when someone tried?*
 
-    Lunsar and Yassa–Douala, written up honestly. And a template for adding yours.
+    Meki, Ada Foah, Lunsar and Yassa–Douala, written up honestly — including what nobody knows.
+    And a template for adding yours.
 
     [:octicons-arrow-right-24: Read the case studies](5-Real-Deployments/index.md)
+
+-   **Resources**
+
+    ---
+
+    *Where do I download the forms?*
+
+    Every instrument as PDF and DOCX, the KoBo form for field capture, the companion repositories,
+    and the prior work this builds on.
+
+    [:octicons-arrow-right-24: Downloads](resources.md)
 
 </div>
 
@@ -84,11 +107,11 @@ handbook spends as much time on directors, nurses and handover as on servers.
 is worth more than a full hospital information system abandoned three months after you fly home.
 There is a whole chapter on how to decide to do less — and on when not to deploy at all.
 
-**Write it down while you are standing there.** Eight years of this project's archive contain no
+**Write it down while you are standing there.** Ten years of this project's archive contain no
 photograph of a paper form; the fourteen we now have were collected months later, by asking. The
 hospital's bed capacity is still recorded three different ways in three different documents.
 
-**This is a living book.** It is version 0.2 and it is wrong in places nobody has found yet. When
+**This is a living book.** It is version 0.3 and it is wrong in places nobody has found yet. When
 your project finds one, [say so](contributing/index.md). That is how the next team starts from
 somewhere better than you did.
 

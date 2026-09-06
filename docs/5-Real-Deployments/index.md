@@ -1,18 +1,22 @@
 # Real Deployments
 
-What actually happened when people tried this.
+What actually happened when people tried this. Ten years, four countries, five sites.
 
-A case study is more useful when it says what went wrong. The next team to work in similar conditions
-will hit the same problems — your write-up is what lets them skip the week you lost.
+A case study is more useful when it says what went wrong — and, here, when it says what nobody
+knows. Two of the four sites below have a current state of *"unknown"*. That is not a gap in the
+handbook; it is the finding.
 
-- **[Lunsar, Sierra Leone](5.1-Lunsar.md)** — St. John of God Hospital. Eight years, six editions,
-  four different approaches. The site this handbook was written from.
-- **[Yassa–Douala, Cameroon](5.2-Douala.md)** — St. Jean de Dieu. One edition, and the useful
-  contrast.
+| | Site | Years | System | Current state |
+|---|---|---|---|---|
+| **[5.0](5.0-Ada-Foah.md)** | Ada East District Hospital, Ada Foah, Ghana | 2016 · 2019–2020 | OpenMRS | **Unknown** — nothing after the 2020 plan |
+| **[5.1](5.1-Meki.md)** | CMAM paediatric centre, Meki, Ethiopia | 2017 | Bahmni | **Unknown** — no post-deployment record |
+| **[5.2](5.2-Lunsar.md)** | St. John of God, Lunsar, Sierra Leone | 2018–2026 | Bahmni (+ GNU Health model) | Configured; running on paper as of July 2026 |
+| **[5.3](5.3-Douala.md)** | St. Jean de Dieu, Yassa–Douala, Cameroon | 2026 | — | Adopted |
 
 Adding yours: [case study template](../contributing/case-study.md).
 
-!!! warning "Status: v0.2 — outlines only"
+!!! warning "Status: v0.2"
 
-    Both pages are structured but not written. The material exists in the project archive and in
-    Chapter 3 of the companion thesis.
+    Ada Foah and Meki are reconstructed from two CCD forms, a 2016 blog and a 2017 thesis, found in
+    September 2026. Lunsar and Douala are outlines from the companion thesis. None is yet a full
+    case study; each says what it knows and what it does not.

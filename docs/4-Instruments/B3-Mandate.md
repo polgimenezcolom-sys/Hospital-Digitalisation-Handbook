@@ -7,6 +7,27 @@ stage: "Before you go"
 **When:** before configuration starts.
 **Produces:** named stakeholders and a signed agreement.
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/B3_Mandate_and_Ownership.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/B3_Mandate_and_Ownership.docx){ .md-button }
+
+</div>
+
 ## The six people
 
 Find each by name and speak to them separately. A group meeting produces agreement and no commitment.

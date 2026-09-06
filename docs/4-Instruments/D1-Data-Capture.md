@@ -13,6 +13,35 @@ stage: "While you are there"
     now exist were collected retroactively, months after anyone was last on site, by asking. The
     hospital's bed capacity is still recorded three different ways in three different documents.
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/D1_Data_Capture_Sheet.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/D1_Data_Capture_Sheet.docx){ .md-button }
+
+-   :material-cellphone: **On a phone, offline, with photos** *(recommended)*
+
+    ---
+    An XLSForm for KoBoToolbox. Upload it to a KoBo project, install KoboCollect, and every
+    photograph lands already labelled with unit, form and date. Syncs when there is signal.
+
+    [Download XLSForm](../forms/D1_Data_Capture_KoBo.xlsx){ .md-button .md-button--primary }
+
+</div>
+
 ## Paper records
 
 One clean photograph of every **blank** form, and one **completed** example, per unit.

@@ -16,6 +16,27 @@ A phase is not finished because the feature works.
 | **3** | Billing and administration | Reconciles with the incumbent finance system · the finance director signs off |
 | **4** | Reporting and epidemiology | A member of hospital staff produces the statutory monthly return from the system, unaided, and submits it |
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/D4_Phase_Exit_Gate.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/D4_Phase_Exit_Gate.docx){ .md-button }
+
+</div>
+
 ## Every gate, every phase
 
 Two conditions apply regardless of which phase you are closing:

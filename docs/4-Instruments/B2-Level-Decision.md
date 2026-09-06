@@ -16,6 +16,27 @@ Driven by **sustaining capacity**, not by need. Need always points at level 4.
 | **3** | Clinical EMR | OpenMRS | A part-time IT person; reliable power where clinicians work. |
 | **4** | Full HIS — clinical, lab, pharmacy, billing | Bahmni, GNU Health | A paid full-time IT person, a funded five-year owner, and a support arrangement. |
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/B2_Level_Decision.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/B2_Level_Decision.docx){ .md-button }
+
+</div>
+
 ## The stop rule
 
 Drop a level, or do not deploy, if **any** of these is true:

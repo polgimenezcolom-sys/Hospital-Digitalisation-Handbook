@@ -7,6 +7,27 @@ stage: "Before you go"
 **When:** before you travel, revised on site.
 **Produces:** a score that feeds [B-2](B2-Level-Decision.md).
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/B1_Readiness_Assessment.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/B1_Readiness_Assessment.docx){ .md-button }
+
+</div>
+
 ## What it does
 
 Scores the gap between what the proposed system *assumes* and what the hospital *is*. Built on the

@@ -7,6 +7,27 @@ stage: "Once you are back"
 **When:** started in the field, closed within two weeks.
 **Produces:** what goes back into this handbook.
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/A1_Debrief_and_Feedback.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/A1_Debrief_and_Feedback.docx){ .md-button }
+
+</div>
+
 ## Design constraints — not preferences
 
 - **Part of the closure report you already have to write.** A new voluntary task will not be

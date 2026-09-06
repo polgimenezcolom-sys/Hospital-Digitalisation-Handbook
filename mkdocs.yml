@@ -96,7 +96,7 @@ plugins:
   - search
 
 extra:
-  version: "0.2"
+  version: "0.3"
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/aucoop
@@ -125,17 +125,27 @@ nav:
       - "10 · I'm in Barcelona and I can't reach it": 2-Story/2.10-Cant-Reach-It.md
       - "11 · Nobody used it after we left": 2-Story/2.11-Nobody-Used-It.md
       - "12 · We never wrote down what we did": 2-Story/2.12-Never-Wrote-It-Down.md
-  - The Guide:
-      - 3-Guide/index.md
-      - Assessing the hospital: 3-Guide/Assessment.md
-      - Choosing the platform: 3-Guide/Choosing-Platform.md
-      - Power and UPS: 3-Guide/Power.md
-      - Network and connectivity: 3-Guide/Network.md
-      - Server and backup: 3-Guide/Server.md
-      - Remote support: 3-Guide/Remote-Support.md
-      - Bahmni deployment: 3-Guide/Bahmni.md
-      - GNU Health deployment: 3-Guide/GNU-Health.md
-      - Training by role: 3-Guide/Training.md
+  - The Organisational Guide:
+      - 3A-Organisational-Guide/index.md
+      - 1 · Securing the mandate: 3A-Organisational-Guide/Mandate.md
+      - 2 · Stakeholder conversations: 3A-Organisational-Guide/Stakeholders.md
+      - 3 · Choosing super-users: 3A-Organisational-Guide/Super-Users.md
+      - 4 · Retiring paper: 3A-Organisational-Guide/Retiring-Paper.md
+      - 5 · Building the support ladder: 3A-Organisational-Guide/Support-Ladder.md
+      - 6 · Funding the owner: 3A-Organisational-Guide/Funding-The-Owner.md
+      - 7 · Training by role: 3A-Organisational-Guide/Training.md
+      - 8 · Writing the handover: 3A-Organisational-Guide/Handover.md
+  - The Technical Guide:
+      - 3B-Technical-Guide/index.md
+      - 1 · Assessing the site: 3B-Technical-Guide/Assessment.md
+      - 2 · Power and UPS: 3B-Technical-Guide/Power.md
+      - 3 · Network and connectivity: 3B-Technical-Guide/Network.md
+      - 4 · Server and backup: 3B-Technical-Guide/Server.md
+      - 5 · Remote support: 3B-Technical-Guide/Remote-Support.md
+      - 6 · Choosing the platform: 3B-Technical-Guide/Choosing-Platform.md
+      - 7 · Bahmni deployment: 3B-Technical-Guide/Bahmni.md
+      - 8 · GNU Health deployment: 3B-Technical-Guide/GNU-Health.md
+      - 9 · Packing list: 3B-Technical-Guide/Packing-List.md
   - The Instruments:
       - 4-Instruments/index.md
       - B-1 · Readiness assessment: 4-Instruments/B1-Readiness.md
@@ -149,8 +159,11 @@ nav:
       - A-1 · Debrief and feedback: 4-Instruments/A1-Debrief.md
   - Real Deployments:
       - 5-Real-Deployments/index.md
-      - Lunsar, Sierra Leone: 5-Real-Deployments/5.1-Lunsar.md
-      - Yassa–Douala, Cameroon: 5-Real-Deployments/5.2-Douala.md
+      - Ada Foah, Ghana (2016–2020): 5-Real-Deployments/5.0-Ada-Foah.md
+      - Meki, Ethiopia (2017): 5-Real-Deployments/5.1-Meki.md
+      - Lunsar, Sierra Leone (2018–2026): 5-Real-Deployments/5.2-Lunsar.md
+      - Yassa–Douala, Cameroon (2026): 5-Real-Deployments/5.3-Douala.md
+  - Resources: resources.md
   - Glossary: glossary.md
   - Contributing:
       - contributing/index.md

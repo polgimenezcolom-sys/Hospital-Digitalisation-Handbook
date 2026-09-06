@@ -7,6 +7,27 @@ stage: "While you are there"
 **When:** first week, before configuring anything.
 **Produces:** the patient journey as it actually is.
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/D3_Workflow_Mapping.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/D3_Workflow_Mapping.docx){ .md-button }
+
+</div>
+
 ## The standard sequence
 
 To be confirmed or corrected on site — it is a starting point, not an answer:

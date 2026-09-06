@@ -14,6 +14,27 @@ stage: "Before you leave"
     and one of them cannot even be confirmed to have been used, because the closure report and the
     hospital's own technician say different things and nobody wrote down which was true.
 
+
+## Download the form
+
+<div class="grid cards hb-dl" markdown>
+
+-   :material-file-pdf-box: **Print and fill in by hand**
+
+    ---
+    A4, hand-fillable, works with no power at the desk.
+
+    [Download PDF](../forms/L1_Handover_Pack.pdf){ .md-button }
+
+-   :material-file-word-box: **Fill in on a computer**
+
+    ---
+    Same layout, editable. Save it with the unit and date in the file name.
+
+    [Download DOCX](../forms/L1_Handover_Pack.docx){ .md-button }
+
+</div>
+
 ## The checklist
 
 - [ ] **Named owner** — name, role, contact. If this is blank, nothing else matters.

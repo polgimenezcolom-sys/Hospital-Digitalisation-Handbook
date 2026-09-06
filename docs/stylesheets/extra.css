@@ -140,3 +140,8 @@
 .md-sidebar--primary .md-nav__item--section:first-child > .md-nav__link { margin-top: 0; }
 .md-sidebar--primary .md-nav__link { font-size: .74rem; line-height: 1.35; margin-top: .45em; }
 .md-sidebar--primary .md-nav__item .md-nav__link--active { font-weight: 600; }
+
+/* Download cards on instrument pages */
+.md-typeset .grid.cards.hb-dl > ul > li { padding: .9rem 1rem; }
+.md-typeset .grid.cards.hb-dl > ul > li > p:first-child { font-family: "IBM Plex Sans", sans-serif; font-size: .9rem; }
+.md-typeset .grid.cards.hb-dl .twemoji { color: var(--md-primary-fg-color); }
