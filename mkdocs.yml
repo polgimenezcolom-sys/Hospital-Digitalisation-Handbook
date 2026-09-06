@@ -28,7 +28,11 @@ theme:
       tip: material/compass
       note: material/book-open-variant
   features:
-    # One collapsible tree on the left showing the whole book — no tabs.
+    # The whole book stays visible in the left sidebar on every page.
+    # navigation.sections renders each part as a heading with its pages always
+    # listed — without it, Material "drills down" into a section and hides the
+    # rest of the book behind a back arrow.
+    - navigation.sections
     - navigation.indexes
     - navigation.path
     - navigation.top

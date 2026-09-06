@@ -131,3 +131,12 @@
 .md-typeset .grid.cards > ul > li { padding: 1rem 1.1rem; }
 .md-typeset .grid.cards > ul > li > hr { margin: .6rem 0; }
 .md-typeset .grid.cards > ul > li > p:first-child { font-family: "IBM Plex Serif", serif; font-size: 1.05rem; font-weight: 600; }
+
+/* Sidebar as a book outline: section headings, tighter rows, a little more room */
+.md-sidebar--primary .md-nav__item--section > .md-nav__link {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .64rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--md-default-fg-color--light); margin-top: 1.1rem;
+}
+.md-sidebar--primary .md-nav__item--section:first-child > .md-nav__link { margin-top: 0; }
+.md-sidebar--primary .md-nav__link { font-size: .74rem; line-height: 1.35; margin-top: .45em; }
+.md-sidebar--primary .md-nav__item .md-nav__link--active { font-weight: 600; }
