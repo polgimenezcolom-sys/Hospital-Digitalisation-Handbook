@@ -50,7 +50,9 @@ stage: "Before you leave"
       restored is a belief.
 - [ ] **Cutover plan**, if paper is being retired after you leave — the date, who announces it, what
       happens on the day.
-- [ ] **Who checks it at 6 and 12 months**, by name and date.
+- [ ] **Who checks it at 6 and 12 months**, by name and date — and they know they will be filling in
+      [S-1](S1-Follow-Up.md). A name with no form attached is how every previous follow-up in this
+      project's archive quietly did not happen.
 - [ ] **What you deliberately did *not* do, and why** — the next team's scope starts here. This is the
       most useful page in the pack.
 - [ ] **The version of this handbook you followed.**

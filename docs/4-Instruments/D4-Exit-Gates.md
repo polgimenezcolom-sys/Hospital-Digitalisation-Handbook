@@ -45,18 +45,26 @@ Two conditions apply regardless of which phase you are closing:
 - A **hospital-usable runbook** exists, written for zero prior IT experience, on the assumption that
   a volunteer visits once or twice a year
 
+## The outcome measures
+
+After Proctor et al. (2011). **Four of the eight are measured with a fixed definition**, because they
+are the four that [S-1](S1-Follow-Up.md) re-measures at six and twelve months — and a measure whose
+definition changes between cohorts cannot be compared across them.
+
+| Outcome | Definition — use exactly this | Denominator |
+|---|---|---|
+| **Adoption** | Eligible staff who used it in a normal week ÷ eligible staff | Count the eligible staff and write the number down; "most of them" is not a measurement |
+| **Fidelity** | Records entered at the point of care ÷ records entered | Sample one real day, count both. Batched-from-paper is the failure this detects |
+| **Penetration** | Units live ÷ units in scope at handover | Name the units on both sides of the division |
+| **Sustainability** | Running, with a named owner in post, on a stated date | Yes/no plus the date. Re-asked on S-1 |
+
+The other four — **Acceptability, Appropriateness, Feasibility, Implementation cost** — are recorded
+in prose, not as numbers. They matter, but they will not be measured honestly in the last week of a
+three-week deployment, and a form that returns three real numbers and five guesses produces something
+that looks like data. Write a sentence each.
+
 !!! danger "Open — not yet settled"
 
-    These gates are engineering conditions. They need the measurable outcomes below attached to each
-    one, so that a later team can test whether a gate was genuinely passed rather than declared.
-
-    | Outcome | The question | How you would measure it here |
-    |---|---|---|
-    | Acceptability | Do staff find it agreeable? | Short structured question at handover |
-    | Adoption | Did they take it up? | Eligible staff using it weekly |
-    | Appropriateness | Does it fit this setting? | Workflow steps matched vs. worked around |
-    | Feasibility | Can it be done here? | Phases completed vs. planned |
-    | Fidelity | Used as intended? | Entered at point of care vs. batched from paper |
-    | Implementation cost | What did it take? | Hardware, travel, staff time, recurrent cost |
-    | Penetration | How far did it spread? | Units live vs. units in scope |
-    | Sustainability | Still running? | Checked remotely at 6 and 12 months |
+    The four definitions above are stated but **not yet calibrated against a completed deployment**.
+    Nobody has run them end to end, so the denominators may turn out to be impractical to count in the
+    field. The first team to use them should say so on [A-1](A1-Debrief.md).

@@ -2,9 +2,10 @@
 
 Twelve problems, in the order a deployment meets them.
 
-None of these are invented. Each one is something that happened at St. John of God Hospital in
-Lunsar, at St. Jean de Dieu in Yassa–Douala, or in the eight years of project files between them —
-though the scenes are written as they would happen to you, not as a report of what happened to us.
+None of these are invented. Each one is recorded — at St. John of God Hospital in Lunsar, where the
+author worked in 2026; at St. Jean de Dieu in Yassa–Douala, from the counterpart’s own written
+evaluation; or in the project files of the eight years between them. The scenes are written as they
+would happen to you, not as a report of a trip anyone made.
 
 Read it front to back before you travel. It takes about an hour, and it is the difference between
 knowing what to install and knowing what you are actually up against.

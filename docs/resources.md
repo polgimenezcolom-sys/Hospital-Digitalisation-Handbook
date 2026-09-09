@@ -4,6 +4,9 @@ Everything you can take away from this handbook, in one place.
 
 ## The instrument forms
 
+Ten instruments. Nine are completed on the trip; [S-1](4-Instruments/S1-Follow-Up.md) is completed
+six and twelve months later, by the person named in L-1.
+
 Print and fill by hand, or fill on a computer. Each carries the handbook version in its footer.
 
 | | Instrument | PDF | DOCX | Phone |
@@ -17,6 +20,7 @@ Print and fill by hand, or fill on a computer. Each carries the handbook version
 | **D-4** | Phase exit gate | [PDF](forms/D4_Phase_Exit_Gate.pdf) | [DOCX](forms/D4_Phase_Exit_Gate.docx) | |
 | **L-1** | Handover pack | [PDF](forms/L1_Handover_Pack.pdf) | [DOCX](forms/L1_Handover_Pack.docx) | |
 | **A-1** | Debrief and feedback | [PDF](forms/A1_Debrief_and_Feedback.pdf) | [DOCX](forms/A1_Debrief_and_Feedback.docx) | |
+| **S-1** | Six- and twelve-month check | [PDF](forms/S1_Six_and_Twelve_Month_Check.pdf) | [DOCX](forms/S1_Six_and_Twelve_Month_Check.docx) | |
 
 **Using the KoBo form.** Create a free project at [kobotoolbox.org](https://www.kobotoolbox.org/),
 choose *Upload an XLSForm*, deploy, then install **KoboCollect** on the team's phones and download

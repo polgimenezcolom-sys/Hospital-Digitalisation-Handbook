@@ -48,11 +48,27 @@ stage: "Once you are back"
 
 !!! danger "Open — not yet settled"
 
-    Two things are unresolved and the loop does not work without them:
+    Two things are unresolved and the loop does not work without them.
 
-    1. **Can this genuinely be attached to the existing closure report?** Is that format fixed by the
-       funder, or can it be extended? If it cannot, the feedback loop needs a different host.
-    2. **Who owns the merge, and how often?** Without a named owner and a cadence, three versions of
-       this handbook will exist within two years and none will be canonical.
+    **1. Can this be attached to the existing closure report?** Is that format fixed by the funder,
+    or can AUCOOP extend it? If it cannot, the feedback loop needs a different mandatory host — a
+    voluntary one will not be completed.
+
+    **2. Who merges the returns, and how often?** Unsettled as of v0.4. A decision here has to name
+    four things, and naming three of them is the same as naming none:
+
+    | | What it must say |
+    |---|---|
+    | **Who** | A person or a role, written into this page — not "the association" |
+    | **When** | A date in the year, tied to something that already happens |
+    | **What "merged" means** | Handbook edited and version bumped, or the return simply filed |
+    | **Who takes over** | How the role passes to the next holder, and who decides |
+
+    Until those four exist, every other mechanism on this page is decoration: returns will be
+    written and nothing will read them. That is precisely how the 2017 methodology was lost.
+
+**A-1 is not the end of the loop.** It closes the trip; the deployment is not measured until
+[S-1](S1-Follow-Up.md) comes back at six and twelve months. Before you file this, check that L-1
+section 4 has a name and two dates in it.
 
 Then write your deployment up properly: [case study template](../contributing/case-study.md).

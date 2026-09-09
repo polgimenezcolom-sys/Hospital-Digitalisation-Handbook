@@ -14,3 +14,8 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# LibreOffice leftovers from `python scripts/build_forms.py` (the PDF conversion
+# step). Harmless, but they land in docs/forms/ on every run.
+.~lock.*#
+*.tmp

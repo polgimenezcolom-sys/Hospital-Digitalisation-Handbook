@@ -45,10 +45,23 @@ chapter, (3) everything else.
 
 ## 3. Current status (keep this current)
 
-- **v0.3**, 56 pages, deployed. Nine instruments generated as DOCX + PDF.
-- **Open and blocking v1.0:** E1 (B-1 score thresholds), **E2 (who merges A-1 returns, and how
-  often — the most important)**, E3 (can A-1 attach to the CCD closure report?), E4 (internal or
-  public?), E5 (long-term home). Tracked in `../TFM_Open_Questions.md`.
+- **v0.4**, deployed. **Ten** instruments generated as DOCX + PDF — S-1 was added on 2026-09-09.
+- **v0.4 added the outcome half of the loop.** Until then every instrument was completed between
+  "before you fly" and the fortnight after landing, while the variable the thesis rests on —
+  survival — is measured in years. Three forms deferred to a six- and twelve-month check and none of
+  them was a document anyone could fill in. **S-1 is that document**, and its owner is named
+  per deployment in L-1 §4, not centrally, so it works while E2 stays open. Also added: B-2's
+  stop-rule override record, B-3's permission-vs-instruction field, A-1 §0 "what we inherited" and
+  A-1 §2b the decision log, and fixed definitions for the four D-4 outcomes that S-1 re-measures.
+  Rationale and the findings behind each: `HANDBOOK_TOOL_ANALYSIS.md`.
+- **Open and blocking v1.0:** E1 (B-1 score **anchors** and thresholds — the anchors now matter more
+  than the thresholds, because S-1 re-scores B-1 and an unanchored scale is not comparable between
+  cohorts), **E2 (who merges A-1 returns, and how often)**, E3 (can A-1 attach to the CCD closure
+  report?), E4 (internal or public?), E5 (long-term home — decided, see §10). Tracked in
+  `../TFM_Open_Questions.md`.
+- **Not yet done from the tool analysis:** the structured per-deployment summary sheet (§5.4 there —
+  the change that makes cross-cohort comparison possible at all), a level 1–2 recipe, a "before you
+  start" arrival page, D-1 provenance columns, and the technical-guide figure sync.
 - **Known stale:** the technical guide still carries pre-audit figures. See `HANDBOOK_BRIEF.md`
   §7(4) for the eight exact corrections to propagate.
 
@@ -120,13 +133,40 @@ docs/stylesheets/extra.css   AUCOOP navy #0b3583, stage badges, download cards
 ```
 
 - Build: `mkdocs build --strict` (also runs in `.github/workflows/deploy.yml`).
+- **Bumping the version touches six places.** There is no single source; `extra.version` in
+  `mkdocs.yml` only feeds the announce banner. Change all of these together or the handbook drifts
+  against itself, which it already did between v0.2 and v0.3:
+
+  | File | What carries the version |
+  |---|---|
+  | `mkdocs.yml` | `extra.version` — the top banner |
+  | `scripts/build_forms.py` | `VERSION` — the footer of all nine forms and the KoBo XLSForm |
+  | `docs/index.md` | hero eyebrow, and "It is version X" near the foot |
+  | `docs/1-Introduction/1.3-How-To-Use-It.md` | "This handbook is **vX**" in the danger box |
+  | `docs/contributing/index.md` | first line |
+  | Status boxes | `docs/4-Instruments/index.md`, `docs/5-Real-Deployments/index.md`, `docs/3B-Technical-Guide/Bahmni.md` |
+
 - Forms: `python scripts/build_forms.py` — **bump `VERSION` in that file when you change them**.
+  LibreOffice leaves `.~lock.*#` and a `*.tmp` in `docs/forms/` on every run; both are gitignored.
 - `mkdocs.yml` uses `navigation.sections` deliberately: it keeps the whole book visible in the
   sidebar on every page. An earlier drill-down config made the menu vanish inside chapters. Do not
   revert it.
 - Story chapters carry `act:` / `chapter:` front matter used by the overrides template.
 
-## 9. Housekeeping
+## 9. Releasing a version
+
+Do the whole thing in one commit, or the handbook drifts against itself — which it did between v0.2
+and v0.3, when four pages still claimed v0.2 while the banner said v0.3.
+
+1. Bump the version in all six places in the table above.
+2. `python scripts/build_forms.py` — regenerates all ten DOCX + PDF and the KoBo XLSForm with the new
+   footer. Never hand-edit anything in `docs/forms/`.
+3. `mkdocs build --strict`.
+4. Update the status boxes that carry a version, and §3 of this file.
+5. Commit forms and source together. A commit that changes the forms without the version, or the
+   version without the forms, produces two artefacts wearing the same number.
+
+## 10. Housekeeping
 
 - `aucoop_field_handbook.html` in the repo root is the **superseded** single-file first version.
   Archive or delete it — two artefacts claiming to be the handbook is precisely the drift problem
@@ -135,3 +175,17 @@ docs/stylesheets/extra.css   AUCOOP navy #0b3583, stage badges, download cards
   Say so rather than reporting a push that did not happen.
 - Anything that changes the published site is a correctness issue, not a cosmetic one: the live URL
   is what a volunteer reads.
+
+## 11. Settled decisions
+
+- **E5 · Long-term home (2026-09-09).** Its own repository under the **aucoop** organisation. Not
+  inside a deployment repo — the handbook must outlive any one platform. Transfer pending; until it
+  happens, `repo_url`/`site_url` and the clone command in `docs/contributing/index.md` must name the
+  repository that actually exists.
+- **E4 · Audience (2026-09-09).** AUCOOP-internal. ⚠️ **Not yet implemented, and it conflicts with
+  the current state:** the site is published on GitHub Pages and is world-readable today. See the
+  open note in `HANDBOOK_BRIEF.md` — going internal costs the discoverability the handbook's own
+  argument rests on, and GitHub Pages on a private repository needs a paid plan. Do not make the
+  repo private without resolving where volunteers then read it.
+- **E2 · Feedback owner (2026-09-09).** Deliberately **not settled**. `docs/4-Instruments/A1-Debrief.md`
+  states the four things a decision must name. Do not quietly invent an owner to close the box.

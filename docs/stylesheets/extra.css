@@ -101,10 +101,12 @@
 .hb-stage--while-you-are-there,.hb-code--during  { background: rgba(37,107,82,.12);  color: #1e5642; }
 .hb-stage--before-you-leave,   .hb-code--leaving { background: rgba(181,84,45,.12);  color: #8a3c1e; }
 .hb-stage--once-you-are-back,  .hb-code--back    { background: rgba(90,102,114,.14); color: #3f4a55; }
+.hb-stage--six-and-twelve-months-later, .hb-code--later { background: rgba(122,61,143,.12); color: #6b3480; }
 [data-md-color-scheme="slate"] .hb-stage--before-you-go,      [data-md-color-scheme="slate"] .hb-code--before  { color: #8fb4de; }
 [data-md-color-scheme="slate"] .hb-stage--while-you-are-there,[data-md-color-scheme="slate"] .hb-code--during  { color: #7fc5a5; }
 [data-md-color-scheme="slate"] .hb-stage--before-you-leave,   [data-md-color-scheme="slate"] .hb-code--leaving { color: #e8a98a; }
 [data-md-color-scheme="slate"] .hb-stage--once-you-are-back,  [data-md-color-scheme="slate"] .hb-code--back    { color: #b8c2cc; }
+[data-md-color-scheme="slate"] .hb-stage--six-and-twelve-months-later, [data-md-color-scheme="slate"] .hb-code--later { color: #cfa5df; }
 .md-typeset a.hb-code:hover { filter: brightness(.9); }
 
 /* ------------------------------------------------------------------

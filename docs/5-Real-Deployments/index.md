@@ -15,7 +15,7 @@ handbook; it is the finding.
 
 Adding yours: [case study template](../contributing/case-study.md).
 
-!!! warning "Status: v0.2"
+!!! warning "Status: v0.4"
 
     Ada Foah and Meki are reconstructed from two CCD forms, a 2016 blog and a 2017 thesis, found in
     September 2026. Lunsar and Douala are outlines from the companion thesis. None is yet a full

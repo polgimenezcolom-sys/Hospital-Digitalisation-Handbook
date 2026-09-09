@@ -3,7 +3,7 @@
 **Produces:** a phased Bahmni configuration, version-controlled per phase, with the folder ID as the
 primary identifier and every screen stripped to what this hospital uses.
 
-!!! warning "Status: v0.2 — procedure outline"
+!!! warning "Status: v0.4 — procedure outline"
 
     The step-by-step configuration lives in the companion deployment repository and its per-phase
     `configuration/` folders. This page says what each phase contains and the rules that were learned;

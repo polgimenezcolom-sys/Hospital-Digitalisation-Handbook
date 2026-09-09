@@ -4,9 +4,9 @@ hide:
 ---
 
 <div class="hb-hero" markdown>
-<p class="hb-hero__eyebrow">AUCOOP · Field handbook · Version 0.3</p>
+<p class="hb-hero__eyebrow">AUCOOP · Field handbook · Version 0.4</p>
 <h1 class="hb-hero__title">Putting a hospital information system into a hospital that runs on paper — and having it still be there when you come back.</h1>
-<p class="hb-hero__lede">A practical guide for volunteer engineering teams who arrive for two or three weeks, install something, and fly home. Written from ten years of deployments in Ghana, Ethiopia, Sierra Leone and Cameroon — including the ones that did not work, and why.</p>
+<p class="hb-hero__lede">A practical guide for volunteer engineering teams who arrive for two or three weeks, install something, and fly home. Written from AUCOOP’s documentary record of deployments in Ghana, Ethiopia, Sierra Leone and Cameroon between 2016 and 2026, and from one deployment at Lunsar in 2026 — including the ones that did not work, and why.</p>
 <p class="hb-hero__actions">
 <a class="md-button md-button--primary" href="2-Story/">Read the story</a>
 <a class="md-button" href="1-Introduction/1.2-Who-This-Is-For/">Who this is for</a>
@@ -64,8 +64,8 @@ hide:
 
     *What do I have to produce?*
 
-    Nine things you actually fill in, ordered by when — before you go, while you're there, the day
-    you leave, once you're back.
+    Ten things you actually fill in, ordered by when — before you go, while you're there, the day you
+    leave, once you're back, and six months after that.
 
     [:octicons-arrow-right-24: See the instruments](4-Instruments/index.md)
 
@@ -111,7 +111,7 @@ There is a whole chapter on how to decide to do less — and on when not to depl
 photograph of a paper form; the fourteen we now have were collected months later, by asking. The
 hospital's bed capacity is still recorded three different ways in three different documents.
 
-**This is a living book.** It is version 0.3 and it is wrong in places nobody has found yet. When
+**This is a living book.** It is version 0.4 and it is wrong in places nobody has found yet. When
 your project finds one, [say so](contributing/index.md). That is how the next team starts from
 somewhere better than you did.
 

@@ -5,17 +5,26 @@
 !!! danger "Status: no phase achieved — the platform is on standby"
 
     GNU Health was installed, configured against the model hospital profile, and tagged — but the
-    **interface simplification that Phase 1 requires was never solved**, and the platform is on
-    standby pending a way to do it.
+    **interface simplification that Phase 1 requires was not achieved in the time available**, and
+    the platform is on standby.
 
-    This is a finding, not an omission, and it is worth understanding before you choose a platform:
-    where Bahmni's JSON configuration let a screen be cut to the two fields a pharmacist uses,
-    changing GNU Health's interface meant **writing a Tryton module in Python and XML**. A 2015 UPC
-    thesis that adapted GNU Health for geriatric care reached the same conclusion independently, and
-    GNU Health's own documentation routes customisation through writing a `z_health_<name>` module.
+    Read that precisely. It was **not** shown to be impossible, and this page does not claim it is.
+    What the deployment found is a difference in the *kind of work* each platform demands:
 
-    For a volunteer association whose next team may not include a Python developer, that difference
-    decides maintainability. See [Choosing the platform](Choosing-Platform.md).
+    > In Bahmni, interface simplification is a **configuration** activity. In GNU Health it is a
+    > **development** activity.
+
+    GNU Health's own documentation routes view customisation through writing a local
+    `z_health_<name>` Python module, so that changes survive an update. Independent work points the
+    same way without going further: Badosa (2015, FIB-UPC) recorded Tryton's limited customisation as
+    a formal obstacle while *adding* a module; Purkayastha et al. (2019) scored GNU Health lowest of
+    five open-source EHRs against 32 functional criteria.
+
+    **What this means for you.** If your team includes a Python developer with time, this is a
+    solvable problem and nobody has yet published the solution — doing it and writing it up would be
+    a real contribution. If it does not, expect simplification to cost development effort that a
+    Bahmni deployment would spend in configuration. That difference decides maintainability for an
+    association whose next team is unknown. See [Choosing the platform](Choosing-Platform.md).
 
 ## What runs
 

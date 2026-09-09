@@ -1,6 +1,6 @@
 # Contributing
 
-This handbook is version 0.2. It is wrong in places nobody has found yet, and the only way those get
+This handbook is version 0.4. It is wrong in places nobody has found yet, and the only way those get
 found is by teams using it and saying what did not match.
 
 **Your project's feedback is the most valuable thing you can send back.** More valuable than the
@@ -20,7 +20,7 @@ The most useful contribution is a written-up deployment. Follow the
 ## Adding or changing a page
 
 ```bash
-git clone https://github.com/aucoop/Hospital-Digitalisation-Handbook
+git clone https://github.com/polgimenezcolom-sys/Hospital-Digitalisation-Handbook
 cd Hospital-Digitalisation-Handbook
 pip install -r requirements.txt
 mkdocs serve

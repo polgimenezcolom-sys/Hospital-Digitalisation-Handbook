@@ -1,6 +1,6 @@
 # The Instruments
 
-The things you actually fill in. Nine of them, ordered by when you use them.
+The things you actually fill in. Ten of them, ordered by when you use them.
 
 An instrument is **done when it is completed**, not when it has been read. Each one has a code short
 enough to say out loud — *"has anyone finished D-1 for the pharmacy?"* is a question a team can ask
@@ -35,7 +35,25 @@ each other in a corridor.
 |---|---|---|
 | [A-1](A1-Debrief.md){ .hb-code .hb-code--back } | Debrief and feedback | What goes back into this handbook |
 
-!!! warning "Status: v0.2"
+## Six and twelve months later
 
-    B-1's scoring thresholds, D-4's measurable criteria and A-1's hosting are still open. Each page
-    says exactly what is unresolved. Do not treat those parts as settled guidance yet.
+| | Instrument | Produces |
+|---|---|---|
+| [S-1](S1-Follow-Up.md){ .hb-code .hb-code--later } | Six- and twelve-month check | Whether it survived — the only outcome this handbook measures |
+
+!!! danger "The one that is not done on the trip"
+
+    Nine of these are completed between the day you decide to go and the fortnight after you land.
+    But survival is measured in years, and it is measured after everyone has gone home.
+
+    [S-1](S1-Follow-Up.md) is the only instrument whose owner is **not** the deploying team. It is
+    named per deployment in [L-1](L1-Handover-Pack.md) section 4, with a date, agreed before anyone
+    flies. Without it every other instrument here records what was *done* and nothing about what
+    became of it — and a record of interventions with no outcomes cannot tell a later reader which of
+    them mattered.
+
+!!! warning "Status: v0.4"
+
+    B-1's scoring anchors and thresholds are still open, and D-4's outcome definitions are stated but
+    not yet calibrated against a completed deployment. Each page says exactly what is unresolved. Do
+    not treat those parts as settled guidance yet.

@@ -3,9 +3,11 @@ site_description: A field guide to deploying an open-source hospital information
 site_author: AUCOOP
 copyright: Copyright &copy; 2026 AUCOOP (https://aucoop.upc.edu)
 
-# Starts under Pol's profile alongside the deployment repos; transfer to the
-# aucoop organisation later (Settings → Danger Zone → Transfer) and update these
-# three lines when that happens.
+# DECISION (2026-09-09): the handbook's long-term home is its own repository under
+# the aucoop organisation — it needs a home that outlives its author. Until the
+# transfer happens (Settings → Danger Zone → Transfer) these four lines and the
+# clone URL in docs/contributing/index.md must keep pointing at the repo that
+# actually exists, or the edit pencil on every page 404s.
 repo_url: https://github.com/polgimenezcolom-sys/Hospital-Digitalisation-Handbook
 repo_name: polgimenezcolom-sys/Hospital-Digitalisation-Handbook
 edit_uri: edit/main/docs/
@@ -96,7 +98,7 @@ plugins:
   - search
 
 extra:
-  version: "0.3"
+  version: "0.4"
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/aucoop
@@ -157,6 +159,7 @@ nav:
       - D-4 · Phase exit gates: 4-Instruments/D4-Exit-Gates.md
       - L-1 · Handover pack: 4-Instruments/L1-Handover-Pack.md
       - A-1 · Debrief and feedback: 4-Instruments/A1-Debrief.md
+      - S-1 · Six- and twelve-month check: 4-Instruments/S1-Follow-Up.md
   - Real Deployments:
       - 5-Real-Deployments/index.md
       - Ada Foah, Ghana (2016–2020): 5-Real-Deployments/5.0-Ada-Foah.md

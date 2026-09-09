@@ -3,7 +3,7 @@
 Build the fillable instrument forms for the Hospital Digitalisation Handbook.
 
 Produces, in docs/forms/:
-  - one .docx per instrument (fill in on a computer)
+  - one .docx per instrument, all ten (fill in on a computer)
   - one .pdf per instrument (print and fill in by hand), converted with LibreOffice
   - D1_Data_Capture_KoBo.xlsx — an XLSForm to upload to KoBoToolbox (phone, offline, photos)
 
@@ -21,7 +21,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-VERSION = "0.3"
+VERSION = "0.4"
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "forms")
 os.makedirs(OUT, exist_ok=True)
 
@@ -144,7 +144,7 @@ def build_B1():
         ["HANDOVER", "Will a handover pack (L-1) exist on departure?", "Yes / No", ""],
     ], widths=[2.4, 7.6, 2.2, 5.2])
     section(d, "3. Result")
-    note(d, "Thresholds are not yet calibrated (v0.3). Use the score to structure the conversation, then complete B-2.")
+    note(d, "Thresholds and scale anchors are not yet calibrated (v0.4). Use the score to structure the conversation, then complete B-2.")
     lines(d, "Summary judgement and who you discussed it with:", 4)
     return d
 
@@ -172,6 +172,16 @@ def build_B2():
     table(d, ["Level chosen (1–4, or 'do not deploy')", "B-1 total score", "Decided by (names)", "Date"], [["", "", "", ""]], widths=[6.0, 3.0, 5.4, 3.0])
     lines(d, "Justification — why this level and not the one above:", 5)
     lines(d, "If we deploy below what was hoped: what has to become true for next year's answer to be higher?", 4)
+    note(d, "That last line is a prediction with a date on it. Next year's team is asked whether it came true — so write something that can be checked.")
+
+    section(d, "4. Stop-rule override — complete this ONLY if you ticked a box in section 1 and are deploying anyway")
+    note(d, "This is the most important section on the form. In 2026 at Lunsar every stop-rule condition was true and a level-4 system was deployed by careful engineers with reasons that were never written down. An override is sometimes right. An unrecorded override is how a decision becomes invisible to everyone who comes after.")
+    table(d, ["Which conditions were true", "Deploying anyway?", "Decided by (names, roles)", "Date"], [
+        ["", "Yes / No", "", ""],
+    ], widths=[6.0, 2.6, 5.4, 3.4])
+    lines(d, "On what grounds — the actual reasoning, not the conclusion:", 4)
+    lines(d, "What is being put in place to compensate, and who is accountable for it:", 4)
+    lines(d, "What would have to be true for us to reverse this decision, and who reviews it:", 3)
     return d
 
 def build_B3():
@@ -188,6 +198,12 @@ def build_B3():
         ["IT Officer / technician", "", "", "", ""],
     ], widths=[3.2, 3.0, 2.2, 4.5, 4.5])
     note(d, "If the IT Officer post does not exist, go back to B-2 — that is a stop-rule condition.")
+    section(d, "1b. Permission or instruction?")
+    note(d, "A director will say yes to visiting engineers. That yes changes nothing on the wards. The mandate is real only when the director tells staff, personally, that this is how the hospital will now work. This is the field that separates the sites that adopted from the sites that did not.")
+    table(d, ["Did the director announce it to staff?", "To whom", "When", "In what form (meeting / memo / word to each head)"], [
+        ["Yes / No / Promised, not yet done", "", "", ""],
+    ], widths=[4.4, 3.6, 2.6, 6.8])
+    note(d, "If the answer is No, or if the director expects YOU to do the telling, you have permission and not a mandate. Say so here rather than proceeding as though you had one.")
     section(d, "2. Super-user candidates (permanent staff, respected, curious — not the most senior)")
     table(d, ["Name", "Unit", "Why them", "Time allowance agreed?"], [["", "", "", ""], ["", "", "", ""]], widths=[4.0, 3.0, 7.0, 3.4])
     section(d, "3. The written agreement (MoU) — tick when the clause exists in writing")
@@ -274,13 +290,28 @@ def build_D4():
         ["A hospital-usable runbook exists, written for zero prior IT experience", "", ""],
         ["The runbook was tested on someone who was NOT in the training", "", ""],
     ], widths=[8.0, 2.2, 6.4])
-    section(d, "2. Outcome measures at this gate")
-    table(d, ["Outcome", "How measured here", "Value", "Notes"], [
-        ["Acceptability", "Structured question to staff", "", ""], ["Adoption", "Eligible staff using it weekly", "", ""],
-        ["Appropriateness", "Workflow steps matched vs worked around", "", ""], ["Feasibility", "Phases completed vs planned", "", ""],
-        ["Fidelity", "Entered at point of care vs batched from paper", "", ""], ["Implementation cost", "Hardware / travel / staff time / recurrent", "", ""],
-        ["Penetration", "Units live vs units in scope", "", ""], ["Sustainability", "Still running at 6 / 12 months (fill in later)", "", ""],
-    ], widths=[3.4, 6.0, 2.6, 4.6])
+    section(d, "2. The four measured outcomes")
+    note(d, "Use these definitions exactly \u2014 S-1 re-measures the same four at six and twelve months, and a measure whose definition changes between cohorts cannot be compared across them. Write the denominator, not just the ratio.")
+    table(d, ["Outcome", "Definition \u2014 use exactly this", "Numerator", "Denominator", "Value"], [
+        ["Adoption", "Eligible staff who used it in a normal week \u00f7 eligible staff", "", "", ""],
+        ["Fidelity", "Records entered at the point of care \u00f7 records entered (sample one real day)", "", "", ""],
+        ["Penetration", "Units live \u00f7 units in scope at handover (name them)", "", "", ""],
+        ["Sustainability", "Running, with a named owner in post, on this date", "", "", ""],
+    ], widths=[2.8, 6.6, 2.4, 2.4, 2.2])
+
+    section(d, "3. The other four \u2014 one sentence each, in prose")
+    note(d, "These will not be measured honestly in the last week of a three-week deployment. A form that returns three real numbers and five guesses produces something that looks like data. Write a sentence.")
+    table(d, ["Outcome", "The question", "What you observed"], [
+        ["Acceptability", "Do staff find it agreeable?", ""],
+        ["Appropriateness", "Does it fit this setting?", ""],
+        ["Feasibility", "Can it be done here, with these people?", ""],
+        ["Implementation cost", "Hardware, travel, staff time, recurrent", ""],
+    ], widths=[3.0, 5.4, 9.0])
+
+    section(d, "4. Six- and twelve-month check")
+    note(d, "Sustainability is not measurable at departure \u2014 it is measurable in a year. Name the person and the dates here, and again in L-1 section 4. They will be filling in S-1.")
+    table(d, ["Who checks", "6-month date", "12-month date", "Contact route that will still work then"], [["", "", "", ""]], widths=[4.0, 3.0, 3.0, 7.4])
+    section(d, "5. What was not done")
     lines(d, "What was NOT done in this phase, and why (the next team's scope starts here):", 5)
     return d
 
@@ -315,11 +346,27 @@ def build_A1():
     d = new_doc("A-1", "Debrief and feedback return", "Once you are back",
         "What goes back into the handbook. Started in the field, closed within two weeks. Under two hours. Attach to the CCD closure report.",
         "Started on site; closed within two weeks of return")
+    section(d, "0. What we inherited")
+    note(d, "The handbook exists because each cohort has started from zero. This section is how that stops being a claim about the past and becomes something measured every year. Answer it even if — especially if — the answer is 'nothing'.")
+    table(d, ["Question", "Answer", "Detail"], [
+        ["Was there a handover pack (L-1) from a previous team?", "Yes / No / Partial", ""],
+        ["Did you find completed instruments from a previous deployment?", "Yes / No — which?", ""],
+        ["Were they usable — could you act on them without re-doing the work?", "Yes / No / Partly", ""],
+        ["Was there a named person at the hospital who could explain what existed?", "Yes / No", ""],
+        ["Did a six- or twelve-month check (S-1) exist for the previous deployment?", "Yes / No", ""],
+    ], widths=[7.4, 3.6, 6.4])
+    lines(d, "What was missing that cost you time — be specific, and estimate the days it cost:", 4)
+    lines(d, "What you had to rediscover that someone already knew:", 3)
+
     section(d, "1. Version and completion")
     table(d, ["Handbook version followed", "Trip dates", "Site", "Team"], [["", "", "", ""]], widths=[4.0, 4.0, 4.6, 4.0])
     section(d, "2. Instruments — completed, skipped, and why")
     note(d, "A skipped instrument is a finding about the handbook, not a failure of the team. Say so plainly.")
-    table(d, ["Instrument", "Completed?", "If skipped or partial — why?"], [[c, "", ""] for c in ["B-1", "B-2", "B-3", "D-1", "D-2", "D-3", "D-4", "L-1"]], widths=[2.4, 2.6, 11.6])
+    table(d, ["Instrument", "Completed?", "If skipped or partial — why?"], [[c, "", ""] for c in ["B-1", "B-2", "B-3", "D-1", "D-2", "D-3", "D-4", "L-1"]] + [["S-1", "Scheduled? Y / N", "Named owner and dates, from L-1 section 4 — this is the only outcome measurement the deployment will ever produce"]], widths=[2.4, 2.6, 11.6])
+    section(d, "2b. Where you departed from the handbook, and why")
+    note(d, "Different from section 3. A departure can be entirely correct and still needs recording — the next team's first question about any configuration is 'why is it set up this way?', and an unanswered why gets redesigned from scratch.")
+    table(d, ["What the handbook says", "What we did instead", "Why", "Would you do it again?"], [], widths=[4.4, 4.4, 5.2, 3.4], blank_rows=5)
+
     section(d, "3. Where the handbook was wrong on site")
     lines(d, "Page or instrument, what it said, what was actually true:", 6)
     section(d, "4. What you had to invent because it was not covered")
@@ -328,6 +375,75 @@ def build_A1():
     table(d, ["Adoption", "Fidelity", "Penetration", "Sustainability (fill at 6 / 12 months)"], [["", "", "", ""]], widths=[4.0, 4.0, 4.0, 4.6])
     section(d, "6. The three questions you wish you had asked while still there")
     lines(d, "", 4)
+    section(d, "7. Who can answer questions about this deployment in a year")
+    note(d, "A student email address expires. Give a route that will still work when the next team reads this.")
+    table(d, ["Name", "Role then", "Contact route with a real lifespan", "Until when"], [["", "", "", ""]], widths=[4.0, 3.6, 6.4, 3.4])
+    lines(d, "The one thing the next team should do first:", 2)
+    return d
+
+def build_S1():
+    d = new_doc("S-1", "Six- and twelve-month check", "Six and twelve months later",
+        "Did it survive? The only instrument completed after the team has gone home — and the only one that measures an outcome rather than an intervention. Ten minutes, remotely, by the person named in L-1 section 4.",
+        "At six months and again at twelve months, on the dates written in L-1")
+    note(d, "Designed to be answerable from one conversation with the super-user, by phone or messaging. You are not auditing anyone. A blank field is a finding; an invented one is worse than nothing.")
+
+    section(d, "1. Which check is this")
+    table(d, ["Check", "Deployment it follows (site, dates)", "Handbook version that deployment followed", "Answered by, and how reached"], [
+        ["\u2610 6 months   \u2610 12 months", "", "", ""],
+    ], widths=[3.4, 5.0, 4.0, 5.0])
+
+    section(d, "2. Is it running")
+    table(d, ["Question", "Answer", "How you know"], [
+        ["Is the system reachable / running at all?", "Yes / No / Partly", ""],
+        ["Units live now, out of the units handed over", "     /     ", ""],
+        ["Who is using it — roles and roughly how many people", "", ""],
+        ["Is it used at the point of care, or entered later from paper?", "Point of care / Batched / Both", ""],
+    ], widths=[7.0, 4.4, 6.0])
+
+    section(d, "3. Paper")
+    note(d, "The handbook's central design rule is that a process moves only when the digital path is the ONLY path. This is where you find out whether it stayed that way.")
+    table(d, ["Process retired at handover (name it)", "Still retired?", "If it came back — when, and what triggered it"], [], widths=[5.6, 2.8, 9.0], blank_rows=3)
+
+    section(d, "4. The owner")
+    table(d, ["Question", "Answer"], [
+        ["Is the named owner from L-1 still in post?", "Yes / No — if no, who now?"],
+        ["Is the post funded, and by whom?", ""],
+        ["Are the super-users still in place, and do they still have the time allowance?", ""],
+        ["Has anyone at the hospital been paid, in the period, for work on this system?", ""],
+    ], widths=[9.4, 8.0])
+
+    section(d, "5. What broke since we left")
+    note(d, "Including anything that broke and was NOT fixed. Silent downtime is the failure mode this project has repeatedly missed \u2014 a remote check in February 2026 found a server inactive and there is no record of what happened next.")
+    table(d, ["What happened", "Roughly when", "Who dealt with it", "How long was it down?", "Did they need outside help?"], [], widths=[5.0, 2.6, 3.4, 3.0, 3.4], blank_rows=4)
+
+    section(d, "6. B-1 re-scored \u2014 the same seven dimensions, today")
+    note(d, "Score exactly as in B-1, 0 (no gap) to 10 (total gap), against the same anchors. The point is the movement, not the number: a gap that has not closed is the finding.")
+    table(d, ["Dimension", "Score at B-1 (before travel)", "Score at departure (D-4)", "Score today", "What moved, or why nothing did"], [
+        ["Information", "", "", "", ""], ["Technology", "", "", "", ""], ["Processes", "", "", "", ""],
+        ["Objectives & values", "", "", "", ""], ["Staffing & skills", "", "", "", ""],
+        ["Management systems", "", "", "", ""], ["Other resources", "", "", "", ""],
+        ["TOTAL", "", "", "", ""],
+    ], widths=[3.2, 2.6, 2.6, 2.2, 6.8])
+
+    section(d, "7. The four outcomes, now")
+    note(d, "The same four as D-4, measured the same way. If you cannot measure one from here, write 'not measurable remotely' \u2014 that is itself worth knowing about the measure.")
+    table(d, ["Outcome", "Definition used", "Value at departure", "Value now"], [
+        ["Adoption", "Eligible staff using it in a normal week \u00f7 eligible staff", "", ""],
+        ["Fidelity", "Records entered at the point of care \u00f7 records entered", "", ""],
+        ["Penetration", "Units live \u00f7 units in scope at handover", "", ""],
+        ["Sustainability", "Running, with a named owner in post, on this date", "", ""],
+    ], widths=[3.0, 7.4, 3.4, 3.6])
+
+    section(d, "8. What the hospital wants that it is not getting")
+    lines(d, "In their words. This is the next deployment's requirements list, gathered a year early and for free:", 4)
+
+    section(d, "9. Where this goes")
+    checklist(d, [
+        ("Filed with the deployment's other completed instruments", "same folder, same naming convention"),
+        ("Sent to whoever merges the A-1 returns", "if that role is still unnamed, send it to the handbook repository as an issue"),
+        ("The next check is scheduled", "12-month check booked now, with a name and a date \u2014 or, at 12 months, closed"),
+    ])
+    table(d, ["Next check due", "Who will do it", "Contact route that will still work then"], [["", "", ""]], widths=[4.0, 5.4, 8.0])
     return d
 
 # ---------------------------------------------------------------- XLSForm (KoBoToolbox) ---
@@ -413,6 +529,7 @@ FORMS = {
     "D4_Phase_Exit_Gate": build_D4,
     "L1_Handover_Pack": build_L1,
     "A1_Debrief_and_Feedback": build_A1,
+    "S1_Six_and_Twelve_Month_Check": build_S1,
 }
 
 def main():
