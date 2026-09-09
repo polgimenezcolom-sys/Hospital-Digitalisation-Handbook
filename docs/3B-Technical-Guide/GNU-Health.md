@@ -2,10 +2,20 @@
 
 **Produces:** a phase-1 GNU Health configuration for the model hospital.
 
-!!! warning "Status: v0.2 — Phase 1 only"
+!!! danger "Status: no phase achieved — the platform is on standby"
 
-    Phases 2–4 are not built. This page describes what exists and what the next phases would contain;
-    it does not pretend they are done.
+    GNU Health was installed, configured against the model hospital profile, and tagged — but the
+    **interface simplification that Phase 1 requires was never solved**, and the platform is on
+    standby pending a way to do it.
+
+    This is a finding, not an omission, and it is worth understanding before you choose a platform:
+    where Bahmni's JSON configuration let a screen be cut to the two fields a pharmacist uses,
+    changing GNU Health's interface meant **writing a Tryton module in Python and XML**. A 2015 UPC
+    thesis that adapted GNU Health for geriatric care reached the same conclusion independently, and
+    GNU Health's own documentation routes customisation through writing a `z_health_<name>` module.
+
+    For a volunteer association whose next team may not include a Python developer, that difference
+    decides maintainability. See [Choosing the platform](Choosing-Platform.md).
 
 ## What runs
 
