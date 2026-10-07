@@ -14,7 +14,7 @@ always points at level 4; the question is what the hospital can sustain. If the 
 |---|---|---|
 | **What it is** | OpenMRS for clinical records + Odoo (or OpenBoxes) for pharmacy/stock + OpenELIS for lab + reporting, behind one proxy | One application on the Tryton framework with one PostgreSQL database for everything |
 | **Architecture** | Several systems, several databases, integrated — or deliberately decoupled | Single database, single application |
-| **Footprint** | Heavy: Docker stack, ~12 GB RAM comfortable | Light: runs on modest hardware, even ARM |
+| **Footprint** | Heavy: Docker stack; 8 GB published minimum, implementers advise 16 GB for 10–15 users | Light: runs on modest hardware, even ARM |
 | **Customisation** | Config files and a form builder; simplification is deleting things from JSON | Tryton modules and PYSON; low-code within its model |
 | **Community and support** | Large; commercial support firms in the region; a documented multi-country, multi-decade record | Smaller; enthusiastic; thin published longitudinal evidence |
 | **Offline** | Once had Bahmni Connect; effectively unmaintained on current Docker releases | No native offline client |
@@ -47,5 +47,5 @@ and write what would have made you choose the other.
 
 !!! tip "In depth"
 
-    Companion thesis, Chapter 2 (the comparison matrix and its criteria) and Chapter 5, §5.1 (why two
-    platforms were deployed). Bonet (2017), §7.1, for the earlier comparison.
+    Companion thesis, Chapter 5 (the comparison, its sources and why Bahmni was carried forward) and
+    §8.3.6 (simplification as configuration versus development). Bonet (2017), §7.1, for the earlier comparison.

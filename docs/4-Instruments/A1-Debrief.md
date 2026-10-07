@@ -54,7 +54,7 @@ stage: "Once you are back"
     or can AUCOOP extend it? If it cannot, the feedback loop needs a different mandatory host — a
     voluntary one will not be completed.
 
-    **2. Who merges the returns, and how often?** Unsettled as of v0.4. A decision here has to name
+    **2. Who merges the returns, and how often?** Unsettled as of v0.5. A decision here has to name
     four things, and naming three of them is the same as naming none:
 
     | | What it must say |

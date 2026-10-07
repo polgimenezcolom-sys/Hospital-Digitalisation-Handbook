@@ -50,8 +50,8 @@ These decide survival rather than fit, and they are yes/no:
 
 | Code | Question |
 |---|---|
-| `PAID-IT` | Is there a paid IT person at the hospital? |
-| `OWNER-5Y` | Is there a funded owner for the next five years? |
+| `IT-PERSON` | Is a person employed by the hospital responsible for the system, reachable after the team leaves? |
+| `OWNER-COSTS` | Is there a named owner, and an agreement on who pays the running costs? |
 | `PRESENCE` | How long is the organisation committed to this site? (years) |
 | `HANDOVER` | Will a handover pack ([L-1](L1-Handover-Pack.md)) exist on departure? |
 

@@ -20,14 +20,17 @@ ever taken. Nobody switches anything off.
 
 ## Choose the process, not the department
 
-Pick the narrowest thing you can genuinely finish. Registration is almost always right:
+Pick processes you can genuinely finish. Phase 1 is **registration and each unit's own clinical
+register** — the companion thesis (§6.2) moves it into the system in every unit at once, so that from
+the first day the hospital holds a history for every patient wherever that patient is seen. That is
+only possible with an interface simplified for its users and the entry criteria met:
 
-- One desk, two or three staff, one well-defined event
-- It is where identity is created, so everything later depends on it
-- The digital path can plausibly become the only path within one deployment
+- Registration is where identity is created, so everything later depends on it
+- Each unit's register is one well-defined form, reproduced field for field
+- The digital path can become the only path for each of them, unit by unit, as its exit criteria are met
 
-"The wards" is almost always wrong: twenty staff across three shifts, several buildings, half a dozen
-forms, and no moment at which the change completes.
+What is almost always wrong is a process that cannot finish: billing tied to an accounting system you
+are not replacing, or pharmacy dispensing that depends on a payment receipt you are not digitising.
 
 ## Preconditions — every one, for the specific process
 
@@ -48,16 +51,19 @@ forms, and no moment at which the change completes.
    same clerk. If digital is slower, stop here and go to
    [simplification](../3B-Technical-Guide/Bahmni.md) — do not proceed on the promise that it will
    get faster.
-3. **Run both for a bounded period — one to two weeks, with an end date.** This is the only
-   legitimate parallel run: short, scheduled, and explicitly a test. Its purpose is to find the case
-   the digital path cannot handle, not to let staff choose.
+3. **Test before go-live, not by running both registers.** With the real staff, on the real screens,
+   against the paper register's fields — the entry criteria of [D-4](../4-Instruments/D4-Exit-Gates.md).
+   Its purpose is to find the case the digital path cannot handle. Paper stays only as the
+   **emergency backup** for outages ([downtime procedure](../3B-Technical-Guide/Server.md)), never as a
+   second register.
 4. **Fix what the test found.**
 5. **Set the date.** The director announces it, a week ahead, to the unit. The announcement says what
    happens on the day and what to do if the system is down.
 6. **On the day: the book goes in a cupboard.** Not in the drawer. Not "just in case". Somewhere it
    takes effort to retrieve.
-7. **For the first fortnight, someone is reachable at every shift change.** If you have flown home,
-   that someone is the super-user, and they know how to reach tier 2.
+7. **Until the exit criteria are met, someone is reachable at every shift change.** If you have flown
+   home, that someone is the super-user, and they know how to reach tier 2. There is no fixed number of
+   days: the anchor is one complete reporting cycle in which the system's counts match paper.
 
 ## If you are leaving before the date
 

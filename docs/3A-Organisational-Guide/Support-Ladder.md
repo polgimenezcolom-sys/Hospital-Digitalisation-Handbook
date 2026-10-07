@@ -16,7 +16,7 @@ how that ends.
 
 The ladder is the designed answer. It exists on paper, it has names, and it is in the handover pack.
 
-## The three tiers
+## The tiers
 
 **Tier 0 — self-help, in the product.**
 Short, task-focused help pages, reachable from where the person is working, that work offline. Not a
@@ -24,14 +24,19 @@ PDF on a shared drive. At Lunsar this is the in-product Help Center served from 
 configuration itself — a home tile, bookmarkable, bilingual, with a page per task and an error
 reference. Build tier 0 as part of configuration, not afterwards.
 
-**Tier 1 — the super-user, on site.**
-One or two [named people](Super-Users.md) who answer nine questions in ten. With time allowance.
-Reachable across shifts.
+**Tier 1 — on site: the hospital's IT staff and the super-users.**
+The hospital's own technician for first-line problems, and one or two [named people](Super-Users.md)
+in the units who answer nine questions in ten. With time allowance. Reachable across shifts.
 
-**Tier 2 — outside help.**
-Your organisation, for a defined period — and, better, a **paid support arrangement** with a company
-that does this professionally. There are firms that support Bahmni commercially in the region. That
-costs money. Being able to name the cost is more useful to the hospital than pretending it is free,
+**Tier 2 — your organisation, remotely.**
+Configuration problems, diagnosed through the VPN, for a defined period — then talked through with
+tier 1 rather than fixed silently.
+
+**Tier 3 — a contracted implementer.**
+Where the hospital can fund it, a firm that supports Bahmni professionally, under a **service-level
+agreement**, for upgrades and defects that need development. Firms consulted for this work quoted
+US$25–30 an hour, and work on one-time, milestone-based payments with maintenance under an agreement
+(companion thesis §8.3.2, §8.5). That costs money. Being able to name the cost is more useful to the hospital than pretending it is free,
 because it is the number the board needs to decide whether to keep the system.
 
 ## Steps

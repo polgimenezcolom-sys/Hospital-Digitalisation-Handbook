@@ -18,50 +18,55 @@ All connections go **outwards** from the hospital to a rented server with a real
 stay open. You connect to the same server. Now you and the hospital are on one network.
 
 - **Hub:** a VPS (Hetzner, Contabo, OVH — 3–5 €/month) with a static public IPv4, running WireGuard.
-- **Spoke 1:** the hospital server, holding a persistent tunnel open with `PersistentKeepalive = 20`.
+- **Spoke 1:** the hospital server, holding a persistent tunnel open with `PersistentKeepalive = 25` —
+  the interval WireGuard's own documentation gives for keeping a NAT mapping alive.
 - **Spokes 2…n:** engineers' laptops.
 
-Addressing: VPN subnet `100.101.219.0/24`; hub `.1`; hospital `.2`; engineers from `.10`; hospital
-LAN `192.168.1.0/24` routed through.
+Addressing: VPN subnet `10.200.0.0/24` — a private range, **not** `100.64.0.0/10`, which the carrier
+itself may be using for CGNAT; hub `.1`; hospital `.2`; engineers from `.10`; hospital LAN
+`192.168.1.0/24` routed through.
 
 **Hub — `/etc/wireguard/wg0.conf`:**
 
 ```ini
 [Interface]
-Address    = 100.101.219.1/24
-ListenPort = 443
+Address    = 10.200.0.1/24
+ListenPort = 51820
 PrivateKey = <VPS_PRIVATE_KEY>
 PostUp     = iptables -A FORWARD -i wg0 -j ACCEPT
 PostDown   = iptables -D FORWARD -i wg0 -j ACCEPT
 
 [Peer]  # hospital server
 PublicKey  = <HOSPITAL_PUBLIC_KEY>
-AllowedIPs = 100.101.219.2/32, 192.168.1.0/24
+AllowedIPs = 10.200.0.2/32, 192.168.1.0/24
 
 [Peer]  # engineer
 PublicKey  = <ENGINEER_PUBLIC_KEY>
-AllowedIPs = 100.101.219.10/32
+AllowedIPs = 10.200.0.10/32
 ```
 
 **Hospital spoke — `/etc/wireguard/wg0.conf`:**
 
 ```ini
 [Interface]
-Address    = 100.101.219.2/32
+Address    = 10.200.0.2/32
 PrivateKey = <HOSPITAL_PRIVATE_KEY>
 MTU        = 1420
-DNS        = 100.101.219.1
+DNS        = 10.200.0.1
 
 [Peer]
 PublicKey           = <VPS_PUBLIC_KEY>
-AllowedIPs          = 100.101.219.0/24
-Endpoint            = <VPS_PUBLIC_IP>:443
-PersistentKeepalive = 20
+AllowedIPs          = 10.200.0.0/24
+Endpoint            = <VPS_PUBLIC_IP>:51820
+PersistentKeepalive = 25
 ```
 
-Why these choices: **port 443** so restrictive ISPs do not filter it; **keepalive 20 s** so the CGNAT
-gateway does not drop the mapping; **split tunnel** — only VPN traffic goes through, the hospital's
-scarce bandwidth stays for clinical use; **MTU 1420** to avoid fragmentation.
+Why these choices: **keepalive 25 s** so the CGNAT gateway does not drop the mapping; **split tunnel** —
+only VPN traffic goes through, the hospital's scarce bandwidth stays for clinical use; **MTU 1420** to
+leave room for WireGuard's encapsulation. **Why WireGuard at all** (thesis §7.8.2): under 4,000 lines
+of code, a plain network interface, runs in the kernel, and UDP with keepalive passes CGNAT. It is not
+always the fastest — one comparison found OpenVPN better under some high-latency cloud conditions —
+but here simplicity and NAT traversal decide.
 
 Set it up **during the deployment**. Two hours on site; impossible from home.
 
@@ -69,8 +74,8 @@ Set it up **during the deployment**. Two hours on site; impossible from home.
 
 Each peer generates its own key pair locally — `wg genkey | tee privatekey | wg pubkey > publickey` —
 and private keys never travel. When someone leaves or loses a laptop, remove their public key from
-the hub and restart (`systemctl restart wg-quick@wg0`). VPS firewall: only UDP 443 and SSH with
-key-based auth.
+the hub and restart (`systemctl restart wg-quick@wg0`). VPS firewall: only WireGuard (UDP 51820)
+and SSH with key-based auth.
 
 ## Step 4 — monitoring
 
@@ -78,7 +83,7 @@ On the VPS, every five minutes:
 
 ```bash
 #!/bin/bash
-HOSPITAL=100.101.219.2
+HOSPITAL=10.200.0.2
 if ! ping -c 3 -W 5 $HOSPITAL >/dev/null 2>&1; then
   curl -s "https://api.telegram.org/bot<TOKEN>/sendMessage" \
        -d "chat_id=<CHAT_ID>" -d "text=ALERT: hospital tunnel DOWN $(date)"

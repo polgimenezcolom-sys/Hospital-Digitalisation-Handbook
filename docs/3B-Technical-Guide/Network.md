@@ -1,8 +1,12 @@
 # Network and connectivity
 
-**Produces:** a LAN dimensioned for the real device count, segmented, with coverage **verified in every
-target unit with the real application**.
-**Instrument:** [D-2](../4-Instruments/D2-Infrastructure-Audit.md).
+**Produces:** a LAN that reaches every unit using the system, with an **interactive response verified
+in every target unit with the real application**.
+**Instrument:** [D-2](../4-Instruments/D2-Infrastructure-Audit.md), rows *Network*.
+
+Two requirements, in this order: **reach** — every unit that uses the system reaches the server — and
+**response** — a browser-based record asks the server at every step, so latency matters as much as
+bandwidth. Reasoning and sources: thesis §7.4.
 
 Three priorities, in order: **reliability** (fewest points of failure), **simplicity** (maintainable by
 local staff), **efficiency** (power everything over PoE from one switch).
@@ -11,10 +15,14 @@ local staff), **efficiency** (power everything over PoE from one switch).
 
 1. **Inventory every device.** Wired: server, desktops, printers, PoE access points. Wireless:
    laptops, tablets, phones.
-2. **Bandwidth.** A hospital-system workstation needs roughly 2–5 Mbps sustained. For *n* users:
-   `BW = n × BW_per_user × CF`, with concurrency factor CF ≈ 0.3–0.5.
-3. **Switch ports.** `Ports = ceil( (N_wired + N_AP + N_uplinks) × 1.2 )` — 20% spare.
-4. **PoE budget.** Sum every PoE device's maximum draw and add 25%.
+2. **Bandwidth.** `BW = n × BW_per_user × CF`, with **0.5 Mbit/s per user** and **CF = 0.4**. Both
+   are declared assumptions: neither Bahmni nor OpenMRS publishes a bandwidth figure (DHIS2 gives
+   80 kbit/s per client). At a hospital of this size the uplink is very unlikely to be the constraint;
+   latency is.
+3. **Switch ports.** `Ports = ceil( (N_wired + N_AP + N_uplinks) × 1.2 )` — 20 % spare.
+4. **PoE budget.** Sum the **per-port supply figure of each device's PoE Type** — 15.4 W (Type 1),
+   30 W (Type 2), 60 W (Type 3), 90 W (Type 4). Do **not** add 25 % on top: the standard already
+   allows for cable loss in that figure.
 
 ## Step 2 — topology
 
@@ -25,8 +33,10 @@ A **star** on a managed PoE switch:
 - Access points, each on one Cat6 run to the switch, powered by it
 - Server on a Gigabit port
 
-**Cabling:** Cat6 UTP in PVC conduit — rodents, moisture, accidents. Never more than 100 m on one run.
-Between buildings beyond that: fibre or a point-to-point wireless bridge.
+**Cabling** (Victorian hospital engineering guideline): horizontal runs **under 90 m**, whole channel
+under 100 m; **at least 150 mm from power cables**; **20 % spare** capacity. Cat6 in PVC conduit
+against rodents and moisture. Between buildings beyond that, or wherever a cable would cross between
+buildings exposed to lightning: fibre or a point-to-point wireless link.
 
 !!! danger "The ≤ 3 rule"
 
@@ -62,35 +72,34 @@ The area has frequent storms and the hospital's rod may not catch every strike. 
 
 ## Step 4 — coverage
 
-| Obstacle | Attenuation | Radius per AP |
-|---|---|---|
-| Open space | — | 25–35 m |
-| Drywall / wood | −3 to −5 dB | |
-| One concrete block wall | −10 to −15 dB | 10–15 m |
-| Two concrete walls | | 5–8 m — usually needs another AP |
-| Reinforced concrete | −15 to −25 dB | |
-| Metal door | −20 to −30 dB | |
+- **One access point for every 200 m² or less, no more than 15 m apart** (Victorian guideline).
+- Concrete and block walls attenuate more than the partitions those figures assume — so the desk
+  plan is only a starting point.
+- 2.4 GHz has only three non-overlapping channels (1/6/11); give neighbouring APs different ones.
+  Check the national spectrum plan for what is permitted.
 
-One AP per ward or clinical area, centrally, ceiling-mounted. One per floor per zone in multi-storey
-buildings. Non-overlapping channels: 1/6/11 on 2.4 GHz; any non-overlapping on 5 GHz. Reuse a 5 GHz
-channel only across separate buildings. Check the national spectrum plan for what is permitted.
-
-**Then walk it.** Desk estimates at 10–15 m spacing are a starting point; the count changes on site.
-Every target unit gets a signal and latency reading, in the room, with the application.
+**Then walk it.** With the access points in place, measure signal strength **and response time with
+the real application** at every workstation position. The units furthest from the core in hops are
+the ones to check first.
 
 ## Step 5 — segment
+
+Separating clinical devices, the management interfaces of the servers and network equipment, and any
+guest access, with filtering between them, is a **requirement** (thesis §7.4.5). The segment plan
+and the rules depend on the network actually installed, and the thesis leaves their design to future
+work. The table below is a **starting point to adapt, not a tested design** — no AUCOOP site has run
+it yet. Record what you build in [D-2](../4-Instruments/D2-Infrastructure-Audit.md).
 
 | VLAN | Who | Rule |
 |---|---|---|
 | 10 Clinical | Workstations and tablets on the hospital system | No internet — reduces malware risk |
 | 20 Administration | Finance, management | Internet for email and reporting |
-| 30 Server | Hospital system server, NAS | Reachable from 10 and 20 only |
+| 30 Server and management | Hospital system server, backup server, switch and router management | Reachable from 10 and 20 only on the ports the system uses |
 | 40 Guest (optional) | Personal devices | Isolated from everything clinical |
 
-Inter-VLAN routing on the gateway, with rules permitting only what is needed. A flat network with one
-password is simpler and it is how the 2024 design started; segment as soon as there is a server.
-
 ## Example equipment, small hospital, three buildings
+
+Indicative 2026 prices for planning, not quotations. Check current prices before you budget.
 
 | Item | Example | Qty | ≈ EUR |
 |---|---|---|---|
@@ -112,5 +121,6 @@ cabling by the hospital's own technician — and Douala is the site that adopted
 
 !!! tip "In depth"
 
+    Thesis §7.4 (sources) and Figure 8 (reference design: how data flows).
     [Community Network Handbook](https://aucoop.github.io/Community-Network-Handbook/) — Network Planning, Wireless Mesh, IP Addressing, Flash
     OpenWrt, Antennas. The 2025 Lunsar mesh follows their pattern.

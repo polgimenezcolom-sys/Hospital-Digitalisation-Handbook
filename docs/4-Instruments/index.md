@@ -52,7 +52,7 @@ each other in a corridor.
     became of it — and a record of interventions with no outcomes cannot tell a later reader which of
     them mattered.
 
-!!! warning "Status: v0.4"
+!!! warning "Status: v0.5"
 
     B-1's scoring anchors and thresholds are still open, and D-4's outcome definitions are stated but
     not yet calibrated against a completed deployment. Each page says exactly what is unresolved. Do

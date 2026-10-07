@@ -56,5 +56,5 @@ part-time maintainer.
 
 !!! tip "In depth"
 
-    Companion deployment repository (`aucoop-gnuhealth-deployment`). Companion thesis, Chapter 5,
-    §5.2.
+    Companion deployment repository (`aucoop-gnuhealth-deployment`). Companion thesis §8.3.6 and
+    §10.2 (the route a team with a Python developer could take).

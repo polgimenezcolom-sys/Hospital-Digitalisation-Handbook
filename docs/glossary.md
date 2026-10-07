@@ -37,7 +37,8 @@ of support on site.
 ## Technical
 
 **AVR** — Automatic Voltage Regulation. A UPS feature that corrects voltage sag and surge rather than
-passing it through. Essential where grid voltage swings between 170 V and 260 V.
+passing it through. Essential where the supply voltage dips well below nominal — log it for a day
+before choosing the UPS.
 
 **Bahmni** — An open-source hospital information system combining OpenMRS for clinical records with
 separate systems for pharmacy, laboratory and reporting.

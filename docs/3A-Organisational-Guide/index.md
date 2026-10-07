@@ -2,13 +2,14 @@
 
 The half of the work that decides whether any of it survives.
 
-Every source this handbook draws on — the WHO's own analyses, the peer-reviewed literature, and ten
-years of AUCOOP's records across four countries — says the same thing: these projects fail for
-organisational and financial reasons, not technical ones. The WHO puts the non-technical share of
-what determines success at roughly **80%**.
+The reviews this handbook draws on say the same thing as AUCOOP's own records across four countries:
+a scoping review of open-source record systems in low- and lower-middle-income countries found that a
+dominant focus on technology distracts from the organisational and social factors, and a review of
+sub-Saharan implementations found the literature emphasising software and hardware over context
+(companion thesis §2.5, §8.1).
 
-And yet every guide, including the first versions of this one, gives that 80% a few paragraphs and
-the servers twenty pages. This part corrects that. It is written as procedure — steps, what you
+And yet every guide, including the first versions of this one, gives the organisational side a few
+paragraphs and the servers twenty pages. This part corrects that. It is written as procedure — steps, what you
 bring, what you produce, what goes wrong — because *"engage stakeholders"* is advice and *"here are
 the six people, the two questions, and the order"* is a recipe.
 

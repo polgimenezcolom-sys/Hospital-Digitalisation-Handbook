@@ -1,84 +1,84 @@
 # Power and UPS
 
-**Produces:** a UPS sized for the real load, with automatic voltage regulation; a solar system if
-there is no reliable generator.
-**Instrument:** [D-2](../4-Instruments/D2-Infrastructure-Audit.md), Electricity.
+**Produces:** no hospital-system equipment on unprotected supply; a UPS sized on both its rating and
+its stored energy; a solar system sized for the worst month, if there is no reliable generator.
+**Instrument:** [D-2](../4-Instruments/D2-Infrastructure-Audit.md), rows *Power* and *Location*.
 
-## Three layers, in this order
+The rule, from hospital engineering guidelines: **servers and the network core never run on raw
+mains or a raw generator.** Everything below serves that rule. The reasoning and every source are in
+the companion thesis, §7.3.
 
-1. **Voltage regulation.** Grid voltage in these settings swings roughly between **170 V and 260 V**
-   against a 220–240 V nominal. Equipment does not switch off — it runs badly and then a power supply
-   fails months later, and nobody connects the two. A UPS with **automatic voltage regulation (AVR)**
-   corrects the sag instead of passing it through. This is the layer people skip because the damage
-   is invisible.
-2. **Battery backup for a clean shutdown**, or to bridge to the generator. You are not trying to keep
-   working through a four-hour outage. You are making sure the server is never surprised.
-3. **Independent generation** — usually solar, sized for the IT load only — where there is no reliable
-   generator.
+## Step 1 — log the voltage before you choose a UPS
 
-## Step 1 — total the load
+Log the supply voltage for **at least one full day**. A line-interactive UPS stops regulating below
+roughly 184 V on a 230 V supply and goes to battery; if the log dips below that, specify a
+**double-conversion** UPS. Whatever the topology, it must have **automatic voltage regulation (AVR)**.
+
+## Step 2 — total the load, then take the critical part
 
 ```
 P_total = SUM( P_i × Q_i )   [W]
 ```
 
-| Device | Typical W | Notes |
-|---|---|---|
-| Mini-PC / NUC server | 35–65 | |
-| Raspberry Pi 4/5 as server | 5–15 | |
-| Managed PoE switch, 24-port | 30–50 + PoE budget | the PoE budget is the big number |
-| Access point via PoE | 10–15 | |
-| Desktop workstation | 80–150 | prefer laptops — see below |
-| Laptop | 30–65 | |
-| Tablet charging | 10–15 | |
-| Monitor 22" | 25–40 | |
-| Router / gateway | 10–20 | |
-| NAS / backup drive | 20–40 | |
+Use **nameplate or measured** values for the equipment actually installed. The table is only for a
+first estimate.
 
-**Worked example.** One mini-PC (50 W), one PoE switch with a 200 W PoE budget (250 W), four APs
-(60 W), eight laptops (400 W), one NAS (30 W):
-
-```
-P_total = 50 + 250 + 60 + 400 + 30 = 790 W
-```
-
-## Step 2 — size the UPS
-
-```
-S_UPS = ( P_total × t_runtime ) / ( PF × η_UPS )   [VA]
-```
-
-| Parameter | Value |
+| Device | Indicative W |
 |---|---|
-| `t_runtime` | 0.25–1 h — enough to shut down cleanly or bridge to the generator |
-| `PF` | ≈ 0.8 for IT loads |
-| `η_UPS` | 0.85–0.90 |
+| Mini-PC server | 35–65 |
+| Managed PoE switch, chassis only | 30–50 |
+| Access point via PoE | 10–15 |
+| Laptop | 30–65 |
+| Tablet charging | 10–15 |
+| Router / gateway | 10–20 |
+| Backup storage | 20–40 |
+
+**Do not add the switch's PoE budget to the total.** The budget is what it *can* deliver, not what it
+draws; count the chassis and the devices actually powered.
+
+The UPS carries only the **critical load**: server(s), switch chassis, the access points that carry
+traffic to the server, router, backup storage. **Laptops and tablets stay off the UPS** — they have
+their own batteries, and putting them on would roughly triple the UPS for nothing.
+
+**Worked example (thesis §7.3):** 50 + 40 + 69 (5 APs incl. PoE losses) + 15 + 30 = **204 W critical**.
+
+## Step 3 — size the UPS on two numbers, separately
 
 ```
-S_UPS = ( 790 × 0.5 ) / ( 0.8 × 0.87 ) = 395 / 0.696 = 568 VA
+S_UPS = P_crit / PF              [VA]   PF = 0.95 (modern IT power supplies)
+E_UPS = P_crit × t / η_UPS        [Wh]   t = runtime in h, η_UPS = 0.87
 ```
 
-Specify **1000–1500 VA** for headroom. Requirements: AVR, pure sine-wave output, and a USB port so
-the server can be told to shut down when the battery runs low (see [Server](Server.md), NUT).
+For 204 W and 30 minutes: **215 VA** and **117 Wh**.
 
-For scale: the 2017 Ethiopia deployment used two 650 VA units at about 71 € each for a single donated
-server. Cheap, and it was the primary mitigation.
+!!! danger "Buy the energy, not the VA"
 
-## Step 3 — solar, if needed
+    A 600 VA unit passes the 215 VA rating several times over — and its single 12 V 7 Ah battery
+    holds 84 Wh, of which about 42 Wh is usable. A third of what is needed. **A UPS chosen on its VA
+    rating alone will be undersized for runtime, and you will find out during an outage.** Specify the
+    battery in Wh, and multiply it by the ageing factor in Step 5.
 
-Only where there is no reliable generator. Size for the IT load, not the building.
+USB or network port required, so the server can be told to shut down — see
+[Server](Server.md), *Recovery after a power cut*.
+
+## Step 4 — solar, if there is no reliable generator
+
+Size for the IT load, not the building.
 
 ```
-E_daily  = P_total × h_operation                     [Wh/day]   h_operation ≈ 10–14 h
-P_panel  = E_daily / ( h_sun × 0.70 )                [Wp]       h_sun ≈ 4–5.5 h; 0.70 = system losses
-C_batt   = ( E_daily × d_autonomy ) / ( V_sys × DoD ) [Ah]      d ≈ 1–2 days; V_sys 24 or 48 V
+E_daily  = P_total × h_operation                                  [Wh/day]
+P_panel  = E_daily / ( h_sun × 0.70 )                             [Wp]
+C_batt   = ( E_daily × d_autonomy × k_age × k_T ) / ( V_sys × DoD ) [Ah]
 ```
 
-DoD ≈ 0.50 for lead-acid, 0.80 for LiFePO4. LiFePO4 costs more up front and less over ten years
-(3000+ cycles vs ~500).
-
-**For Port Loko district**, worst-month irradiation is **August, 2.109 peak sun hours**; yearly
-average 3.1. Design for August.
+| Term | Value | Why |
+|---|---|---|
+| `h_sun` | **worst month**, not the annual average. Lunsar: August, 3.8–4.3 PSH → use **4.0** | A stand-alone system must work in the monsoon |
+| `0.70` | system derate | built from PVWatts losses × inverter × charge controller and battery |
+| `d_autonomy` | **3 days** with a manual-start generator; 4–5 with none | One day of autonomy blacked out in every modelled year |
+| `DoD` | 0.80 LiFePO4, 0.50 lead-acid | |
+| `k_age` | **1.25** | battery still meets the load at 80 % of rated capacity (end of life) |
+| `k_T` | 1 for rooms above 25 °C | cold reduces capacity; heat does not — heat shortens life |
 
 !!! warning "Check the units"
 
@@ -86,20 +86,31 @@ average 3.1. Design for August.
     that one 250 Ah battery gave two days' autonomy. It gives about three hours. Work the battery
     step twice, and write the units next to every number.
 
+## Step 5 — heat, and the battery replacement date
+
+Heat does not make the bank bigger; it makes it **die sooner**. For lead-acid (VRLA/AGM), life halves
+for every 10 °C above 20 °C — one manufacturer gives 7–10 years at 20 °C, **4 years at 30 °C, 2 years
+at 40 °C**. LiFePO4 charges only between 5 and 50 °C; use the manufacturer's data.
+
+- [ ] Log the room temperature.
+- [ ] Write the installation date on every battery.
+- [ ] Put the replacement date — from the room temperature — in the budget and in the
+      [handover pack](../4-Instruments/L1-Handover-Pack.md).
+
 ## The part that is not about electricity
 
 Everyone protects the server. Meanwhile the registration desk runs on a desktop plugged into the
-wall, and that is the machine a clerk is typing into when the power goes.
-
-**Prefer laptops over desktops at the point of care.** A laptop has a battery, so a power cut is an
-inconvenience rather than a data-loss event. It is the cheapest reliability decision available.
+wall. **Prefer laptops over desktops at the point of care**: a power cut becomes an inconvenience,
+not a data-loss event.
 
 ## What to bring
 
-Multimeter. A plug-in power meter (to measure real draw rather than nameplate). Surge-protected power
-strips — more than you think. Universal plug adapters — the 2024 Lunsar BOM listed eighty.
+Multimeter. A voltage logger (or a meter you can read through a day). A plug-in power meter, to
+measure real draw. Surge-protected power strips — more than you think. Universal plug adapters — the
+2024 Lunsar bill of materials listed eighty.
 
 !!! tip "In depth"
 
+    Thesis §7.3 (derivations and sources) and Figure 6 (reference design: power and equipment).
     AUCOOP's [Community Network Handbook — Power and UPS](https://aucoop.github.io/Community-Network-Handbook/3-Guide/Power-and-UPS/)
-    covers the site-wide power question. Companion thesis, Chapter 4, Phase 1, for the derivations.
+    covers the site-wide power question.

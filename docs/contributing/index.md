@@ -1,6 +1,6 @@
 # Contributing
 
-This handbook is version 0.4. It is wrong in places nobody has found yet, and the only way those get
+This handbook is version 0.5. It is wrong in places nobody has found yet, and the only way those get
 found is by teams using it and saying what did not match.
 
 **Your project's feedback is the most valuable thing you can send back.** More valuable than the

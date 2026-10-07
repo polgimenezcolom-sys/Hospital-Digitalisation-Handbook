@@ -8,7 +8,7 @@ yes/no on carrier-grade NAT, and a coverage map you walked yourself.
 
 The 2024 network design for Lunsar was done remotely. It estimated 22 access points at 10–15 m
 spacing on a floor plan; the deployed mesh has around 28. It could not know that Emergency's cable
-would never be verified, or that grid voltage swings between 170 V and 260 V. Its author said so:
+would never be verified, or what the supply voltage actually does over a day. Its author said so:
 *"once on-site, we will be able to take exact measurements."* Three to five days of measurement on
 site is worth more than a month of design at home.
 

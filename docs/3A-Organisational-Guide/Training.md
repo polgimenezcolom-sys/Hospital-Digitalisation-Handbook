@@ -33,19 +33,25 @@ Different people, different sessions, different places.
 
 ## Steps
 
-1. **Train at the point of use**, on the real screen, with real (anonymised) patients. Never in a
+1. **Start from the skills people actually have.** Where staff have never used a computer, basic
+   mouse, keyboard and browser come first — the Bahmni implementers' user training assumes them
+   (companion thesis §8.4).
+2. **Train the unit focal persons first**, on their own unit's screens, so that they can train and help
+   colleagues.
+3. **Train at the point of use**, on the real screen, with real (anonymised) patients. Never in a
    classroom.
-2. **Short and repeated** beats long and once. Three thirty-minute sessions across a week, with the
+4. **Short and repeated** beats long and once. Three thirty-minute sessions across a week, with the
    person doing real work in between, beats a three-hour session on Tuesday.
-3. **The super-user trains the second cohort**, with you watching. If they cannot, you are not
+5. **The super-user trains the second cohort**, with you watching. If they cannot, you are not
    finished.
-4. **Leave materials that survive without you:** a one-page task card per role, laminated, at the
+6. **Leave materials that survive without you:** a one-page task card per role, laminated, at the
    workstation; the in-product help ([tier 0](Support-Ladder.md)); short screen recordings if you can
    make them.
-5. **Test comprehension by watching, not asking.** "Do you understand?" always gets yes. "Show me how
+7. **Test comprehension by watching, not asking.** "Do you understand?" always gets yes. "Show me how
    you would register her" gets the truth.
-6. **Train for failure as well as use.** Every session ends with: *the power has just gone — what do
-   you do?*
+8. **Train for failure as well as use.** Every session ends with: *the power has just gone — what do
+   you do?* Rehearse the [downtime procedure](../3B-Technical-Guide/Server.md) with every unit, and
+   repeat it **once a year as a drill**.
 
 ## What goes wrong
 

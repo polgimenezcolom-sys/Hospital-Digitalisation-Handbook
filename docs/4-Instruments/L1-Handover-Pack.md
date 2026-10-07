@@ -7,12 +7,14 @@ stage: "Before you leave"
 **When:** started mid-second-week, finished before the last day.
 **Produces:** what physically stays at the hospital.
 
-!!! warning "This is the instrument the archive says decides everything"
+!!! warning "Why this instrument"
 
-    Six editions between 2018 and 2026. One left a handover pack. That edition was inherited and
-    extended by the two that followed. The deployments left without one did not fare the same way —
-    and one of them cannot even be confirmed to have been used, because the closure report and the
-    hospital's own technician say different things and nobody wrote down which was true.
+    Six editions between 2018 and 2026. One left a handover index, and that edition was inherited and
+    extended by the two that followed. The record is too small to prove that handover decides
+    survival — the companion thesis says so (§4) — but every gap it does show is a gap a handover
+    pack would have closed. One deployment cannot even be confirmed to have been used, because the
+    closure report and the hospital's own technician say different things and nobody wrote down which
+    was true.
 
 
 ## Download the form
@@ -44,10 +46,16 @@ stage: "Before you leave"
       Include that the system takes 3–12 minutes to start.
 - [ ] **Credentials handed over securely** — in person, separately, recorded for rotation. Never in
       the runbook, the shared folder, or anything that could become a public appendix.
-- [ ] **Support escalation ladder** — tier 0 in-product help, tier 1 the on-site super-user, tier 2
-      external or commercial support. Each with a name and a route.
+- [ ] **Support escalation ladder** — tier 0 in-product help, tier 1 the hospital's IT staff and
+      super-users, tier 2 your organisation remotely, tier 3 a contracted implementer if funded. Each
+      with a name and a route. See [Support ladder](../3A-Organisational-Guide/Support-Ladder.md).
+- [ ] **Encryption key and credentials in the custody of the hospital's owner** — not of a departing
+      volunteer. Without the key the backups cannot be restored.
 - [ ] **Backup procedure demonstrated** — by the owner, while you watch. A backup that has never been
       restored is a belief.
+- [ ] **Downtime procedure** written with the hospital, emergency paper forms stocked in every unit
+      (at least 8 hours' worth), rehearsed once. See [Server](../3B-Technical-Guide/Server.md).
+- [ ] **Battery replacement date**, from the room temperature, and who budgets it.
 - [ ] **Cutover plan**, if paper is being retired after you leave — the date, who announces it, what
       happens on the day.
 - [ ] **Who checks it at 6 and 12 months**, by name and date — and they know they will be filling in

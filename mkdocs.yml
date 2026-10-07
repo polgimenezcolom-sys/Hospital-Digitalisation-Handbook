@@ -98,7 +98,7 @@ plugins:
   - search
 
 extra:
-  version: "0.4"
+  version: "0.5"
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/aucoop

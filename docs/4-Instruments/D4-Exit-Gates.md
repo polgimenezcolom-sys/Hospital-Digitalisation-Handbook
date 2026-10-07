@@ -7,11 +7,27 @@ stage: "While you are there"
 **When:** at the end of each phase.
 **Produces:** a defensible answer to "is this done?"
 
-A phase is not finished because the feature works.
+A phase is not finished because the feature works. It is finished when every exit criterion below
+has been verified — **there is no fixed duration**. The one anchor: the phase's reports must match the
+paper counts over **one complete reporting cycle** (at Lunsar, one monthly return). That usually ends
+after the team has left, so the **owner** assesses the remaining criteria and reports them remotely.
+A phase that does not pass is not followed by the next one: the next team completes it or returns it
+to paper. (Implementation matrix, companion thesis §6.3.2.)
 
-| Phase | Contains | Exit gate |
+## Exit criteria, every phase
+
+| Dimension | Before closing paper |
+|---|---|
+| **Technical** | The system has been available during working hours; any outage was covered by the emergency paper forms |
+| **Functional** | Every encounter of the process is recorded in the system; the phase's reports match the paper counts for a complete reporting cycle |
+| **Motivational** | Staff enter the data themselves, without the implementing team present |
+| **Governance** | The owner confirms the criteria; the paper registers are closed and archived, and paper is kept only as an emergency backup |
+
+## What each phase adds
+
+| Phase | Contains | Phase-specific check |
 |---|---|---|
-| **1** | Registration and basic EMR | The folder ID is the primary searchable identifier · a runbook exists · one unit has retired its paper register |
+| **1** | Registration and the clinical forms of every unit | The folder ID is the primary searchable identifier · every unit's register reproduced in its form · a runbook exists |
 | **2** | Laboratory and pharmacy | A lab order completes end to end · dispensing decrements stock · the pharmacist can work unaided |
 | **3** | Billing and administration | Reconciles with the incumbent finance system · the finance director signs off |
 | **4** | Reporting and epidemiology | A member of hospital staff produces the statutory monthly return from the system, unaided, and submits it |

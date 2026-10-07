@@ -11,7 +11,7 @@ picking up work on the *Hospital Digitalisation Handbook*. Attach it, the publis
 thesis to a new conversation and this document should be enough to start from, without having to
 reconstruct nine years of context first. Sections 5 and 6 are the ones to read if you only read two.
 
-**Current state:** v0.3, 56 pages, deployed at
+**Current state (2026-10-07):** v0.5, synced with thesis v12 — see `AGENTS.md` §3. Earlier: v0.3, 56 pages, deployed at
 `polgimenezcolom-sys.github.io/Hospital-Digitalisation-Handbook`, built with MkDocs Material from
 `10_Handbook/`. Nine instruments generated as DOCX and PDF by `scripts/build_forms.py`.
 
@@ -115,8 +115,10 @@ same shortlist — the third time the association had chosen Bahmni.
 
 **The pattern that matters:** two deployments died where no handover pack existed (RosarioSIS 2018;
 KoboCollect 2023). Three were inherited and extended where one did (2024 → 2025 → 2026). Handover is
-sporadic, not absent, and **it correlates exactly with survival.** That is the finding the handbook
-is built on.
+sporadic, not absent, and **every survival in the record followed a handover.** The record is too
+small to test whether handover *predicts* survival — the thesis (Chapter 4) says so explicitly — and
+S-1 exists to measure it prospectively. That is the finding the handbook is built on, stated at its
+real strength.
 
 A small, concrete illustration of the same defect, found on 7 September 2026: the hospital's bed
 count circulated in project documents in three inconsistent forms (25, 85, 100) across four cohorts
@@ -137,7 +139,7 @@ justification, stated from the project's own history.**
 
    ⚠️ **Say what this is, precisely, and never more.** These are projects run by AUCOOP cohorts
    **before the author joined in 2025**. The author's own fieldwork is **one deployment: Lunsar,
-   February–March 2026**. Yassa–Douala was not visited — it is a questionnaire and the counterpart's
+   22 January – 8 February 2026**. Yassa–Douala was not visited — it is a questionnaire and the counterpart's
    written evaluation, a source rather than a site. The design is **archival analysis plus one case
    study**, which is defensible and unusual; a decade of participant observation is not what
    happened, and any sentence that lets a reader infer it collapses the moment someone asks what
@@ -154,7 +156,7 @@ justification, stated from the project's own history.**
    more explanatory than a checklist, because a guide nobody reads solves nothing.
 
 **Method.** Action design research within an ongoing cooperation programme: the guide was drafted
-from the archive, tested against two live deployments (Lunsar and Yassa–Douala), and is designed to
+from the archive, applied retrospectively to Lunsar (Yassa–Douala as a documentary case), and is designed to
 be revised by each subsequent cohort. It is explicitly **version 1 of an artefact plus a method for
 improving it**, which is what makes the deferred phases a next cycle rather than a shortfall.
 
@@ -166,7 +168,7 @@ improving it**, which is what makes the deferred phases a next cycle rather than
 |---|---|---|
 | **1 · Introduction** | Motivation, audience, how to use it | Someone must be able to tell in ninety seconds whether this is for them |
 | **2 · The Story** | 12 narrative chapters, each a real failure | **The part people actually read.** Every chapter is a thing that genuinely happened, told as narrative, ending in the instrument or procedure that would have prevented it |
-| **3A · Organisational Guide** | Mandate, stakeholders, super-users, retiring paper, support ladder, funding the owner, training, handover | The 80 % that decides success. WHO's own framing. Kept **first**, before the technical guide, deliberately |
+| **3A · Organisational Guide** | Mandate, stakeholders, super-users, retiring paper, support ladder, funding the owner, training, handover | The organisational side the reviews say decides success (Bostan 2024; Ogundaini 2022). Kept **first**, before the technical guide, deliberately |
 | **3B · Technical Guide** | Assessment, power, network, server, remote support, platform choice, Bahmni, GNU Health, packing list | The 20 %. Procedures only — the *reasoning* lives in the thesis |
 | **4 · The Instruments** | Nine fillable documents | See §5 — this is the load-bearing part |
 | **5 · Real Deployments** | Ada Foah, Meki, Lunsar, Yassa–Douala | Case studies written honestly, including what failed. A guide with no failures in it is not believable |
@@ -384,7 +386,7 @@ Working through the above surfaced five things:
    learns that the handbook is meant to be edited by them.
 3. **B-1's thresholds are still unset** (open question E1). They should be derived by scoring Lunsar
    and Yassa–Douala retrospectively, where the outcomes are known, rather than chosen a priori.
-4. **The technical guide still carries pre-audit figures.** Every calculation in the thesis was
+4. **[Done in v0.5]** **The technical guide still carries pre-audit figures.** Every calculation in the thesis was
    audited and sourced on 7 September; `docs/3B-Technical-Guide/Power.md`, `Network.md` and
    `Server.md` have not been synced. The exact changes to propagate:
 

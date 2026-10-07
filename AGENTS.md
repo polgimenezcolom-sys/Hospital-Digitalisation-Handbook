@@ -45,6 +45,17 @@ chapter, (3) everything else.
 
 ## 3. Current status (keep this current)
 
+- **v0.5 (2026-10-07) — synced with thesis v12.** B-2 now uses the thesis's four level conditions
+  (§6.3.1: a person *employed*, not "paid"; no five-year figure); D-4 carries the implementation
+  matrix's exit criteria, no fixed durations, one reporting cycle as the anchor; D-2 is the thesis's
+  Table 19 audit (status + "how to verify") plus the sizing inputs; L-1 adds the downtime procedure,
+  key custody and battery replacement date; the technical guide carries the audited figures (critical
+  load, VA *and* Wh, PF 0.95, worst-month PSH 4.0, 3 days' autonomy, k_age 1.25, PoE per Type,
+  0.5 Mbit/s, VHHSBA cabling and AP density, 10.200.0.0/24, keepalive 25 s, equipment room, 3-2-1 with
+  a truly off-site copy, recovery and downtime). The unsourced "80 %" claim and the
+  handover-"correlates exactly" overclaim are gone. Fieldwork dates corrected to 22 Jan – 8 Feb 2026.
+  **v1.0 waits on E1 and E2.**
+
 - **v0.4**, deployed. **Ten** instruments generated as DOCX + PDF — S-1 was added on 2026-09-09.
 - **v0.4 added the outcome half of the loop.** Until then every instrument was completed between
   "before you fly" and the fortnight after landing, while the variable the thesis rests on —
@@ -62,7 +73,7 @@ chapter, (3) everything else.
 - **Not yet done from the tool analysis:** the structured per-deployment summary sheet (§5.4 there —
   the change that makes cross-cohort comparison possible at all), a level 1–2 recipe, a "before you
   start" arrival page, D-1 provenance columns, and the technical-guide figure sync.
-- **Known stale:** the technical guide still carries pre-audit figures. See `HANDBOOK_BRIEF.md`
+- **Known stale (fixed in v0.5):** the technical guide carried pre-audit figures. See `HANDBOOK_BRIEF.md`
   §7(4) for the eight exact corrections to propagate.
 
 ## 4. Status honesty — non-negotiable
@@ -80,7 +91,8 @@ corrected. Do not add to the list.
 
 ## 5. What the author actually did
 
-- **Fieldwork:** Lunsar, Sierra Leone, **February–March 2026. One deployment, one site.**
+- **Fieldwork:** Lunsar, Sierra Leone, **22 January – 8 February 2026. One deployment, one site.** (The CCD
+  closure report gives 19 Feb – 7 Mar; the author settled the dates in the thesis review — the report is wrong.)
 - **Yassa–Douala, Cameroon (2026):** not visited. A questionnaire and the counterpart's written
   evaluation — a source, not a site.
 - **Ghana 2016, Ethiopia 2017, Ghana 2019–20, Sierra Leone 2018–2025:** run by AUCOOP cohorts
@@ -89,7 +101,7 @@ corrected. Do not add to the list.
 
 **Standing wording:** *"the association's documentary record of deployments in Ghana, Ethiopia,
 Sierra Leone and Cameroon between 2016 and 2026, and the author's own deployment at Lunsar in
-February–March 2026."* Never "our deployments". Never "we found, over ten years". The design is
+22 January – 8 February 2026."* Never "our deployments". Never "we found, over ten years". The design is
 **archival analysis plus one case study** — defensible and unusual, but it collapses the moment
 someone asks what Ada Foah was like.
 

@@ -1,79 +1,106 @@
-# Server and backup
+# Server, backup and recovery
 
-**Produces:** a server sized for the hospital, on a UPS it can talk to, with a backup that has been
-**restored** in front of the owner.
+**Produces:** a server that meets the platform's published requirements, in a locked cabinet in a room
+kept within its temperature range, with a backup that has been **restored** in front of the owner, and
+a hospital that knows what to do when the power goes.
+**Instrument:** [D-2](../4-Instruments/D2-Infrastructure-Audit.md), rows *Location*, *Server*,
+*Backup* and *Recovery*. Reasoning and sources: thesis §7.2, §7.5–7.7.
 
-## Size it
+## Size it from the platform, not from a table
 
-| | Small (< 500 patients/month) | Medium (500–2000) | Large (> 2000) |
+| Platform | Processor | Memory | Disk |
 |---|---|---|---|
-| CPU | 4-core ARM/x86 | 4-core x86 | 8-core x86 |
-| RAM | 4–8 GB | 8–16 GB | 16–32 GB |
-| Storage | 128 GB SSD | 256–512 GB SSD | 512 GB–1 TB SSD |
-| Hardware | Raspberry Pi 5 | Intel NUC / mini-PC | Tower |
-| Power | 10–15 W | 35–65 W | 100–250 W |
-| ≈ EUR | 100–200 | 300–600 | 600–1500 |
+| **Bahmni** | 4 cores (8 with PACS) | **8 GB** (16 GB with PACS) | 500 GB listed; 150 GB usually enough; SSD preferred |
+| OpenMRS, 1–10 users | 4 cores | 8 GB | 100 GB or more |
+| OpenMRS, over 10 users | 8 cores or more | 16 GB | 100 GB or more, in RAID |
 
-A clinical database grows roughly 1–5 GB a year at medium volume. A 256 GB SSD is decades of text.
-
-**Bahmni needs more than this table.** Its Docker stack — OpenMRS, Odoo, OpenELIS, reporting, a
-reverse proxy — wants 12 GB of RAM and eight cores to be comfortable. Size for what you are actually
-running.
+- **Decide the platform before the hardware.** A Raspberry Pi-class machine can run OpenMRS kits for
+  small clinics; it **cannot run Bahmni**.
+- Bahmni implementers advise more than the published minimum: one recommends **16 GB for about 10–15
+  concurrent users, 32 GB for 25–50**, and PACS on its own server. Size for what you will run.
+- Bahmni has **three databases** (OpenMRS in MySQL, OpenELIS and Odoo in PostgreSQL). Every backup step
+  below covers all three.
 
 ## Where it lives
 
-A room with ventilation, a lock, and one named keyholder. Off the floor. Away from the window. Dust
-is the enemy — quarterly cleaning is on the maintenance schedule below.
-
-## Operating system and virtualisation
-
-- **Small hospital:** bare-metal install of the platform on its recommended OS. Simplest to maintain.
-- **Medium or larger:** **Proxmox VE** as hypervisor. Web GUI from any workstation on the LAN, so no
-  terminal for routine tasks; snapshot before every update and restore in minutes if it goes wrong;
-  native backup integration.
-
-Recommended layout on Proxmox: **VM 1 — the hospital system** (2–4 vCPU, 4–8 GB, 200 GB thin);
-**VM 2 — services** (WireGuard endpoint, monitoring; 1–2 vCPU, 2 GB, 50 GB).
+- A **large, sturdy, lockable metal cabinet** for the servers, their fans and the UPS batteries; metal
+  door with a lock and bars on the windows of the room (OpenMRS Field Guide).
+- **Central**, so the cable runs to the units stay under 90 m.
+- **Within the equipment's temperature range.** ASHRAE recommends 18–27 °C for IT equipment; the
+  OptiPlex 7020 servers at Lunsar are rated for 5–35 °C and 20–80 % humidity. An unventilated room in
+  the tropics can exceed that — and the same heat halves battery life every 10 °C. Ventilate or cool,
+  and **log the temperature**.
+- Surge protection and voltage stabilisation on the supply ([Power](Power.md)).
+- One named keyholder. Dust is the enemy — cleaning is on the maintenance schedule.
 
 ## Two servers if you can
 
-Hardware failure here is not exceptional; it is scheduled. Heat, dust, humidity and voltage make sure
-of it. **Server 1** runs Proxmox with the VMs. **Server 2** runs Proxmox Backup Server. One failure
-cannot take both the system and its backups.
+**Server 1** runs Proxmox VE with two virtual machines: **VM 1** the hospital system (at least the
+platform's requirements above), **VM 2** the VPN endpoint and monitoring (1–2 vCPU, 2 GB, 50 GB).
+**Server 2** runs Proxmox Backup Server. One failure cannot take both the system and its backups.
 
-Targets: **RPO ≤ 24 h** with daily backups (≤ 6 h with 6-hourly incrementals); **RTO ≤ 4 h** including
-diagnosis — a 50–100 GB VM restores in 15–45 minutes.
+## Backup: three copies, two media, one off site
 
-If only one server: automated database dumps to an external USB drive, rotated to another building,
-plus offsite over the VPN when bandwidth allows.
+| Copy | Where | How |
+|---|---|---|
+| 1 | Server 1 | the live data |
+| 2 | Server 2 (Proxmox Backup Server) | nightly at 02:00: backup of both VMs **encrypted on the client** (AES-256-GCM), plus a dump of each of the three databases; keep 14 daily, 8 weekly, 6 monthly, dumps 30 days |
+| 3 | **Off site:** the VPN hub server | nightly copy of the dumps, already encrypted, through the VPN |
 
-## The 3-2-1 rule, adapted
+**A building on the same campus is not off site** — a fire, flood or theft reaches both. If the
+connection cannot carry the copy: encrypted USB drives, rotated, **kept away from the hospital site**.
 
-- **3 copies:** production, local backup, offsite
-- **2 media:** the server's SSD, and a separate server or external drive
-- **1 offsite:** encrypted to the VPS over the VPN, or encrypted USB drives rotated to a different
-  building
+**The encryption key** is printed as a QR code and held by the **hospital's owner**, not by a
+volunteer. Lose the key and the backups are unreadable.
 
-**Schedule.** Daily 02:00 incremental to PBS; weekly Sunday 03:00 full; keep 14 daily, 8 weekly,
-6 monthly; nightly database dump synced offsite if the tunnel is up.
+**Test a restore every month** (Proxmox Backup Server documentation). A backup nobody has restored is a
+hope, not a backup.
 
-**Application-level dump as well** — VM backups plus a database dump give you granular recovery:
+Scripts: thesis Appendix F (database dump) — templates, no credentials in them.
 
-```bash
-#!/bin/bash
-# daily, 02:00, via cron
-BACKUP_DIR=/backup/his
-DATE=$(date +%Y-%m-%d)
-pg_dump -U his -Fc his_db > $BACKUP_DIR/his_$DATE.dump
-find $BACKUP_DIR -name "*.dump" -mtime +30 -delete
-rsync -avz $BACKUP_DIR/ vps:/offsite-backup/his/   # only if the VPN is up
-```
+## Recovery after a power cut — the machines
 
-## Tell the server about the UPS
+Three settings, each from the supplier's documentation. Set and **test all three by cutting the supply
+under supervision**.
 
-Connect the UPS by USB and run **NUT** (Network UPS Tools). It watches battery, input voltage and load,
-and shuts the VMs down cleanly at a threshold — say 20% — so an extended outage never corrupts the
-database. It also logs every power event, which is evidence for the next team.
+1. **Shut down before the battery is exhausted.** Connect the UPS by USB or network and run **NUT**
+   (Network UPS Tools): it shuts the host down when the UPS is on battery and low.
+2. **Power on when the supply returns.** Set the BIOS *AC Recovery* option to **Power On**. On the Dell
+   OptiPlex 7020 it is **Power Off by default** — if you do not change it, the server stays off after
+   every cut.
+3. **Start the services in order.** In Proxmox, *Start at boot* plus a start order and delay, so the
+   databases are up before the applications.
+
+**Targets** (design targets of the thesis, not standards): lose at most **24 h** of data (RPO = the
+backup interval); have the system back within **4 h** (RTO). A 150 GB restore over a 1 Gb/s link
+takes about 20 minutes — the rest is diagnosis.
+
+**If a server is lost:** install Proxmox VE on Server 2 or a replacement, restore the VMs from the
+backup server, check against the last paper entries, re-enter what the paper forms hold.
+
+## Recovery after a power cut — the people
+
+The machines come back on their own. The hospital's work has to be organised. Write this procedure
+**with the hospital**, before you leave, and leave it in the [handover pack](../4-Instruments/L1-Handover-Pack.md).
+After the US contingency-planning guide (ONC SAFER, 2024) and the WHO handbook.
+
+**During the outage**
+
+- [ ] The IT technician — or the unit focal person — **declares downtime** and tells the units. The
+      technician is in charge until it ends.
+- [ ] Each unit records on its **emergency paper forms** — the same fields as its form in the system.
+      **Stock in every unit: enough for at least 8 hours.**
+- [ ] A patient registered during the outage gets a **temporary paper number**, written on every form.
+
+**When the power returns**
+
+- [ ] **Nobody enters data until the technician confirms** the system and its databases are running.
+- [ ] Each unit enters its paper records. In Bahmni, clinical records go in **retrospective mode** so
+      they carry the right date — it exists **only in the Clinical app**; test how registrations made on
+      paper are back-dated before you rely on it.
+- [ ] Temporary numbers replaced by the system's identifiers; sheets marked entered, signed, filed.
+
+**Once a year:** a downtime drill with every unit.
 
 ## Bring a clone
 
@@ -85,7 +112,9 @@ day three is then an afternoon, not a trip.
 
 - [ ] The owner has done a backup **and a restore** while you watched
 - [ ] The restore is written in the runbook, with screenshots
-- [ ] NUT is shutting the VMs down on battery — tested by pulling the plug
+- [ ] NUT shutdown, BIOS power-on and start order tested **by cutting the supply**
+- [ ] The downtime procedure is written, the forms are stocked, and the units have rehearsed it
+- [ ] The encryption key is with the hospital's owner
 - [ ] The maintenance schedule is printed and on the wall
 
 ## Maintenance schedule
@@ -93,16 +122,21 @@ day three is then an afternoon, not a trip.
 | When | What | Who | Check |
 |---|---|---|---|
 | Daily | Backup completed | Super-user | Green in PBS |
-| Weekly | Disk usage on all VMs | Super-user | < 80% |
-| Weekly | UPS battery status | Super-user | > 90%, no errors |
+| Weekly | Disk usage on all VMs | Super-user | < 80 % |
+| Weekly | UPS battery status | Super-user | Charged, no errors |
 | Monthly | OS security updates | Remote engineer | |
-| Monthly | Test a VM restore | Remote engineer | To a test VM |
+| Monthly | Test a VM restore | Remote engineer | To a test VM, data checked |
 | Quarterly | Review user accounts | Super-user + admin | Disable inactive |
 | Quarterly | Clean the hardware | Super-user | Dust |
-| Annually | Full disaster-recovery drill | Remote + local | Restore to the backup server |
+| Annually | Downtime drill with the units; full restore to the backup server | Remote + local | Procedure followed; restore within target |
 
 !!! note "Expect a slow start"
 
     Bahmni's OpenMRS container takes **3–12 minutes** to become healthy after a restart; one rebuild
     with a large search index was observed at ~26 minutes. Put this in the runbook, or someone will
     restart it at 8:00 and declare it broken at 8:04.
+
+!!! tip "In depth"
+
+    Thesis §7.5–7.7 (requirements and sources), §8.2.1–8.2.2 (the procedure and configuration
+    proposed), Figure 7 (reference design: backup and recovery).

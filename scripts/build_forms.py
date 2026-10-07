@@ -21,7 +21,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-VERSION = "0.4"
+VERSION = "0.5"
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "forms")
 os.makedirs(OUT, exist_ok=True)
 
@@ -138,13 +138,13 @@ def build_B1():
     ], widths=[3.4, 7.2, 2.0, 4.8])
     section(d, "2. The four questions that decide survival")
     table(d, ["Code", "Question", "Answer", "Detail (name, figure, source)"], [
-        ["PAID-IT", "Is there a paid IT person at the hospital?", "Yes / No", ""],
-        ["OWNER-5Y", "Is there a funded owner for the system for the next five years?", "Yes / No", ""],
+        ["IT-PERSON", "Is a person employed by the hospital responsible for the system, reachable after we leave?", "Yes / No", ""],
+        ["OWNER-COSTS", "Is there a named owner, and an agreement on who pays the running costs?", "Yes / No", ""],
         ["PRESENCE", "How many years is the organisation committed to this site?", "", ""],
         ["HANDOVER", "Will a handover pack (L-1) exist on departure?", "Yes / No", ""],
     ], widths=[2.4, 7.6, 2.2, 5.2])
     section(d, "3. Result")
-    note(d, "Thresholds and scale anchors are not yet calibrated (v0.4). Use the score to structure the conversation, then complete B-2.")
+    note(d, "Thresholds and scale anchors are not yet calibrated (v0.5). Use the score to structure the conversation, then complete B-2.")
     lines(d, "Summary judgement and who you discussed it with:", 4)
     return d
 
@@ -152,21 +152,21 @@ def build_B2():
     d = new_doc("B-2", "Level decision", "Before you go",
         "Decide how far up the tool spectrum this deployment goes — driven by what the hospital can sustain after you leave, not by need.",
         "Complete after B-1, before any equipment is bought")
-    section(d, "1. The stop rule — tick every statement that is TRUE")
-    note(d, "If ANY box is ticked, drop a level or do not deploy. Dropping a level is not a defeat.")
+    section(d, "1. The four conditions — tick every condition that HOLDS")
+    note(d, "From the implementation matrix (thesis §6.3.1). None holds: level 1 or 2. Conditions 1 and 2: level 3. All four: level 4, phase by phase. If a condition needed for the planned level does not hold, drop a level or do not deploy.")
     checklist(d, [
-        ("No named person is paid to keep the system running after we leave", "not 'someone will look after it' — a name, a role, a salary line"),
-        ("The medical director has not personally endorsed the project", "an administrator's enthusiasm is not the same authority"),
-        ("There is no route to fund maintenance for five years", "hardware fails, software needs patching, someone must be paid"),
-        ("The unit we intend to digitise has no verified working power AND network", "verified by us, in the room, with a device"),
-        ("We cannot retire the paper process for what we are deploying", "if paper continues alongside, nothing has been digitised"),
+        ("1. A person employed by the hospital is responsible for the system and can be reached after we leave", "a name and a role — not 'someone will look after it'"),
+        ("2. Protected power and a working network at the point of use, verified in each unit", "verified by us, in the room, with a device"),
+        ("3. A management mandate: a named owner, and agreement to close the paper registers when the exit criteria are met", "an administrator's enthusiasm is not the same authority"),
+        ("4. A paper process that can actually be retired, including the statutory returns that depend on it", "if paper continues alongside, nothing has been digitised"),
+        ("Who pays the running costs — connectivity, spares, batteries, support — is agreed", "not a level condition, but agree it before anything is bought"),
     ])
     section(d, "2. The tool spectrum")
-    table(d, ["Level", "Scope", "Tools", "Minimum to keep it alive"], [
-        ["1", "Data collection & surveys", "KoBoToolbox, ODK", "A trained clerk; no server on a hosted instance"],
-        ["2", "Aggregate reporting & case tracking", "DHIS2, CommCare", "A reporting officer; alignment with the national system"],
-        ["3", "Clinical EMR", "OpenMRS", "A part-time IT person; reliable power where clinicians work"],
-        ["4", "Full HIS — clinical, lab, pharmacy, billing", "Bahmni, GNU Health", "A paid full-time IT person, a funded five-year owner, a support arrangement"],
+    table(d, ["Level", "Scope", "Tools", "When"], [
+        ["1", "Data collection & surveys", "KoBoToolbox, ODK", "None of the four conditions holds"],
+        ["2", "Aggregate reporting & case tracking", "DHIS2, CommCare", "None holds; a reporting officer; national alignment"],
+        ["3", "Clinical record", "OpenMRS", "Conditions 1 and 2 hold"],
+        ["4", "Full HIS — clinical, lab, pharmacy, billing", "Bahmni, GNU Health", "All four hold — then phase by phase"],
     ], widths=[1.4, 5.0, 3.6, 7.4])
     section(d, "3. Decision")
     table(d, ["Level chosen (1–4, or 'do not deploy')", "B-1 total score", "Decided by (names)", "Date"], [["", "", "", ""]], widths=[6.0, 3.0, 5.4, 3.0])
@@ -174,9 +174,9 @@ def build_B2():
     lines(d, "If we deploy below what was hoped: what has to become true for next year's answer to be higher?", 4)
     note(d, "That last line is a prediction with a date on it. Next year's team is asked whether it came true — so write something that can be checked.")
 
-    section(d, "4. Stop-rule override — complete this ONLY if you ticked a box in section 1 and are deploying anyway")
-    note(d, "This is the most important section on the form. In 2026 at Lunsar every stop-rule condition was true and a level-4 system was deployed by careful engineers with reasons that were never written down. An override is sometimes right. An unrecorded override is how a decision becomes invisible to everyone who comes after.")
-    table(d, ["Which conditions were true", "Deploying anyway?", "Decided by (names, roles)", "Date"], [
+    section(d, "4. Stop-rule override — complete this ONLY if a condition needed for the chosen level does NOT hold and you are deploying anyway")
+    note(d, "This is the most important section on the form. In 2026 at Lunsar a level-4 system was deployed before protected power had been verified in every unit, by careful engineers with reasons that were never written down. An override is sometimes right. An unrecorded override is how a decision becomes invisible to everyone who comes after.")
+    table(d, ["Which conditions did not hold", "Deploying anyway?", "Decided by (names, roles)", "Date"], [
         ["", "Yes / No", "", ""],
     ], widths=[6.0, 2.6, 5.4, 3.4])
     lines(d, "On what grounds — the actual reasoning, not the conclusion:", 4)
@@ -247,17 +247,37 @@ def build_D1():
 
 def build_D2():
     d = new_doc("D-2", "Infrastructure audit", "While you are there",
-        "The inputs for power, network and server dimensioning. Completed during the assessment visit.",
-        "Assessment visit, first week")
+        "The status of every infrastructure requirement before Phase 1 goes live, with its evidence. Fill in before departure from what can be reported, then check each row on arrival.",
+        "Before departure, then first week on site")
+    section(d, "1. The audit — status: met / partly / not met / unknown")
+    table(d, ["Layer", "Requirement", "Minimum for Phase 1", "How to verify", "Status", "Evidence"], [
+        ['Power', 'HIS equipment never on unprotected supply', 'Servers and network core on UPS', 'Trace each server and core device to its supply', '', ''],
+        ['Power', 'UPS energy from the critical load, with ageing factor', 'Time to shut down safely or bridge to the generator', 'Record the model and battery; measure runtime under load', '', ''],
+        ['Power', 'Battery replacement interval for the room temperature', 'Interval known and budgeted', 'Log the room temperature; record installation dates', '', ''],
+        ['Power', 'Supply voltage logged before choosing the UPS topology', 'One full day logged', 'Voltage logger at the supply point', '', ''],
+        ['Power', 'Solar sized for the worst month and the autonomy required', 'Supply covers working hours', 'Survey panels, controller, batteries and loads; redo the battery sizing', '', ''],
+        ['Location', "Lockable cabinet, surge protection, room within the equipment's temperature range", "Lockable cabinet; temperature within the servers' specification", 'Inspect the cabinet; log the room temperature', '', ''],
+        ['Network', 'Every unit using the system reaches the server', 'Each Phase 1 unit connected', "Test from each unit's workstation", '', ''],
+        ['Network', 'Acceptable response time', 'Interactive response at every unit', 'Time typical actions in the system at the furthest units', '', ''],
+        ['Network', 'Cabling within standard limits', 'Runs within limits', 'Survey the cabled sections', '', ''],
+        ['Network', 'Segmentation with filtering', 'Documented, even if not yet implemented', 'Inspect router and switch configuration', '', ''],
+        ['Server', 'Platform requirements', '4 cores, 8 GB, 150 GB (Bahmni)', 'Inspect the hardware', '', ''],
+        ['Server', 'A second machine able to take over', 'Backup server', 'Restore a virtual machine onto it', '', ''],
+        ['Backup', '3-2-1, one copy off site, encrypted', 'Daily backup; encrypted off-site copy', 'Check the schedule, a recent backup and who holds the key', '', ''],
+        ['Recovery', 'Unattended recovery after a power cut', 'Shutdown on low battery; power-on on return; start order set', 'Cut the supply under supervision and observe', '', ''],
+        ['Recovery', 'Written downtime procedure; emergency paper forms; annual drill', 'Procedure written; forms for at least 8 h in each Phase 1 unit', 'Read the procedure; count the forms; run a drill', '', ''],
+        ['Remote access', 'Outbound VPN through carrier NAT', 'Remote access to the server', 'Connect from outside; record who holds the keys', '', ''],
+        ['Monitoring', 'Remote monitoring and alerts', 'An alert when the server stops', 'Stop a test service and confirm the alert', '', '']
+    ], widths=[1.8, 4.2, 3.4, 3.6, 1.4, 2.2])
+    note(d, "Rows found unknown or not met are the first tasks of the trip. Requirements and sources: companion thesis §7.10.")
     for cat, items in [
-        ("Electricity", ["Grid availability (hours/day, observed)", "Generator: fuel type / capacity / runtime / fuel reliability", "Solar installation: panels, rating, orientation, battery capacity & age", "Voltage stability — 24 h multimeter readings (min / max / typical)", "Outlet locations per building"]),
-        ("Internet", ["ISP name and technology (fibre / 4G / VSAT / Starlink)", "Contracted bandwidth", "Measured bandwidth (down / up, time of day)", "Carrier-grade NAT check: router WAN address vs public address — same or different?", "Monthly cost"]),
-        ("Physical space", ["Candidate server room: ventilation / security / access control / who has a key", "Cable routes between buildings; anything crossing open ground or a road", "Distance between the farthest buildings", "Wall materials"]),
-        ("Existing IT", ["Functional computers and tablets (count, OS, age)", "Printers", "Existing network equipment (models, where, working?)", "Existing cabling", "Existing software systems (finance, forms, anything from a previous project)"]),
-        ("Environment", ["Temperature range", "Humidity", "Dust", "Insect / rodent risk", "Flooding risk", "Lightning — frequency, existing protection"]),
+        ("2. Inputs — Electricity", ["Grid hours/day (observed)", "Generator: fuel / capacity / manual or automatic start", "Solar: panels, controller, battery capacity, chemistry, installation date", "Voltage logged over a full day (min / max / typical)", "Outlet locations per building"]),
+        ("3. Inputs — Internet", ["Provider and technology", "Contracted bandwidth", "Measured bandwidth (down / up, time of day)", "Carrier-grade NAT check: router WAN address vs public address", "Monthly cost"]),
+        ("4. Inputs — Space and environment", ["Equipment room: ventilation / lock / keyholder / temperature", "Cable routes between buildings; anything crossing open ground or a road", "Distance between the farthest buildings; wall materials", "Humidity, dust, insects and rodents, flooding", "Lightning: frequency, existing protection"]),
+        ("5. Inputs — Existing IT", ["Computers and tablets (count, OS, age)", "Printers", "Network equipment (models, where, working?)", "Existing cabling", "Existing software (finance, forms, earlier projects)"]),
     ]:
         section(d, cat)
-        table(d, ["Item", "Finding", "Photo / file"], [[i, "", ""] for i in items], widths=[7.4, 6.6, 2.6])
+        table(d, ["Item", "Finding", "Source / photo"], [[i, "", ""] for i in items], widths=[7.4, 6.6, 2.6])
     return d
 
 def build_D3():
@@ -283,7 +303,15 @@ def build_D4():
         "At the end of each phase")
     section(d, "Phase being closed")
     table(d, ["Phase (1–4)", "Name", "Claimed closed on", "By"], [["", "", "", ""]], widths=[2.4, 6.0, 4.0, 4.2])
-    section(d, "1. Engineering conditions — evidence for each")
+    section(d, "1. Exit criteria — every phase (implementation matrix)")
+    note(d, "No fixed duration. The anchor: the phase's reports match the paper counts over one complete reporting cycle. Criteria not yet verified when the team leaves are assessed by the owner and reported remotely.")
+    table(d, ["Dimension", "Criterion", "Met? (Y/N/later)", "Evidence / who confirmed"], [
+        ["Technical", "Available during working hours; any outage covered by the emergency paper forms", "", ""],
+        ["Functional", "Every encounter recorded in the system; reports match paper counts for one full reporting cycle", "", ""],
+        ["Motivational", "Staff enter the data themselves, without the team present", "", ""],
+        ["Governance", "Owner confirms; paper registers closed and archived; paper kept only as emergency backup", "", ""],
+    ], widths=[2.6, 7.6, 2.4, 4.0])
+    section(d, "1b. Engineering conditions — evidence for each")
     table(d, ["Condition", "Met? (Y/N)", "Evidence (what was shown, to whom)"], [
         ["Phase-specific gate (see handbook D-4 table)", "", ""],
         ["Works offline-tolerantly — degrades sensibly when power or network fails", "", ""],
@@ -326,7 +354,10 @@ def build_L1():
         ("Runbook per deployed unit", "daily task, screenshots, written for zero prior IT; tested on someone not in the training"),
         ("'What to do when it breaks' sheet", "the five most likely failures and the first thing to try; includes 'the system takes 3–12 minutes to start'"),
         ("Credentials handed over securely", "in person, separately, recorded for rotation — NEVER written in this pack"),
-        ("Support escalation ladder", "tier 0 in-product help · tier 1 on-site super-user · tier 2 external — each with a name and route"),
+        ("Support escalation ladder", "tier 0 in-product help · tier 1 hospital IT staff and super-users · tier 2 our organisation, remotely · tier 3 contracted implementer, if funded"),
+        ("Encryption key and credentials held by the hospital's owner", "not by a departing volunteer; without the key the backups cannot be restored"),
+        ("Downtime procedure written, emergency forms stocked in every unit, rehearsed", "at least 8 hours of forms per unit; who declares downtime; how paper is entered afterwards"),
+        ("Battery replacement date", "from the room temperature; who budgets it"),
         ("Backup demonstrated by the owner while we watched", "backup AND restore"),
         ("Cutover plan, if paper is retired after departure", "date, who announces it, what happens on the day"),
         ("Who checks it at 6 and 12 months", "name and date"),
@@ -335,7 +366,7 @@ def build_L1():
     ])
     section(d, "3. Support ladder")
     table(d, ["Tier", "What", "Name", "Route (phone / email / where)"], [
-        ["0", "Self-help in the product", "—", ""], ["1", "On-site super-user", "", ""], ["2", "External / commercial support", "", ""],
+        ["0", "Self-help in the product", "—", ""], ["1", "Hospital IT staff and super-users", "", ""], ["2", "Our organisation, remotely (VPN)", "", ""], ["3", "Contracted implementer (SLA), if funded", "", ""],
     ], widths=[1.4, 5.0, 4.0, 6.2])
     section(d, "4. Six- and twelve-month check")
     table(d, ["Check", "Who", "Date planned", "Done? Result"], [["6 months", "", "", ""], ["12 months", "", "", ""]], widths=[3.0, 4.6, 3.6, 5.4])

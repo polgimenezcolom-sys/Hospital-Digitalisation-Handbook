@@ -3,7 +3,7 @@
 **Produces:** the case for a paid IT post — with a number — put to the hospital board, and a written
 answer.
 **When:** raised before you fly, decided before the deployment's first year ends.
-**Instrument:** [B-1](../4-Instruments/B1-Readiness.md) (`OWNER-5Y`); [B-3](../4-Instruments/B3-Mandate.md).
+**Instrument:** [B-1](../4-Instruments/B1-Readiness.md) (`OWNER-COSTS`); [B-3](../4-Instruments/B3-Mandate.md).
 
 ## Why this recipe exists
 

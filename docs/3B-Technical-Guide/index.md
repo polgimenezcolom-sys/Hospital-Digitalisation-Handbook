@@ -27,5 +27,5 @@ on a server that corrupts its database at every power cut is not a system.
 !!! note "Where the rationale is"
 
     Every recipe here says *what to do*. The *why* — the dimensioning theory, the comparison of
-    alternatives, the evidence — is in the companion thesis, Chapter 4 (infrastructure) and Chapter 5
-    (software). These pages point at it rather than repeat it.
+    alternatives, the evidence — is in the companion thesis: Chapter 7 (infrastructure requirements) and
+    Chapter 8 (the proposal, including the reference-design figures and the Bahmni deployment). These pages point at it rather than repeat it.
