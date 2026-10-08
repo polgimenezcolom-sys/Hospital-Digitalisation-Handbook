@@ -54,7 +54,7 @@ chapter, (3) everything else.
   0.5 Mbit/s, VHHSBA cabling and AP density, 10.200.0.0/24, keepalive 25 s, equipment room, 3-2-1 with
   a truly off-site copy, recovery and downtime). The unsourced "80 %" claim and the
   handover-"correlates exactly" overclaim are gone. Fieldwork dates corrected to 22 Jan – 8 Feb 2026.
-  **v1.0 waits on E1 and E2.**
+  **v1.0 waits on E1** (E2: owner = AUCOOP, merging role still to name).
 
 - **v0.4**, deployed. **Ten** instruments generated as DOCX + PDF — S-1 was added on 2026-09-09.
 - **v0.4 added the outcome half of the loop.** Until then every instrument was completed between
@@ -67,7 +67,7 @@ chapter, (3) everything else.
   Rationale and the findings behind each: `HANDBOOK_TOOL_ANALYSIS.md`.
 - **Open and blocking v1.0:** E1 (B-1 score **anchors** and thresholds — the anchors now matter more
   than the thresholds, because S-1 re-scores B-1 and an unanchored scale is not comparable between
-  cohorts), **E2 (who merges A-1 returns, and how often)**, E3 (can A-1 attach to the CCD closure
+  cohorts), **E2 (owner = AUCOOP since 2026-10-08; merging role and cadence still to fix)**, E3 (can A-1 attach to the CCD closure
   report?), E4 (internal or public?), E5 (long-term home — decided, see §10). Tracked in
   `../TFM_Open_Questions.md`.
 - **Not yet done from the tool analysis:** the structured per-deployment summary sheet (§5.4 there —
@@ -199,5 +199,7 @@ and v0.3, when four pages still claimed v0.2 while the banner said v0.3.
   open note in `HANDBOOK_BRIEF.md` — going internal costs the discoverability the handbook's own
   argument rests on, and GitHub Pages on a private repository needs a paid plan. Do not make the
   repo private without resolving where volunteers then read it.
-- **E2 · Feedback owner (2026-09-09).** Deliberately **not settled**. `docs/4-Instruments/A1-Debrief.md`
-  states the four things a decision must name. Do not quietly invent an owner to close the box.
+- **E2 · Feedback owner.** **Owner: AUCOOP** (Pol, 2026-10-08). Cadence *proposed* in thesis Ch9:
+  once per project cycle. Still open inside E2: the role within AUCOOP that merges, what "merged"
+  means, and how the role passes on — `docs/4-Instruments/A1-Debrief.md` lists them. Do not invent a
+  person.

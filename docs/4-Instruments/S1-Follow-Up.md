@@ -93,10 +93,10 @@ S-1 belongs to the person named in [L-1](L1-Handover-Pack.md) section 4, with a 
 departure and written down while everyone is still in the room. It can be your own name. It cannot be
 "someone will check".
 
-!!! note "This works while the feedback owner is still unsettled"
+!!! note "This does not depend on the central owner"
 
     S-1's owner is named **per deployment**, in L-1 — not centrally. So it does not wait on the
-    unresolved question of who merges the [A-1](A1-Debrief.md) returns
-    ([see the open box there](A1-Debrief.md)). File the completed check with the deployment's other
-    instruments, and send a copy to the handbook repository as an issue. If someone is eventually
-    named to merge the returns, they inherit a queue that already exists.
+    role within AUCOOP that merges the [A-1](A1-Debrief.md) returns
+    ([see the box there](A1-Debrief.md)). File the completed check with the deployment's other
+    instruments, and send a copy to the handbook repository as an issue. Whoever merges the returns
+    inherits a queue that already exists.
