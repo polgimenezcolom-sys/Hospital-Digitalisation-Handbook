@@ -191,7 +191,7 @@ const S = {
  reg_found:{img:"p2_04b_registration_found.png",title:"Find a registered patient",todo:"Next time, type the <b>name</b> and press <b>Search</b>; click the ID to open the patient.",hs:[
   {r:[33,35,50,46],ic:"search",t:"Name",d:"Part of the name is enough."},
   {r:[50,35,57,46],ic:"search",t:"Search",d:"Shows the matching patients below."},
-  {r:[1,78,99,86],ic:"user",t:"The patient",d:"Click the ID to open the patient. On the patient's page you can open a new visit, or close one with Close Visit."}]},
+  {r:[1,78,99,86],ic:"user",t:"The patient",d:"Click the ID to open the patient's page, where a new visit can be opened."}]},
  worklist:{img:"p2_07_unit_worklist.png",title:"Your unit's patients",todo:"Each tab is a unit. Click the <b>patient</b> to open the record.",hs:[
   {r:[0.5,24,7,40],ic:"tab",t:"OPD (1)",d:"The patients with an open OPD visit. The number counts them."},
   {r:[7.5,24,81.5,40],ic:"tab",t:"Other units",d:"Emergency, ANC and Triage, Maternity, Paediatrics, General Ward, Theatre, Dental."},
@@ -286,7 +286,13 @@ const S = {
   {r:[36.5,46.5,49,95],ic:"user",t:"Registration",d:"Find or register a patient and open a visit.",go:"reg_search"},
   {r:[50.5,46.5,63.5,95],ic:"steth",t:"Clinical",d:"Your unit's patients and their record.",go:"p1_worklist"},
   {r:[78.5,4,94,17],ic:"pin",t:"Your unit",d:"Where you signed in."}]},
- p1_worklist:{missing:"<b>Screenshot still to come.</b> The Phase 1 list of a unit's patients has not been photographed yet. It works like Phase 2's: one tab per unit; click the patient to open the record.",title:"Your unit's patients (Phase 1)",todo:"Click the <b>patient</b> in your unit's tab.",next:"p1_dash"},
+ p1_worklist:{img:"p1_07_unit_worklist.png",title:"Your unit's patients (Phase 1)",todo:"Each tab is a unit; <b>Active</b> lists every open visit. Click the <b>patient</b> to open the record.",hs:[
+  {r:[0.8,23.2,8.1,39.3],ic:"tab",t:"Active",d:"Every patient with an open visit, whatever the unit. Only in Phase 1."},
+  {r:[12.2,23.2,18.6,39.3],ic:"tab",t:"OPD (1)",d:"The patients with an open OPD visit. The number counts them."},
+  {r:[18.7,23.2,89,39.3],ic:"tab",t:"Other units",d:"Emergency, ANC and Triage, Maternity, Paediatrics, General Ward, Theatre, Dental."},
+  {r:[1.6,43.2,27.3,55.7],ic:"search",t:"Search",d:"Filter the list by name or ID."},
+  {r:[1.3,59.3,13.4,91.4],ic:"user",t:"Patient",d:"Opens the patient's dashboard.",go:"p1_dash",main:1},
+  {r:[7.5,2,12.1,16.8],ic:"home",t:"Home",d:"Back to the home screen.",go:"@home"}]},
  p1_dash:{img:"p1_08_patient_dashboard.png",title:"The patient's dashboard (Phase 1)",todo:"Press <b>Consultation</b>. Phase 1 has no laboratory or pharmacy yet.",hs:[
   {r:[83.5,1,92.5,6.5],ic:"steth",t:"Consultation",d:"Observations and notes.",go:"p1_forms",main:1},
   {r:[0.5,32,49,59],ic:"doc",t:"Vitals",d:"The latest vital signs."},
