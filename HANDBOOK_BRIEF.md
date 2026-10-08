@@ -432,7 +432,7 @@ Working through the above surfaced five things:
 | | Question | Why it blocks |
 |---|---|---|
 | **E1** | B-1's score thresholds — what total maps to which level? | The level model is the stop rule, and the stop rule is the handbook's first substantive claim |
-| **E2** | **Who merges the A-1 returns, and how often?** *Owner decided 2026-10-08: AUCOOP. Still open: the merging role within AUCOOP; cadence proposed as once per project cycle (thesis Ch9).* | Without a named owner and a cadence there will be three handbooks within two years and none canonical. This has already happened once to the control document |
+| **E2** | **Who merges the A-1 returns, and how often?** *Still open (2026-10-08). Option: the role passes each year to the next team's lead; cadence proposed as once per project cycle (thesis Ch9).* | Without a named owner and a cadence there will be three handbooks within two years and none canonical. This has already happened once to the control document |
 | **E3** | Can the A-1 return genuinely be attached to the CCD closure report? Is that format fixed by CCD, or can AUCOOP extend it? | Design constraint 1 in §5.3 depends on it. If it cannot be extended, the feedback loop needs a different mandatory host |
 | **E4** | Is the handbook AUCOOP-internal or public from the start? | Changes the tone, and changes what can go in it — credentials, hospital-identifying detail, the counterpart's letter |
 | **E5** | Where does it live long-term — its own repo, or inside a deployment repo? | It needs a home that survives its author |

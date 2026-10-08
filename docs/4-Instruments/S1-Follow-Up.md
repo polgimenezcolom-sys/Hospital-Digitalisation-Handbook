@@ -96,7 +96,7 @@ departure and written down while everyone is still in the room. It can be your o
 !!! note "This does not depend on the central owner"
 
     S-1's owner is named **per deployment**, in L-1 — not centrally. So it does not wait on the
-    role within AUCOOP that merges the [A-1](A1-Debrief.md) returns
+    unsettled question of who merges the [A-1](A1-Debrief.md) returns
     ([see the box there](A1-Debrief.md)). File the completed check with the deployment's other
     instruments, and send a copy to the handbook repository as an issue. Whoever merges the returns
     inherits a queue that already exists.

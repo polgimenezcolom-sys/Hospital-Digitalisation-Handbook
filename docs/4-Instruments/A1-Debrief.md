@@ -54,14 +54,15 @@ stage: "Once you are back"
     or can AUCOOP extend it? If it cannot, the feedback loop needs a different mandatory host — a
     voluntary one will not be completed.
 
-    **2. Who merges the returns, and how often?** Partly settled: **AUCOOP owns the handbook**
-    (decided October 2026). The proposal is to merge the returns **once per project cycle**, before
-    the next team prepares its departure. A complete decision names four things, and naming three of
-    them is the same as naming none:
+    **2. Who merges the returns, and how often?** Unsettled as of v0.5. One option under
+    consideration: the role passes each year to the lead of the volunteer team responsible for the
+    next project. The proposed cadence is **once per project cycle**, before the next team prepares
+    its departure. A decision has to name four things, and naming three of them is the same as naming
+    none:
 
     | | What it must say |
     |---|---|
-    | **Who** | AUCOOP is the owner. Still to write here: the **role within AUCOOP** that does the merge |
+    | **Who** | A person or a role, written into this page — not "the association" |
     | **When** | A date in the year, tied to something that already happens |
     | **What "merged" means** | Handbook edited and version bumped, or the return simply filed |
     | **Who takes over** | How the role passes to the next holder, and who decides |
