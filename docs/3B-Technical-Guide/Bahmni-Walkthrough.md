@@ -11,6 +11,16 @@ and checking a new installation against what was configured.
     Phase 2 contains Phase 1; a Phase 1-only version will be added. Reasoning and status: thesis
     §8.3 and Appendix I.
 
+!!! tip "Try it: the click-through"
+
+    An interactive version of this page: choose your role (registration desk, doctor or nurse,
+    laboratory, pharmacy) and Phase 1 or 2, then click through pictures of the real screens. Every
+    numbered marker explains one button; the green one is what to press next. It works offline.
+
+    [Open the click-through in a new tab](../assets/bahmni/walkthrough.html){ .md-button .md-button--primary target="_blank" }
+
+<iframe src="../../assets/bahmni/walkthrough.html" title="Bahmni click-through" style="width:100%;height:900px;border:1px solid #d5e1e0;border-radius:8px"></iframe>
+
 ## 1 · Signing in
 
 User name and password, then the **login location** — the user's unit. The location decides which

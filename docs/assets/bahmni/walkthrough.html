@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>Bahmni Click-Through</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: role picker on top, then a working "screen" (real screenshot with numbered hotspots) beside
+   a legend that explains every marker. Bahmni teal + SJD navy; Atkinson Hyperlegible for legibility. */
+:root{
+  --bg:#f3f6f6; --panel:#ffffff; --ink:#15302f; --muted:#56706f; --line:#d5e1e0;
+  --teal:#3f8a86; --teal-ink:#ffffff; --navy:#0b3583; --go:#7cab2a; --warn:#b4620a; --warn-bg:#fff4e5;
+  --marker:#0b3583; --marker-ink:#ffffff; --hot:rgba(124,171,42,.28);
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", Roboto, Arial, sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1a1a; --panel:#172524; --ink:#e3eeed; --muted:#9db3b1; --line:#2b3d3c;
+  --teal:#5aa7a2; --teal-ink:#0b1414; --navy:#8fb1f5; --go:#9dcc4a; --warn:#f0a65a; --warn-bg:#2b2012;
+  --marker:#8fb1f5; --marker-ink:#0b1414; --hot:rgba(157,204,74,.30); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a1a; --panel:#172524; --ink:#e3eeed; --muted:#9db3b1; --line:#2b3d3c;
+  --teal:#5aa7a2; --teal-ink:#0b1414; --navy:#8fb1f5; --go:#9dcc4a; --warn:#f0a65a; --warn-bg:#2b2012;
+  --marker:#8fb1f5; --marker-ink:#0b1414; --hot:rgba(157,204,74,.30); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:16px 40px;display:flex;flex-direction:column;gap:16px}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+h1{font-size:1.5rem;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;font-size:.95rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:transparent;color:var(--ink);font:inherit;padding:6px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--teal);color:var(--teal-ink);font-weight:700}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.role{display:flex;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--panel);
+  color:var(--ink);border-radius:10px;padding:10px 12px;font:inherit;cursor:pointer}
+.role svg{flex:none;width:28px;height:28px;color:var(--teal)}
+.role small{display:block;color:var(--muted);font-size:.8rem;line-height:1.3}
+.role[aria-pressed="true"]{border-color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media (max-width:900px){.stage{grid-template-columns:minmax(0,1fr)}}
+.step-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between}
+.step-head h2{font-size:1.2rem;margin:0}
+.count{color:var(--muted);font-variant-numeric:tabular-nums;font-size:.9rem}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--go);transition:width .25s}
+.do{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--go);border-radius:8px;padding:10px 14px;margin:0}
+.do b{color:var(--ink)}
+.screen{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;line-height:0}
+.screen img{width:100%;height:auto;display:block}
+.hs{position:absolute;border:2px solid transparent;border-radius:6px;background:transparent;cursor:pointer;padding:0}
+.hs:hover,.hs:focus-visible,.hs.on{border-color:var(--marker);background:rgba(11,53,131,.08);outline:none}
+.hs.main{border-color:var(--go);background:var(--hot);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(124,171,42,.55)}50%{box-shadow:0 0 0 6px rgba(124,171,42,0)}}
+@media (prefers-reduced-motion:reduce){.hs.main{animation:none}}
+.num{position:absolute;top:-11px;left:-11px;width:22px;height:22px;border-radius:50%;background:var(--marker);color:var(--marker-ink);
+  font:700 12px/22px var(--f-body);text-align:center;pointer-events:none;font-variant-numeric:tabular-nums}
+.hs.main .num{background:var(--go);color:#13210a}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+.btn.primary{background:var(--teal);border-color:var(--teal);color:var(--teal-ink);font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+button:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+aside{display:flex;flex-direction:column;gap:10px;min-width:0}
+.legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.legend li{display:grid;grid-template-columns:26px 26px minmax(0,1fr);gap:8px;align-items:start;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer}
+.legend li.on{border-color:var(--marker);box-shadow:inset 0 0 0 1px var(--marker)}
+.legend li.main{border-color:var(--go)}
+.legend .n{width:22px;height:22px;border-radius:50%;background:var(--marker);color:var(--marker-ink);font:700 12px/22px var(--f-body);text-align:center}
+.legend li.main .n{background:var(--go);color:#13210a}
+.legend svg{width:24px;height:24px;color:var(--teal)}
+.legend b{display:block;font-size:.95rem}
+.legend span{color:var(--muted);font-size:.88rem;line-height:1.4;display:block}
+.legend em{font-style:normal;color:var(--go);font-weight:700;font-size:.8rem}
+.note{background:var(--warn-bg);border:1px solid var(--warn);color:var(--ink);border-radius:8px;padding:10px 12px;font-size:.9rem}
+.note b{color:var(--warn)}
+.missing{border:2px dashed var(--line);border-radius:8px;padding:40px 16px;text-align:center;color:var(--muted);line-height:1.5}
+footer{color:var(--muted);font-size:.82rem}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></g></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="12" r="2"/></g></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3h6M10 3v6L4 19a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-10V3"/><path d="M7 15h10"/></g></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="M9.5 8.5l5 7"/></g></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h8"/></g></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.7M12 17h.01"/></g></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></g></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M7 12h10"/></g></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 3h13l3 3v15H4z"/><path d="M8 3v5h8V3M8 21v-7h8v7"/></g></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></g></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10v4M10 12h8"/></g></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-12a7 7 0 1 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></g></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v11h14V10"/></g></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3L2 21h20z"/><path d="M12 10v5M12 18h.01"/></g></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></g></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c3 3 3 17 0 20M12 2c-3 3-3 17 0 20"/></g></symbol>
+  <symbol id="i-tab" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2 20h20M4 20V8h6v12M10 20V5h6v15"/></g></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></g></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></g></symbol>
+ </defs>
+</svg>
+
+<div class="wrap">
+ <header>
+  <div>
+   <h1>Using Bahmni, click by click</h1>
+   <p class="sub">Practise on pictures of the real screens. Nothing you click here changes the hospital's records.</p>
+  </div>
+  <div class="seg" role="group" aria-label="Phase">
+   <button id="ph1" type="button" aria-pressed="false">Phase 1</button>
+   <button id="ph2" type="button" aria-pressed="true">Phase 2</button>
+  </div>
+ </header>
+
+ <div class="roles" id="roles" role="group" aria-label="Who are you?"></div>
+
+ <div class="stage">
+  <section style="display:flex;flex-direction:column;gap:10px;min-width:0">
+   <div class="step-head"><h2 id="title"></h2><span class="count" id="count"></span></div>
+   <div class="bar"><i id="progress"></i></div>
+   <p class="do" id="todo"></p>
+   <div class="screen" id="screen"></div>
+   <div class="nav">
+    <button class="btn" id="back" type="button">&larr; Back</button>
+    <button class="btn primary" id="next" type="button">Next &rarr;</button>
+    <button class="btn" id="restart" type="button">Start again</button>
+   </div>
+  </section>
+  <aside>
+   <div id="warn"></div>
+   <ul class="legend" id="legend"></ul>
+  </aside>
+ </div>
+ <footer>Screens from the Bahmni test instance, October 2026, with a test patient. Green marker: what to click to go on. Blue markers: what the other parts of the screen do. Use the arrow keys to move between steps.</footer>
+</div>
+
+<script>
+/* Hotspots: [x1,y1,x2,y2] in % of the screenshot. go = screen to open; main = the action for this step. */
+const S = {
+ login:{img:"p2_01_login.png",title:"Sign in",todo:"Type your <b>user name</b> and <b>password</b>, then press <b>Login</b>.",hs:[
+  {r:[38,39.5,80,43.5],ic:"type",t:"User name",d:"The name you were given by the IT technician. Each person has their own."},
+  {r:[38,46,80,50],ic:"lock",t:"Password",d:"Keep it to yourself. Do not write it on the screen or the desk."},
+  {r:[38,52,80,58],ic:"check",t:"Login",d:"Opens the next screen, where you choose your unit.",go:"loc",main:1},
+  {r:[73,31,94,35],ic:"globe",t:"Language",d:"English is the default."}]},
+ loc:{img:"p2_02_login_location.png",title:"Choose your unit",todo:"Choose the <b>unit</b> where you are working today, then press <b>Continue</b>.",hs:[
+  {r:[35.5,40,79.5,45],ic:"pin",t:"Location",d:"Your unit: OPD, Emergency, Maternity, Laboratory, Pharmacy… It decides which patients your lists show."},
+  {r:[35.5,46.5,79.5,52],ic:"check",t:"Continue",d:"Opens your home screen.",go:"@home",main:1}]},
+ home_em:{img:"p2_03_home_emergency.png",title:"Home screen",todo:"Each button opens one part of Bahmni. You see only the buttons your role uses.",hs:[
+  {r:[29.5,29,42,61],ic:"user",t:"Registration",d:"Find or register a patient and open a visit for a unit.",go:"reg_search"},
+  {r:[43.5,29,56,61],ic:"steth",t:"Clinical",d:"Your unit's list of patients, and their record.",go:"worklist"},
+  {r:[57.5,29,70,61],ic:"doc",t:"Reports",d:"Reports for a date range.",go:"reports"},
+  {r:[43.5,65,56,96],ic:"help",t:"Help / Learn",d:"Short guides in English and French, on the hospital's own network.",go:"help"},
+  {r:[78.5,2,94,9],ic:"pin",t:"Your unit",d:"Shows where you signed in. Change it here if you move to another unit."},
+  {r:[95,0,100,10],ic:"lock",t:"Your account",d:"Change password and log out. Always log out when you leave the computer."}]},
+ home_lab:{img:"p2_04_home_laboratory.png",title:"Home screen (laboratory)",todo:"Press <b>Laboratory (OpenELIS)</b> to open the laboratory system.",hs:[
+  {r:[36.5,65,49.5,97],ic:"flask",t:"Laboratory (OpenELIS)",d:"Requests from the doctors, result entry and validation.",go:"elis_today",main:1},
+  {r:[51,65,63.5,97],ic:"help",t:"Help / Learn",d:"Guides for the laboratory.",go:"help"},
+  {r:[29.5,29,42,61],ic:"user",t:"Registration",d:"Find a patient."},
+  {r:[57.5,29,70,61],ic:"doc",t:"Reports",d:"Laboratory reports.",go:"reports"}]},
+ home_ph:{img:"p2_24_home_pharmacy.png",title:"Home screen (pharmacy)",todo:"Press <b>Pharmacy (Odoo)</b> to open the pharmacy page.",hs:[
+  {r:[36.5,65,49,97],ic:"pill",t:"Pharmacy (Odoo)",d:"Prescriptions to dispense, and the medicine stock.",go:"launcher",main:1},
+  {r:[51,65,63.5,97],ic:"help",t:"Help / Learn",d:"Guides for the pharmacy.",go:"help"}]},
+ reg_search:{img:"p2_04a_registration_search.png",title:"Find the patient first",todo:"Search by <b>name</b> or <b>ID</b> first, so the same person is not registered twice. If they are new, press <b>Create New</b>.",hs:[
+  {r:[2,62,18.5,84],ic:"type",t:"Patient ID",d:"The number on the patient's card."},
+  {r:[33,62,50,84],ic:"search",t:"Name",d:"Type part of the name and press Search."},
+  {r:[58,60,70.5,80],ic:"list",t:"Show All Patients",d:"Added for this hospital: lists everyone without typing a search."},
+  {r:[19.5,8,29,30],ic:"plus",t:"Create New",d:"Register a new patient.",go:"reg_new",main:1},
+  {r:[8,8,11.2,30],ic:"home",t:"Home",d:"Back to the home screen.",go:"@home"}]},
+ reg_new:{img:"p2_05_registration_new_patient.png",title:"Register a new patient",todo:"Fill the fields marked <b>*</b>, then open the arrow next to <b>Start OPD visit</b> to choose the unit.",hs:[
+  {r:[19.5,22,51,27],ic:"type",t:"Name *",d:"First name and last name, as the patient says them."},
+  {r:[19.5,28,35,31.7],ic:"list",t:"Gender *",d:"Choose from the list."},
+  {r:[22.5,32,47,37],ic:"type",t:"Age *",d:"If the date of birth is unknown, type the age in years."},
+  {r:[19.5,37.7,34.5,41.3],ic:"type",t:"Date of birth",d:"If known. Tick Estimated when it is a guess."},
+  {r:[70,93.7,75,97.7],ic:"save",t:"Save",d:"Saves the patient without opening a visit."},
+  {r:[96,93.7,100,97.7],ic:"list",t:"Choose the unit",d:"Opens the list of units: the visit you open decides which unit's list the patient joins.",go:"visit_menu",main:1}]},
+ visit_menu:{img:"p2_06_start_visit_by_unit.png",title:"Open a visit for a unit",todo:"Press the <b>unit</b> that will see the patient. Here: <b>Start OPD visit</b>.",hs:[
+  {r:[24,6,86,17],ic:"play",t:"Start OPD visit",d:"The patient appears in OPD's list. You return to the home screen.",go:"reg_found",main:1},
+  {r:[24,19,86,99],ic:"list",t:"The other units",d:"Maternity, General Ward, Theatre, Emergency, Paediatrics, Dental, ANC and Triage."},
+  {r:[3.5,6,21.5,16],ic:"save",t:"Save",d:"Saves without opening a visit."}]},
+ reg_found:{img:"p2_04b_registration_found.png",title:"Find a registered patient",todo:"Next time, type the <b>name</b> and press <b>Search</b>; click the ID to open the patient.",hs:[
+  {r:[33,35,50,46],ic:"search",t:"Name",d:"Part of the name is enough."},
+  {r:[50,35,57,46],ic:"search",t:"Search",d:"Shows the matching patients below."},
+  {r:[1,78,99,86],ic:"user",t:"The patient",d:"Click the ID to open the patient. On the patient's page you can open a new visit, or close one with Close Visit."}]},
+ worklist:{img:"p2_07_unit_worklist.png",title:"Your unit's patients",todo:"Each tab is a unit. Click the <b>patient</b> to open the record.",hs:[
+  {r:[0.5,24,7,40],ic:"tab",t:"OPD (1)",d:"The patients with an open OPD visit. The number counts them."},
+  {r:[7.5,24,81.5,40],ic:"tab",t:"Other units",d:"Emergency, ANC and Triage, Maternity, Paediatrics, General Ward, Theatre, Dental."},
+  {r:[1.5,44,27,56],ic:"search",t:"Search",d:"Filter the list by name or ID."},
+  {r:[1.5,60,13.5,92],ic:"user",t:"Patient",d:"Opens the patient's dashboard.",go:"dashboard",main:1},
+  {r:[7.5,2,12,17],ic:"home",t:"Home",d:"Back to the home screen.",go:"@home"}]},
+ dashboard:{img:"p2_08_patient_dashboard.png",title:"The patient's dashboard",todo:"A summary of the patient. Press <b>Consultation</b> to record what you do today.",hs:[
+  {r:[85.5,1,94.5,10],ic:"steth",t:"Consultation",d:"Opens the consultation: observations, notes, orders and medicines.",go:"obs",main:1},
+  {r:[0.5,49,50,60],ic:"doc",t:"Vitals",d:"The latest vital signs."},
+  {r:[0.5,65,50,79],ic:"list",t:"Visits",d:"Every visit, with its unit."},
+  {r:[0.5,84,50,96],ic:"flask",t:"Lab Results",d:"Results come back here once the laboratory validates them.",go:"lab_results"},
+  {r:[51,23,100,35],ic:"warn",t:"Allergies",d:"Check before prescribing."},
+  {r:[51,53,100,65],ic:"pill",t:"Treatments",d:"Medicines prescribed."},
+  {r:[0.5,1,5,10],ic:"list",t:"Patient list",d:"Back to your unit's list.",go:"worklist"}]},
+ obs:{img:"p2_09_vitals_abnormal_flag.png",title:"Observations: your unit's forms",todo:"Fill the form. A value outside its range is marked <b>Abnormal</b>. Then open <b>Orders</b>.",hs:[
+  {r:[0.5,19,22.5,41],ic:"list",t:"Forms",d:"The forms open in this visit: one per unit or paper register."},
+  {r:[86,14,99,18],ic:"plus",t:"Add New Obs Form",d:"Add another form, for example your unit's register."},
+  {r:[41.5,42,73,47],ic:"warn",t:"Abnormal",d:"Outside the normal range (12–18 here), so it is flagged."},
+  {r:[42,78,84,87],ic:"check",t:"Choices",d:"Click one option instead of typing."},
+  {r:[45,0,50.5,7],ic:"flask",t:"Orders",d:"Laboratory tests.",go:"orders",main:1},
+  {r:[88,1,94.5,6],ic:"save",t:"Save",d:"Saves everything in the consultation. Nothing is kept until you save."}]},
+ orders:{img:"p2_10_lab_order.png",title:"Order laboratory tests",todo:"Choose the <b>sample</b>, then click a <b>panel</b> or test. A tick means it is ordered. Then open <b>Medications</b>.",hs:[
+  {r:[1,33,26,37],ic:"flask",t:"Sample type",d:"Blood, urine, sputum… shows the tests for that sample."},
+  {r:[28,32.5,50.5,37],ic:"check",t:"Panel",d:"A group of tests ordered together. Click again to remove it."},
+  {r:[82.5,21.5,98.5,26],ic:"search",t:"Search",d:"Find a test by name."},
+  {r:[51,0,59.5,7],ic:"pill",t:"Medications",d:"Prescribe.",go:"meds",main:1},
+  {r:[88,1,94.5,6],ic:"save",t:"Save",d:"On Save the order goes to the laboratory."}]},
+ meds:{img:"p2_11_drug_search.png",title:"Find the medicine",todo:"Type part of the <b>medicine name</b> and choose it from the list.",hs:[
+  {r:[9.5,21,24,26],ic:"search",t:"Drug name",d:"Two or three letters are enough."},
+  {r:[10,27,50,30.5],ic:"pill",t:"Choose",d:"Click the medicine and its form (tablet, injection…).",go:"rx",main:1}]},
+ rx:{img:"p2_12_prescription.png",title:"Complete the prescription",todo:"Fill <b>dose</b>, <b>frequency</b>, <b>route</b> and <b>duration</b>, press <b>Add</b>, then go to <b>Consultation</b>.",hs:[
+  {r:[9.5,30.5,24,35],ic:"type",t:"Dose",d:"How much each time."},
+  {r:[9.5,40,24,44],ic:"list",t:"Frequency",d:"How often."},
+  {r:[9.5,52,24,57],ic:"type",t:"Duration",d:"For how long. The total quantity is calculated."},
+  {r:[15.5,95,20.5,98.5],ic:"plus",t:"Add",d:"Adds it to the new prescriptions above."},
+  {r:[27,19.5,99,30],ic:"doc",t:"New prescription",d:"Check it before saving: medicine, dose, total."},
+  {r:[35.5,0,44.5,7],ic:"doc",t:"Consultation",d:"See everything, write notes and save.",go:"consult",main:1}]},
+ consult:{img:"p2_23_consultation_summary.png",title:"Check, write notes and save",todo:"Check the summary, write your <b>notes</b>, then press <b>Save</b>.",hs:[
+  {r:[0.5,54,99.5,70],ic:"pill",t:"Treatments",d:"What you prescribed."},
+  {r:[1.5,79,98.5,96],ic:"type",t:"Consultation notes",d:"Your clinical notes for this visit."},
+  {r:[88,1,94.5,6],ic:"save",t:"Save",d:"Saves the consultation. The lab request goes to OpenELIS and the prescription to the pharmacy.",go:"dashboard",main:1}]},
+ lab_results:{img:"p2_16_lab_results_in_record.png",title:"Results in the record",todo:"Validated results appear in the patient's record. Close the window to go back.",hs:[
+  {r:[11.5,36,87.5,40],ic:"flask",t:"Result",d:"Each test with its result and date."},
+  {r:[87.5,14,89.5,17],ic:"x",t:"Close",d:"Back to the dashboard.",go:"dashboard",main:1}]},
+ elis_today:{img:"p2_13_openelis_today.png",title:"The laboratory's day",todo:"See what is waiting. Open <b>Results</b> to enter results.",hs:[
+  {r:[8.5,20,99,29],ic:"list",t:"Today's status",d:"Samples to collect, awaiting testing, awaiting validation, completed."},
+  {r:[4,0,10,10],ic:"type",t:"Results",d:"Enter results.",go:"elis_entry",main:1},
+  {r:[10,0,16.5,10],ic:"check",t:"Validation",d:"Check and approve results.",go:"elis_val"},
+  {r:[16.5,0,21,10],ic:"doc",t:"Reports",d:"Laboratory reports."}]},
+ elis_entry:{img:"p2_14_openelis_result_entry.png",title:"Enter results",todo:"Find the patient, choose each <b>result</b>, then save at the bottom of the page. Then open <b>Validation</b>.",hs:[
+  {r:[70,27,77.5,31],ic:"search",t:"Run Search",d:"Find the patient by name or ID."},
+  {r:[0.5,35,99,38.5],ic:"user",t:"Patient",d:"The order sent from Bahmni."},
+  {r:[29,69,34.5,72],ic:"list",t:"Result",d:"Choose or type the result for each test."},
+  {r:[10,1,16.5,5],ic:"check",t:"Validation",d:"A second step before results return to the doctor.",go:"elis_val",main:1}]},
+ elis_val:{img:"p2_15_openelis_validation.png",title:"Validate",todo:"Check each result and tick <b>Accept</b>, then save. Accepted results go back to the patient's record.",hs:[
+  {r:[51,32.5,56,35],ic:"list",t:"Result",d:"Check it is right."},
+  {r:[69,32,71.5,89],ic:"check",t:"Accept",d:"Approve the result.",go:"lab_results",main:1},
+  {r:[76.5,24.5,83.5,27],ic:"check",t:"Accept All",d:"Only after checking every line."}]},
+ launcher:{img:"p2_17_pharmacy_launcher.png",title:"The pharmacy page",todo:"Three actions. To give a medicine, press <b>Dispense</b>.",hs:[
+  {r:[18,37,38,67],ic:"doc",t:"Receive orders",d:"The prescriptions sent by the doctors.",go:"odoo_order"},
+  {r:[40,37,60,67],ic:"pill",t:"Dispense",d:"Give the medicine and confirm the delivery.",go:"odoo_order",main:1},
+  {r:[62,37,82,67],ic:"box",t:"Check stock",d:"How much of each medicine is left.",go:"stock"}],
+  warn:"This page sits over Odoo. Odoo asks for its own sign-in, and its other menus are still reachable. If you end up on an unfamiliar screen, come back to this page."},
+ odoo_order:{img:"p2_18_odoo_order_to_dispense.png",title:"A prescription to dispense",todo:"The yellow line says <b>Not dispensed yet</b>. Give the medicine, then press <b>Dispense</b>.",hs:[
+  {r:[0,21.5,100,25.5],ic:"warn",t:"Not dispensed yet",d:"Nothing has been given yet."},
+  {r:[8,65,95,69.5],ic:"pill",t:"Medicine",d:"What to give, and how much."},
+  {r:[1.5,15.5,7.5,19],ic:"check",t:"Dispense",d:"Confirms the delivery and reduces the stock.",go:"odoo_done",main:1}],
+  warn:"Use only the green Dispense button. The other buttons are Odoo's sales functions."},
+ odoo_done:{img:"p2_19_odoo_dispensed.png",title:"Dispensed",todo:"The green line says <b>Dispensed</b>. Nothing more to do. Go back to the pharmacy page.",hs:[
+  {r:[0,16.5,100,22],ic:"check",t:"Dispensed",d:"Given to the patient; the stock was reduced.",go:"launcher",main:1},
+  {r:[84.5,24,91,29],ic:"box",t:"Delivery",d:"The stock movement. No need to open it."}]},
+ stock:{img:"p2_20_odoo_medicine_stock.png",title:"Medicine stock",todo:"Search a medicine to see <b>On hand</b>.",hs:[
+  {r:[50,6,97,9.5],ic:"search",t:"Search",d:"Type the medicine name."},
+  {r:[1,18,32.5,28],ic:"box",t:"On hand",d:"Units left in the pharmacy."},
+  {r:[1,10.5,5,14.5],ic:"warn",t:"New",d:"Creates a product. Leave this to the person responsible for stock."}]},
+ reports:{img:"p2_21_reports.png",title:"Reports",todo:"Choose the <b>dates</b>, then <b>Run Now</b>.",hs:[
+  {r:[28,51,43.5,59],ic:"list",t:"Date range",d:"Today, this month, or your own dates."},
+  {r:[71.5,51,87,59],ic:"doc",t:"Format",d:"HTML shows it on screen."},
+  {r:[87.5,65,93,74],ic:"play",t:"Run Now",d:"Lab Order and Result Log.",main:1},
+  {r:[87.5,81,93,90],ic:"play",t:"Run Now",d:"Drug Order / Prescription Log."},
+  {r:[0.5,0,5,18],ic:"home",t:"Home",d:"Back to the home screen.",go:"@home"}]},
+ help:{img:"p2_22_help_centre.png",title:"Help / Learn",todo:"Pick your area, or search all guides.",hs:[
+  {r:[15,33,84,39],ic:"search",t:"Search",d:"For example: visit, result, error."},
+  {r:[15,42,37,68],ic:"play",t:"Start here",d:"Logging in, moving around, first aid when something looks wrong.",main:1},
+  {r:[38.5,42,60,68],ic:"user",t:"Registration",d:"Register patients and start visits."},
+  {r:[62,42,84,68],ic:"steth",t:"Doctors & Nurses",d:"Consultations, forms, orders."},
+  {r:[15,70,37,86],ic:"flask",t:"Laboratory",d:"Enter and validate results."},
+  {r:[38.5,70,60,86],ic:"pill",t:"Pharmacy",d:"The pharmacy system."},
+  {r:[68.5,5,75,10],ic:"globe",t:"EN / FR",d:"English or French."}]},
+ /* Phase 1 */
+ p1_home:{img:"p1_03_home.png",title:"Home screen (Phase 1)",todo:"In Phase 1 there are two buttons: <b>Registration</b> and <b>Clinical</b>. Reports are shown only to the management board.",hs:[
+  {r:[36.5,46.5,49,95],ic:"user",t:"Registration",d:"Find or register a patient and open a visit.",go:"reg_search"},
+  {r:[50.5,46.5,63.5,95],ic:"steth",t:"Clinical",d:"Your unit's patients and their record.",go:"p1_worklist"},
+  {r:[78.5,4,94,17],ic:"pin",t:"Your unit",d:"Where you signed in."}]},
+ p1_worklist:{missing:"The Phase 1 unit list has not been photographed yet. It looks like Phase 2's: one tab per unit, then the patient.",title:"Your unit's patients (Phase 1)",todo:"Click the <b>patient</b> in your unit's tab.",next:"p1_dash"},
+ p1_dash:{img:"p1_08_patient_dashboard.png",title:"The patient's dashboard (Phase 1)",todo:"Press <b>Consultation</b>. Phase 1 has no laboratory or pharmacy yet.",hs:[
+  {r:[83.5,1,92.5,6.5],ic:"steth",t:"Consultation",d:"Observations and notes.",go:"p1_forms",main:1},
+  {r:[0.5,32,49,59],ic:"doc",t:"Vitals",d:"The latest vital signs."},
+  {r:[0.5,60,49,72],ic:"list",t:"Visits",d:"Every visit, with its unit."},
+  {r:[50,14,98,23],ic:"warn",t:"Allergies",d:"Check them."},
+  {r:[50,24.5,98,33],ic:"doc",t:"Observations",d:"What was recorded."}]},
+ p1_forms:{img:"p1_09_form_picker.png",title:"Choose your unit's form",todo:"Press <b>Add New Obs Form</b> and choose the form: one per unit or paper register. Here: <b>Vitals</b>.",hs:[
+  {r:[84.5,14,98,18.5],ic:"plus",t:"Add New Obs Form",d:"Shows the list of forms."},
+  {r:[72.5,21,96,26],ic:"search",t:"Search",d:"Find a form by name."},
+  {r:[24.5,54,48,60],ic:"doc",t:"OPD",d:"The OPD register."},
+  {r:[49,41,72.5,46.5],ic:"doc",t:"Emergency",d:"The Emergency register."},
+  {r:[24.5,67,48,72],ic:"doc",t:"Vitals",d:"Vital signs.",go:"p1_vitals",main:1},
+  {r:[35,1,44,7],ic:"type",t:"Consultation",d:"Notes.",go:"p1_notes"}]},
+ p1_vitals:{img:"p1_10_vitals_form.png",title:"Fill the form",todo:"Type the values. Out-of-range values are marked <b>Abnormal</b>. Then write your notes.",hs:[
+  {r:[0.5,6,22.5,31.7],ic:"list",t:"Forms in this visit",d:"Click one to open it."},
+  {r:[41.5,33,73,38.6],ic:"warn",t:"Abnormal",d:"Outside the normal range."},
+  {r:[42,74.5,84,85],ic:"check",t:"Choices",d:"Click instead of typing."}],next:"p1_notes"},
+ p1_notes:{img:"p1_11_consultation_notes.png",title:"Notes and save",todo:"Write your <b>notes</b>, then press <b>Save</b>.",hs:[
+  {r:[1.5,24,97.5,40],ic:"type",t:"Consultation notes",d:"Your notes for this visit."},
+  {r:[25.5,1,35,7],ic:"list",t:"Observations",d:"Back to the forms.",go:"p1_forms"},
+  {r:[87,1,93.5,6],ic:"save",t:"Save",d:"Nothing is kept until you save.",go:"p1_dash",main:1}]}
+};
+const ROLES = {
+ 2:[
+  {id:"all",ic:"lock",t:"Everyone",s:"Signing in",home:"home_em",steps:["login","loc","home_em"]},
+  {id:"clerk",ic:"user",t:"Registration desk",s:"Find, register, open a visit",home:"home_em",steps:["home_em","reg_search","reg_new","visit_menu","reg_found"]},
+  {id:"doc",ic:"steth",t:"Doctor or nurse",s:"Record, order, prescribe",home:"home_em",steps:["home_em","worklist","dashboard","obs","orders","meds","rx","consult","lab_results"]},
+  {id:"lab",ic:"flask",t:"Laboratory",s:"Enter and validate results",home:"home_lab",steps:["home_lab","elis_today","elis_entry","elis_val","lab_results"]},
+  {id:"ph",ic:"pill",t:"Pharmacy",s:"Dispense and check stock",home:"home_ph",steps:["home_ph","launcher","odoo_order","odoo_done","stock"]},
+  {id:"more",ic:"help",t:"Reports and help",s:"For everyone",home:"home_em",steps:["reports","help"]}],
+ 1:[
+  {id:"all",ic:"lock",t:"Everyone",s:"Signing in",home:"p1_home",steps:["login","loc","p1_home"]},
+  {id:"clerk",ic:"user",t:"Registration desk",s:"Same as Phase 2",home:"p1_home",steps:["p1_home","reg_search","reg_new","visit_menu","reg_found"]},
+  {id:"doc",ic:"steth",t:"Doctor or nurse",s:"Unit forms and notes",home:"p1_home",steps:["p1_home","p1_worklist","p1_dash","p1_forms","p1_vitals","p1_notes"]}]
+};
+const $=id=>document.getElementById(id);
+let phase=2, role=ROLES[2][1], step=0, cur=null, sel=-1;
+function ico(n){return `<svg aria-hidden="true"><use href="#i-${n}"/></svg>`}
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function drawRoles(){
+  $("roles").innerHTML=ROLES[phase].map(r=>`<button class="role" type="button" data-r="${r.id}" aria-pressed="${r.id===role.id}">${ico(r.ic)}<span><b>${r.t}</b><small>${r.s}</small></span></button>`).join("");
+  $("roles").querySelectorAll(".role").forEach(b=>b.onclick=()=>{role=ROLES[phase].find(r=>r.id===b.dataset.r);step=0;store("bw-role",role.id);drawRoles();show(role.steps[0])});
+}
+function show(id){
+  if(id==="@home") id=role.home;
+  cur=id; sel=-1; const sc=S[id];
+  const i=role.steps.indexOf(id); if(i>=0) step=i;
+  const nxt=i>=0?role.steps[i+1]:null;
+  if(sc.hs){ const ok=h=>h.go&&(h.go===nxt||(h.go==="@home"&&nxt===role.home)); let dyn=sc.hs.findIndex(h=>h.main&&ok(h)); if(dyn<0) dyn=sc.hs.findIndex(ok);
+    sc.hs.forEach((h,k)=>h.isMain=dyn>=0?k===dyn:!!h.main); }
+  $("title").textContent=sc.title;
+  $("todo").innerHTML=sc.todo+((sc.hs&&!sc.hs.some(h=>h.main)&&sc.hs.some(h=>h.isMain))?` Press <b>${sc.hs.find(h=>h.isMain).t}</b>.`:"");
+  const n=role.steps.length, pos=(i>=0?i:step)+1;
+  $("count").textContent=i>=0?`Step ${pos} of ${n}`:"Outside this path";
+  $("progress").style.width=(100*pos/n)+"%";
+  $("back").disabled=(i<=0);
+  $("next").textContent=(i>=0&&i===n-1)?"Finish ✓":"Next →";
+  $("warn").innerHTML=sc.warn?`<div class="note"><b>Careful.</b> ${sc.warn}</div>`:"";
+  if(sc.missing){
+    $("screen").innerHTML=`<div class="missing">${sc.missing}</div>`;
+    $("legend").innerHTML=""; return;
+  }
+  $("screen").innerHTML=`<img src="${sc.img}" alt="${sc.title}">`+sc.hs.map((h,k)=>{
+    const [x1,y1,x2,y2]=h.r;
+    return `<button class="hs${h.isMain?" main":""}" type="button" data-k="${k}" style="left:${x1}%;top:${y1}%;width:${x2-x1}%;height:${y2-y1}%" aria-label="${k+1}. ${h.t}"><span class="num">${k+1}</span></button>`}).join("");
+  $("legend").innerHTML=sc.hs.map((h,k)=>`<li data-k="${k}" class="${h.isMain?"main":""}"><span class="n">${k+1}</span>${ico(h.ic)}<div><b>${h.t}</b><span>${h.d}</span>${h.isMain?"<em>Click this to go on</em>":""}</div></li>`).join("");
+  $("screen").querySelectorAll(".hs").forEach(b=>{
+    b.onmouseenter=()=>mark(+b.dataset.k);
+    b.onclick=()=>{const h=sc.hs[+b.dataset.k]; mark(+b.dataset.k); if(h.go) show(h.go);}
+  });
+  $("legend").querySelectorAll("li").forEach(li=>li.onclick=()=>mark(+li.dataset.k));
+}
+function mark(k){
+  sel=k;
+  document.querySelectorAll(".hs").forEach(b=>b.classList.toggle("on",+b.dataset.k===k));
+  document.querySelectorAll(".legend li").forEach(l=>l.classList.toggle("on",+l.dataset.k===k));
+}
+function go(d){
+  const sc=S[cur];
+  if(d>0&&sc.next&&role.steps.indexOf(sc.next)>=0){show(sc.next);return}
+  const i=role.steps.indexOf(cur), j=(i<0?step:i)+d;
+  if(j>=0&&j<role.steps.length) show(role.steps[j]);
+  else if(j>=role.steps.length){ $("todo").innerHTML="<b>Done.</b> Choose another role above, or start again."; }
+}
+function setPhase(p){
+  phase=p; $("ph1").setAttribute("aria-pressed",p===1); $("ph2").setAttribute("aria-pressed",p===2);
+  role=ROLES[p].find(r=>r.id===role.id)||ROLES[p][0]; step=0; store("bw-phase",p); drawRoles(); show(role.steps[0]);
+}
+$("ph1").onclick=()=>setPhase(1); $("ph2").onclick=()=>setPhase(2);
+$("next").onclick=()=>go(1); $("back").onclick=()=>go(-1); $("restart").onclick=()=>{step=0;show(role.steps[0])};
+document.addEventListener("keydown",e=>{if(e.key==="ArrowRight")go(1); if(e.key==="ArrowLeft")go(-1)});
+const p0=+(load("bw-phase")||2), r0=load("bw-role");
+phase=(p0===1?1:2); role=ROLES[phase].find(r=>r.id===r0)||ROLES[phase][1];
+$("ph1").setAttribute("aria-pressed",phase===1); $("ph2").setAttribute("aria-pressed",phase===2);
+drawRoles(); show(role.steps[0]);
+</script>
+
+</body>
+</html>
