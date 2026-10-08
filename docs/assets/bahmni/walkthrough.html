@@ -286,7 +286,7 @@ const S = {
   {r:[36.5,46.5,49,95],ic:"user",t:"Registration",d:"Find or register a patient and open a visit.",go:"reg_search"},
   {r:[50.5,46.5,63.5,95],ic:"steth",t:"Clinical",d:"Your unit's patients and their record.",go:"p1_worklist"},
   {r:[78.5,4,94,17],ic:"pin",t:"Your unit",d:"Where you signed in."}]},
- p1_worklist:{missing:"The Phase 1 unit list has not been photographed yet. It looks like Phase 2's: one tab per unit, then the patient.",title:"Your unit's patients (Phase 1)",todo:"Click the <b>patient</b> in your unit's tab.",next:"p1_dash"},
+ p1_worklist:{missing:"<b>Screenshot still to come.</b> The Phase 1 list of a unit's patients has not been photographed yet. It works like Phase 2's: one tab per unit; click the patient to open the record.",title:"Your unit's patients (Phase 1)",todo:"Click the <b>patient</b> in your unit's tab.",next:"p1_dash"},
  p1_dash:{img:"p1_08_patient_dashboard.png",title:"The patient's dashboard (Phase 1)",todo:"Press <b>Consultation</b>. Phase 1 has no laboratory or pharmacy yet.",hs:[
   {r:[83.5,1,92.5,6.5],ic:"steth",t:"Consultation",d:"Observations and notes.",go:"p1_forms",main:1},
   {r:[0.5,32,49,59],ic:"doc",t:"Vitals",d:"The latest vital signs."},
@@ -341,13 +341,14 @@ function show(id){
   $("title").textContent=sc.title;
   $("todo").innerHTML=sc.todo+((sc.hs&&!sc.hs.some(h=>h.main)&&sc.hs.some(h=>h.isMain))?` Press <b>${sc.hs.find(h=>h.isMain).t}</b>.`:"");
   const n=role.steps.length, pos=(i>=0?i:step)+1;
-  $("count").textContent=i>=0?`Step ${pos} of ${n}`:"Outside this path";
-  $("progress").style.width=(100*pos/n)+"%";
+  $("count").textContent=i>=0?`Step ${pos} of ${n}`:"Extra screen, not in this role's steps";
+  $("progress").style.width=i>=0?(100*pos/n)+"%":"0%";
   $("back").disabled=(i<=0);
   $("next").textContent=(i>=0&&i===n-1)?"Finish ✓":"Next →";
   $("warn").innerHTML=sc.warn?`<div class="note"><b>Careful.</b> ${sc.warn}</div>`:"";
   if(sc.missing){
-    $("screen").innerHTML=`<div class="missing">${sc.missing}</div>`;
+    $("screen").innerHTML=`<div class="missing">${sc.missing}${sc.next?`<br><br><button class="btn primary" type="button" id="skip">Continue: ${S[sc.next].title} &rarr;</button>`:""}</div>`;
+    if(sc.next) $("skip").onclick=()=>show(sc.next);
     $("legend").innerHTML=""; return;
   }
   $("screen").innerHTML=`<img src="${sc.img}" alt="${sc.title}">`+sc.hs.map((h,k)=>{
@@ -367,7 +368,7 @@ function mark(k){
 }
 function go(d){
   const sc=S[cur];
-  if(d>0&&sc.next&&role.steps.indexOf(sc.next)>=0){show(sc.next);return}
+  if(d>0&&sc.next){show(sc.next);return}
   const i=role.steps.indexOf(cur), j=(i<0?step:i)+d;
   if(j>=0&&j<role.steps.length) show(role.steps[j]);
   else if(j>=role.steps.length){ $("todo").innerHTML="<b>Done.</b> Choose another role above, or start again."; }
