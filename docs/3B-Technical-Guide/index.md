@@ -15,6 +15,7 @@ on a server that corrupts its database at every power cut is not a system.
 | 5 | **[Remote support](Remote-Support.md)** | A tunnel through carrier-grade NAT, monitoring, and safely handled credentials |
 | 6 | **[Choosing the platform](Choosing-Platform.md)** | Bahmni or GNU Health, with the reason written down |
 | 7 | **[Bahmni deployment](Bahmni.md)** | Phase by phase |
+| 7a | **[Using Bahmni, screen by screen](Bahmni-Walkthrough.md)** | What staff see, for training |
 | 8 | **[GNU Health deployment](GNU-Health.md)** | Phase by phase |
 | 9 | **[Packing list](Packing-List.md)** | What to bring, from two deployments' worth of things nobody brought |
 
